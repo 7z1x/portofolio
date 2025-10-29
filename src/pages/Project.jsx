@@ -1,8 +1,9 @@
 // src/pages/Project.jsx
 import ScrollStack, { ScrollStackItem } from '../components/ScrollStack/ScrollStack';
-import './Project.css'; // CSS khusus untuk Halaman Project
+import './Project.css'; 
+import { AnimatePresence, motion } from 'framer-motion';
 
-// Data dummy Anda
+
 const projects = [
   { id: 1, title: 'Project Alpha', color: '#f0f4f8' },
   { id: 2, title: 'Project Beta', color: '#e2e8f0' },
@@ -12,20 +13,20 @@ const projects = [
 
 export default function Project() {
   return (
-    // Wrapper ini akan menjadi container scroll
     <div className="project-page-container">
-      
-      {/* ScrollStack sekarang akan mengisi parent-nya (yang punya height pasti) */}
-      <ScrollStack>
-        {projects.map((project) => (
-          <ScrollStackItem 
-            key={project.id} 
-            className="project-card"
-            style={{ backgroundColor: project.color }}
-          >
-            <h2>{project.title}</h2>
-          </ScrollStackItem>
-        ))}
+      <ScrollStack itemDistance={10}>
+        <ScrollStackItem color="#8b5cf6" shadow>
+          <h2>Project Alpha</h2>
+        </ScrollStackItem>
+        <ScrollStackItem color="#ec4899" shadow>
+          <h2>Project Beta</h2>
+        </ScrollStackItem>
+        <ScrollStackItem color="#3b82f6" shadow>
+          <h2>Project Gamma</h2>
+        </ScrollStackItem>
+        <ScrollStackItem color="#10b981" shadow>
+          <h2>Project Delta</h2>
+        </ScrollStackItem>
       </ScrollStack>
     </div>
   );

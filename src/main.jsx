@@ -3,26 +3,22 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
-
-// Impor Layout baru
-import MainLayout from './layout/MainLayout'; // <--- Path yang benar
-
-// Impor Halaman baru
-import Home from './pages/Home'; // <--- Path yang benar
-import Project from './pages/Project'; // <--- Path yang benar
+import MainLayout from './layout/MainLayout'; 
+import Home from './pages/Home'; 
+import Project from './pages/Project'; 
 
 // Placeholder
 const Experience = () => <h1 style={{ padding: '100px' }}>Experience Page</h1>;
-const Contact = () => <h1 style={{ padding: '100px' }}>Contact Page</h1>;
+import About from './pages/About';
 
 const router = createBrowserRouter([
   {
-    element: <MainLayout />, // <--- Gunakan MainLayout, BUKAN App
+    element: <MainLayout />, 
     children: [
       { index: true, element: <Home /> },
       { path: 'project', element: <Project /> },
       { path: 'experience', element: <Experience /> },
-      { path: 'contact', element: <Contact /> },
+      { path: 'about', element: <About /> },
     ],
   },
 ]);

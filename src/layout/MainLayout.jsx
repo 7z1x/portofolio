@@ -1,6 +1,5 @@
 import './MainLayout.css';
 import { Outlet } from 'react-router-dom';
-import Galaxy from '../components/Galaxy/Galaxy'; 
 import StaggeredMenu from '../components/StaggeredMenu/StaggeredMenu'; 
 import ShinyText from '../components/ShinyText/ShinyText'; 
 
@@ -8,7 +7,7 @@ const menuItems = [
   { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
   { label: 'Experience', ariaLabel: 'brick by brick', link: '/experience' },
   { label: 'Project', ariaLabel: 'View my project', link: '/project' },
-  { label: 'Contact', ariaLabel: 'Get in touch', link: '/contact' }
+  { label: 'About', ariaLabel: 'Get in touch', link: '/about' }
 ];
 
 const socialItems = [
@@ -41,7 +40,7 @@ function App() {
         </main>
 
         <footer className="footer">
-          <ShinyText text="©2025|Zfma" speed={3} />
+          <ShinyText text="©2025 | Zfma" speed={3} />
         </footer>
       </div>
     </>

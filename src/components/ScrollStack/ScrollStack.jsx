@@ -2,9 +2,30 @@ import { useLayoutEffect, useRef, useCallback } from 'react';
 import Lenis from 'lenis';
 import './ScrollStack.css';
 
-export const ScrollStackItem = ({ children, itemClassName = '' }) => (
-  <div className={`scroll-stack-card ${itemClassName}`.trim()}>{children}</div>
-);
+export const ScrollStackItem = ({
+  children,
+  className = '',
+  color = '#ffffff',   
+  shadow = false,      
+  style = {},          
+}) => {
+  const combinedStyle = {
+    backgroundColor: color,
+    ...(shadow && {
+      boxShadow: '0 15px 40px rgba(0, 0, 0, 0.25)', 
+    }),
+    ...style,
+  };
+
+  return (
+    <div
+      className={`scroll-stack-card ${className}`.trim()}
+      style={combinedStyle}
+    >
+      {children}
+    </div>
+  );
+};
 
 const ScrollStack = ({
   children,
@@ -77,6 +98,9 @@ const ScrollStack = ({
     isUpdatingRef.current = true;
 
     const { scrollTop, containerHeight, scrollContainer } = getScrollData();
+    if (scrollTop > scrollContainer.scrollHeight - containerHeight) {
+      scrollContainer.scrollTop = scrollContainer.scrollHeight - containerHeight;
+    }
     const stackPositionPx = parsePercentage(stackPosition, containerHeight);
     const scaleEndPositionPx = parsePercentage(scaleEndPosition, containerHeight);
 
@@ -93,7 +117,11 @@ const ScrollStack = ({
       const triggerStart = cardTop - stackPositionPx - itemStackDistance * i;
       const triggerEnd = cardTop - scaleEndPositionPx;
       const pinStart = cardTop - stackPositionPx - itemStackDistance * i;
-      const pinEnd = endElementTop - containerHeight / 2;
+      // Jangan biarkan scroll lebih dari batas card terakhir
+      const lastCard = cardsRef.current[cardsRef.current.length - 1];
+      const lastCardHeight = lastCard?.offsetHeight || 0;
+      const pinEnd = endElementTop - containerHeight + lastCardHeight * 0.9;
+
 
       const scaleProgress = calculateProgress(scrollTop, triggerStart, triggerEnd);
       const targetScale = baseScale + i * itemScale;
