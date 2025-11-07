@@ -1,7 +1,7 @@
 // src/pages/Home.jsx
 import Galaxy from '../components/Galaxy/Galaxy';
-import TextType from '../components/TextType/TextType';
-import './Home.css'; // CSS khusus untuk Halaman Home
+import './Home.css';
+import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
 
 export default function Home() {
   return (
@@ -13,17 +13,18 @@ export default function Home() {
         glowIntensity={0.4}
         hueShift={240}
       />
-      
-      <div className="top-left-text-wrapper">
-        <TextType 
-          text={["I’m Zulfahmi M. Ardianto", "a dreamer", "a coder", "and a litle bit handsome.",
-            "Welcome to my portfolio", "let’s build something amazing together!"]}
-          typingSpeed={75}
-          pauseDuration={1500}
-          showCursor={true}
-          cursorCharacter="|"
-          loop={false}
-        />
+
+      {/* Ikon sosial vertikal di sisi kiri */}
+      <div className="social-icons">
+        <a href="https://github.com/username" target="_blank" rel="noopener noreferrer"><FaGithub /></a>
+        <a href="https://linkedin.com/in/username" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
+        <a href="https://instagram.com/username" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
+      </div>
+
+      {/* Teks utama besar */}
+      <div className="main-text">
+        <h1>Designing</h1>
+        <h1 className="highlight">for Brands</h1>
       </div>
     </div>
   );

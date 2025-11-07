@@ -34,12 +34,7 @@ const About = () => {
               from <strong>Indonesia</strong> working with startups and founders.
             </p>
 
-            <div className="social-icons">
-              <a href="https://x.com" aria-label="Twitter">✕</a>
-              <a href="https://instagram.com/llzf4_" aria-label="Instagram">📸</a>
-              <a href="https://tiktok.com" aria-label="TikTok">🎵</a>
-            </div>
-
+            {/* TEXT LOOP */}
             <CurvedLoop
               marqueeText="Photography ✦ Art Direction ✦ Web Design"
               speed={80}
@@ -47,10 +42,17 @@ const About = () => {
               color="#ffffff"
               letterSpacing="2px"
             />
+
+            {/* ICONS NOW CENTERED BELOW TEXT */}
+            <div className="social-icons below-text">
+              <a href="https://x.com" aria-label="Twitter">✕</a>
+              <a href="https://instagram.com/llzf4_" aria-label="Instagram">📸</a>
+              <a href="https://tiktok.com" aria-label="TikTok">🎵</a>
+            </div>
           </div>
         </div>
 
-        {/* ===== BOTTOM CONTENT (2 COLUMN GRID) ===== */}
+        {/* ===== BOTTOM CONTENT ===== */}
         <div className="about-bottom">
           <p className="about-description">
             Based in Indonesia, Zulfahmi has spent the past six years helping early-stage startups

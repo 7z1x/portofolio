@@ -1,12 +1,21 @@
 /* ===== ABOUT SECTION ===== */
 .about-section {
-  padding: 60px 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
+  overflow-x: hidden; /* Ini tetap jadi 'safety net' yang bagus */
   color: #fff;
   font-family: 'Poppins', sans-serif;
 }
 
 /* ===== CARD ===== */
 .about-card {
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   background: rgba(255, 255, 255, 0.05);
@@ -16,7 +25,6 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   gap: 2rem;
   max-width: 1100px;
-  margin: 0 auto;
 }
 
 /* ===== TOP SECTION ===== */
@@ -44,8 +52,26 @@
 
 /* ===== RIGHT SIDE ===== */
 .about-right {
-  flex: 1;
+  /* INI PERBAIKAN DARI SEBELUMNYA */
+  overflow: hidden; /* Tetap dipertahankan */
+
+  /* ===== PERUBAHAN KRUSIAL ADA DI SINI ===== */
+  /* 1. Memberi tahu flex container (.about-top) 
+     bahwa elemen ini fleksibel dan harus mengisi sisa ruang */
+  flex: 1; 
+  /* 2. Ini adalah 'magic trick'-nya. 
+     Mengizinkan elemen flex untuk mengecil (shrink) 
+     di bawah lebar konten internalnya. */
+  min-width: 0; 
+  /* ======================================= */
+
+  /* Properti lama Anda */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
+
 
 .about-name {
   font-size: 1.6rem;
@@ -63,7 +89,6 @@
 .social-icons {
   display: flex;
   gap: 1rem;
-  margin: 1rem 0;
 }
 
 .social-icons a {
@@ -83,10 +108,18 @@
   color: #fff;
 }
 
-/* ===== BOTTOM SECTION (FIX ALIGNMENT) ===== */
+/* === ICONS BELOW TEXT (CENTERED) === */
+.below-text {
+  margin-top: 1.8rem;
+  width: 100%;
+  display: flex;
+  justify-content: center; /* tengah secara horizontal */
+}
+
+/* ===== BOTTOM SECTION ===== */
 .about-bottom {
   display: grid;
-  grid-template-columns: 1fr 230px; /* kiri deskripsi - kanan statistik */
+  grid-template-columns: 1fr 230px;
   align-items: start;
   gap: 3rem;
 }
@@ -98,7 +131,7 @@
   color: rgba(255, 255, 255, 0.75);
   text-align: left;
   line-height: 1.5;
-  padding-right: 2rem; /* jarak biar rapi */
+  padding-right: 2rem;
   padding-top: 10px;
 }
 
@@ -125,7 +158,7 @@
   font-weight: 700;
   color: #fff;
   font-size: 1rem;
-  min-width: 45px; 
+  min-width: 45px;
 }
 
 .stat-label {
@@ -145,6 +178,11 @@
     text-align: center;
   }
 
+  /* TAMBAHAN: Pastikan .about-right punya lebar penuh di mobile */
+  .about-right {
+    width: 100%;
+  }
+
   .about-description {
     text-align: center;
     max-width: 90%;
@@ -159,5 +197,9 @@
   .stat-item {
     justify-content: space-between;
     width: 100%;
+  }
+
+  .below-text {
+    justify-content: center;
   }
 }

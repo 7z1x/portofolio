@@ -8,7 +8,7 @@ import Home from './pages/Home';
 import Project from './pages/Project'; 
 
 // Placeholder
-const Experience = () => <h1 style={{ padding: '100px' }}>Experience Page</h1>;
+import Experience from './pages/Experience';
 import About from './pages/About';
 
 const router = createBrowserRouter([

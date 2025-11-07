@@ -4,8 +4,25 @@
   grid-template-rows: 1fr auto; 
   min-height: 100vh; 
   min-height: 100dvh;
-  overflow: hidden;
+}
 
+/* === Logo di pojok kiri atas === */
+.top-left-text-wrapper {
+  position: absolute; 
+  top: 30px;          
+  left: 40px;         
+  z-index: 10;        
+}
+
+.site-logo {
+  width: 120px;       
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.site-logo:hover {
+  transform: scale(1.1);
 }
 
 .footer {

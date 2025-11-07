@@ -2,6 +2,8 @@ import './MainLayout.css';
 import { Outlet } from 'react-router-dom';
 import StaggeredMenu from '../components/StaggeredMenu/StaggeredMenu'; 
 import ShinyText from '../components/ShinyText/ShinyText'; 
+import logo from '../assets/logo.png';
+
 
 const menuItems = [
   { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
@@ -34,14 +36,14 @@ function App() {
         accentColor="#1bbdf8"
       />
 
+      <div className="top-left-text-wrapper">
+        <img src={logo} alt="Logo" className="site-logo" />
+      </div>
+
       <div className="wrapper">
         <main className="content">
           <Outlet />
         </main>
-
-        <footer className="footer">
-          <ShinyText text="©2025 | Zfma" speed={3} />
-        </footer>
       </div>
     </>
   );
