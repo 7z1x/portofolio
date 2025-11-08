@@ -1,205 +1,170 @@
-/* ===== ABOUT SECTION ===== */
-.about-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
+/* src/pages/About.css */
+/* HAPUS SEMUA CSS LAMA DAN GANTI DENGAN INI */
+
+.about-container-new {
   width: 100%;
-  padding: 2rem 1.5rem;
-  box-sizing: border-box;
-  overflow-x: hidden; /* Ini tetap jadi 'safety net' yang bagus */
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
   color: #fff;
   font-family: 'Poppins', sans-serif;
+  overflow: hidden; /* Mencegah konten tumpah */
 }
 
-/* ===== CARD ===== */
-.about-card {
+/* ===== Latar Belakang Galaxy ===== */
+.about-galaxy-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  box-sizing: border-box;
+  height: 100%;
+  z-index: 0; /* Posisikan di paling belakang */
+  opacity: 0.7; /* Sedikit redup agar teks terbaca */
+}
+
+/* ===== SIDEBAR SOSIAL KIRI ===== */
+.social-sidebar-new {
+  position: absolute;
+  top: 50%;
+  left: 40px;
+  transform: translateY(80%);
   display: flex;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 20px;
-  padding: 2rem 2.5rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  gap: 2rem;
-  max-width: 1100px;
+  gap: 30px;
+  z-index: 10;
 }
 
-/* ===== TOP SECTION ===== */
-.about-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 3rem;
-}
-
-/* ===== LEFT SIDE ===== */
-.about-left {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
-}
-
-.profile-img {
-  width: 240px;
-  height: 260px;
-  object-fit: cover;
-  border-radius: 10px;
-}
-
-/* ===== RIGHT SIDE ===== */
-.about-right {
-  /* INI PERBAIKAN DARI SEBELUMNYA */
-  overflow: hidden; /* Tetap dipertahankan */
-
-  /* ===== PERUBAHAN KRUSIAL ADA DI SINI ===== */
-  /* 1. Memberi tahu flex container (.about-top) 
-     bahwa elemen ini fleksibel dan harus mengisi sisa ruang */
-  flex: 1; 
-  /* 2. Ini adalah 'magic trick'-nya. 
-     Mengizinkan elemen flex untuk mengecil (shrink) 
-     di bawah lebar konten internalnya. */
-  min-width: 0; 
-  /* ======================================= */
-
-  /* Properti lama Anda */
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-
-
-.about-name {
-  font-size: 1.6rem;
-  font-weight: 700;
-}
-
-.about-role {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.85);
-  line-height: 1.6;
-  margin-top: 0.5rem;
-}
-
-/* ===== SOCIAL ICONS ===== */
-.social-icons {
-  display: flex;
-  gap: 1rem;
-}
-
-.social-icons a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
-  font-size: 1.2rem;
+.social-sidebar-new a {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.5rem;
   transition: all 0.3s ease;
 }
 
-.social-icons a:hover {
-  background: #4f7cff;
+.social-sidebar-new a:hover {
   color: #fff;
+  transform: scale(1.1);
 }
 
-/* === ICONS BELOW TEXT (CENTERED) === */
-.below-text {
-  margin-top: 1.8rem;
-  width: 100%;
-  display: flex;
-  justify-content: center; /* tengah secara horizontal */
-}
-
-/* ===== BOTTOM SECTION ===== */
-.about-bottom {
+/* ===== LAYOUT KONTEN UTAMA ===== */
+.about-content-grid {
+  flex: 1; /* Mengisi sisa ruang */
   display: grid;
-  grid-template-columns: 1fr 230px;
-  align-items: start;
-  gap: 3rem;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr;
+  padding: 6rem 8rem 0rem 8rem; /* <-- SUDAH DIUBAH JADI 3REM */
+  padding-left: 120px; /* Ruang untuk sidebar sosial */
+  z-index: 2; /* Di atas galaxy-bg */
+  position: relative; /* Diperlukan agar di atas z-index 0 */
 }
 
-/* ===== DESCRIPTION ===== */
-.about-description {
-  max-width: 460px;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.75);
-  text-align: left;
-  line-height: 1.5;
+/* KIRI ATAS: INFO USER */
+.about-top-left {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
   padding-right: 2rem;
-  padding-top: 10px;
 }
 
-/* ===== STATS SECTION ===== */
-.about-stats {
+.profile-avatar-new {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0; /* <-- DIUBAH */
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.profile-name-new {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.profile-role-new {
+  font-size: 0.9rem;
+  color: #adadad;
+}
+
+
+.profile-header-group {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;
-  width: 100%;
-  max-width: 230px;
+  align-items: center; /* Membuat foto dan teks sejajar di tengah */
+  margin-bottom: 1.5rem; /* Memberi jarak ke "Contact me" */
 }
 
-.stat-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 0.6rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+.profile-text-group {
+  margin-left: 1.5rem; /* Memberi jarak antara foto dan teks */
 }
 
-.stat-number {
-  font-weight: 700;
+.contact-me-new {
+  margin-top: 0.2rem;
+  font-size: 0.9rem;
+  color: #adadad;
+}
+.contact-email-new {
+  font-size: 1.1rem;
   color: #fff;
-  font-size: 1rem;
-  min-width: 45px;
+  text-decoration: none;
+}
+.contact-email-new:hover {
+  text-decoration: underline;
 }
 
-.stat-label {
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.85);
-  text-align: right;
-  flex: 1;
+/* KANAN ATAS: HEADLINE */
+.about-top-right {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  padding-left: 2rem;
+}
+.about-top-right h1 {
+  font-size: 2.5rem;
+  font-weight: 500;
+  line-height: 1.3;
+  max-width: 90%;
+}
+.about-top-right p {
+  font-size: 1.1rem;
+  color: #adadad;
+  margin-top: 1rem;
 }
 
-/* ===== RESPONSIVE ===== */
+/* BAWAH: TULISAN BESAR (DIMODIFIKASI) */
+.about-bottom-text {
+  grid-column: 1 / 3;
+  grid-row: 2 / 3;
+  font-size: 20vw; /* DIBUAT LEBIH BESAR (dari 18vw) */
+  font-weight: 500; /* DIBUAT LEBIH TIPIS (seperti referensi) */
+  color: rgba(255, 255, 255, 0.85); /* Sedikit lebih redup */
+  line-height: 0.9; /* Dibuat lebih rapat secara vertikal */
+  display: flex;
+  align-items: flex-end; /* DIPINDAH KE BAWAH (dari 'center') */
+  justify-content: center;
+  letter-spacing: -5px; /* Dibuat lebih rapat antar huruf */
+  user-select: none;
+  margin-top: 0; /* Hapus margin atas */
+}
+
+
+/* ===== RESPONSIVE (Sederhana) ===== */
 @media (max-width: 900px) {
-  .about-top,
-  .about-bottom {
-    display: flex;
+  .about-content-grid {
+    grid-template-columns: 1fr;
+    padding: 4rem 2rem 2rem 4rem; /* Sesuaikan padding */
+    padding-left: 80px; /* Ruang untuk sidebar sosial */
+  }
+  .about-top-right {
+    padding-left: 0;
+    margin-top: 2rem;
+  }
+  .about-bottom-text {
+    font-size: 25vw;
+    margin-top: 1rem;
+  }
+  .social-sidebar-new {
+    left: 20px;
+  }
+  .about-footer-new {
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  /* TAMBAHAN: Pastikan .about-right punya lebar penuh di mobile */
-  .about-right {
-    width: 100%;
-  }
-
-  .about-description {
-    text-align: center;
-    max-width: 90%;
-    padding-right: 0;
-  }
-
-  .about-stats {
-    align-items: center;
-    max-width: 300px;
-  }
-
-  .stat-item {
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .below-text {
-    justify-content: center;
+    gap: 1rem;
+    padding-left: 2rem;
+    align-items: flex-start;
   }
 }

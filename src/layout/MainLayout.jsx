@@ -1,7 +1,6 @@
 import './MainLayout.css';
 import { Outlet } from 'react-router-dom';
 import StaggeredMenu from '../components/StaggeredMenu/StaggeredMenu'; 
-import ShinyText from '../components/ShinyText/ShinyText'; 
 import logo from '../assets/logo.png';
 
 
@@ -12,12 +11,6 @@ const menuItems = [
   { label: 'About', ariaLabel: 'Get in touch', link: '/about' }
 ];
 
-const socialItems = [
-  { label: 'GitHub', link: 'https://github.com/7z1x' },
-  { label: 'Instagram', link: 'https://www.instagram.com/llzf4_/' },
-  { label: 'LinkedIn', link: 'https://www.linkedin.com/in/zulfahmi-m-ardianto/' }
-];
-
 function App() {
   return (
     <>
@@ -25,7 +18,6 @@ function App() {
         isFixed={true} 
         position="right"
         items={menuItems}
-        socialItems={socialItems}
         displaySocials={true}
         displayItemNumbering={true}
         menuButtonColor="#fff"

@@ -117,7 +117,6 @@ const ScrollStack = ({
       const triggerStart = cardTop - stackPositionPx - itemStackDistance * i;
       const triggerEnd = cardTop - scaleEndPositionPx;
       const pinStart = cardTop - stackPositionPx - itemStackDistance * i;
-      // Jangan biarkan scroll lebih dari batas card terakhir
       const lastCard = cardsRef.current[cardsRef.current.length - 1];
       const lastCardHeight = lastCard?.offsetHeight || 0;
       const pinEnd = endElementTop - containerHeight + lastCardHeight * 0.9;

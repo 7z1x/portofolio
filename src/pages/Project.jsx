@@ -1,20 +1,22 @@
-// src/pages/Project.jsx
 import ScrollStack, { ScrollStackItem } from '../components/ScrollStack/ScrollStack';
 import './Project.css'; 
-import { AnimatePresence, motion } from 'framer-motion';
-
-
-const projects = [
-  { id: 1, title: 'Project Alpha', color: '#f0f4f8' },
-  { id: 2, title: 'Project Beta', color: '#e2e8f0' },
-  { id: 3, title: 'Project Gamma', color: '#cbd5e1' },
-  { id: 4, title: 'Project Delta', color: '#94a3b8' },
-];
+import Galaxy from '../components/Galaxy/Galaxy'; 
 
 export default function Project() {
   return (
     <div className="project-page-container">
-      <ScrollStack itemDistance={10}>
+      <Galaxy
+        mouseRepulsion={false}
+        mouseInteraction={false}
+        density={1}
+        glowIntensity={0.4}
+        hueShift={240}
+        className="project-galaxy-bg"
+      />
+      <ScrollStack 
+      itemDistance={20}
+      baseScale={0.95}
+      stackPosition='90'>
         <ScrollStackItem color="#8b5cf6" shadow>
           <h2>Project Alpha</h2>
         </ScrollStackItem>

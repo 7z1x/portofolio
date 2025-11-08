@@ -10,7 +10,6 @@
 }
 
 
-/* === Ikon sosial vertikal kiri === */
 .social-icons {
   position: absolute;
   top: 83%;
@@ -46,13 +45,38 @@
 
 .main-text h1 {
   font-size: 7rem;
-  font-weight: 600;
+  font-weight: 300;
   margin: 0;
   line-height: 1.1;
 }
 
-.highlight {
+.highlight h2{
   color: #ffffff;
-  font-weight: 700;
+  font-weight: 200;
   mix-blend-mode: screen;
+}
+
+.home-second-line {
+  display: flex; /* Membuat "for" dan "Brands" berdampingan */
+  flex-direction: row;
+}
+
+/* Style untuk "for" yang statis */
+.highlight-static {
+  /* Ambil style dari h1 */
+  font-size: 7rem;
+  font-weight: 200;
+  margin: 0;
+  line-height: 1.1;
+
+  /* Ambil style dari .highlight */
+  color: #bdbdbd;
+  mix-blend-mode: screen;
+}
+
+/* Pastikan container ShuffleUpText 
+  tidak merusak layout flex
+*/
+.home-second-line .shuffle-up-container {
+  flex-shrink: 0; 
 }

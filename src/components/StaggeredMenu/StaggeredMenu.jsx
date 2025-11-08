@@ -1,6 +1,7 @@
 import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import './StaggeredMenu.css';
+import logo from '../../assets/logo-hitam.png';
 
 export const StaggeredMenu = ({
   position = 'right',
@@ -390,6 +391,9 @@ export const StaggeredMenu = ({
               </ul>
             </div>
           )}
+          <div className="sm-panel-logo-wrapper">
+            <img src={logo} alt="Logo" className="logo-menu" />
+          </div>
         </div>
       </aside>
     </div>

@@ -1,0 +1,29 @@
+.shuffle-up-container {
+  height: calc(7rem * 1.1); /* */
+  overflow: hidden; 
+  position: relative; /* Ini boleh tetap ada */
+}
+
+/* --- UBAH BAGIAN INI --- */
+.shuffle-up-content { 
+  /* HAPUS 'position: absolute;' */
+  /* HAPUS 'top: 0;' */
+  /* HAPUS 'left: 0;' */
+  /* HAPUS 'height: 100%;' */
+  
+  /* BIARKAN STYLE FONT INI */
+  margin: 0; 
+  font-size: 7rem; /* */
+  font-weight: 300; /* */
+  line-height: 1.1; /* */
+  color: #ffffff; /* */
+  mix-blend-mode: screen; /* */
+  display: inline-flex;
+  white-space: pre; 
+}
+/* --- BATAS PERUBAHAN --- */
+
+
+.shuffle-up-word {
+  display: inline-block; 
+}

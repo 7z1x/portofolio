@@ -336,3 +336,17 @@
     filter: invert(100%);
   }
 }
+
+.sm-panel-logo-wrapper {
+  margin-top: auto; 
+  padding-top: 2.5rem; 
+  display: flex;
+  justify-content: flex-end; 
+  width: 100%;
+}
+
+.logo-menu {
+  width: 120px; 
+  height: auto;
+  opacity: 0.9;
+}
