@@ -44,7 +44,7 @@
 }
 
 .main-text h1 {
-  font-size: 7rem;
+  font-size: 4rem;
   font-weight: 300;
   margin: 0;
   line-height: 1.1;
@@ -80,3 +80,5 @@
 .home-second-line .shuffle-up-container {
   flex-shrink: 0; 
 }
+
+

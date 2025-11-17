@@ -111,7 +111,7 @@ export default function Experience() {
       {/* ===== HEADER BARU ===== */}
       <section className="experience-header">
         <h1 className="title">
-          What We've Been <span>Up To</span>
+          What I've Been <span>Up To</span>
         </h1>
       </section>
 

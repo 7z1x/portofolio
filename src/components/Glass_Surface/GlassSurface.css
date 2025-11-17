@@ -1,0 +1,72 @@
+.glass-surface {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: opacity 0.26s ease-out;
+  }
+  
+  /* SVG filter layer */
+  .glass-surface__filter {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    z-index: -1;
+  }
+  
+  /* Content inside the glass */
+  .glass-surface__content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem 1.2rem;
+    border-radius: inherit;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* --- FIXED VERSION (GLASS VISIBLE ON DARK BACKGROUND) --- */
+  .glass-surface--svg {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px) brightness(1.3);
+    -webkit-backdrop-filter: blur(20px) brightness(1.3);
+  
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow:
+      inset 0 0 8px rgba(255, 255, 255, 0.15),
+      0 4px 25px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Fallback if filter gagal */
+  .glass-surface--fallback {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px) brightness(1.3);
+    -webkit-backdrop-filter: blur(20px) brightness(1.3);
+  
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow:
+      inset 0 0 8px rgba(255, 255, 255, 0.15),
+      0 4px 25px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* DARK MODE */
+  @media (prefers-color-scheme: dark) {
+    .glass-surface--fallback,
+    .glass-surface--svg {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px) brightness(1.35);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+  }
+  
+  .glass-surface:focus-visible {
+    outline: 2px solid #0a84ff;
+    outline-offset: 2px;
+  }
+  
