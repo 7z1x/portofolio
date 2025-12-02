@@ -1,20 +1,19 @@
-/* src/layout/MainLayout.css */
 .wrapper {
   display: grid;
-  grid-template-rows: 1fr auto; 
-  min-height: 100vh; 
+  grid-template-rows: 1fr auto;
+  min-height: 100vh;
   min-height: 100dvh;
 }
 
 .top-left-text-wrapper {
-  position: absolute; 
-  top: 30px;          
-  left: 40px;         
-  z-index: 10;        
+  position: absolute;
+  top: 30px;
+  left: 40px;
+  z-index: 10;
 }
 
 .site-logo {
-  width: 120px;       
+  width: 120px;
   height: auto;
   cursor: pointer;
   transition: transform 0.3s ease;
@@ -29,8 +28,8 @@
   justify-content: center;
   align-items: center;
   padding: 8px;
-  flex-shrink: 0; 
-  pointer-events: auto; 
+  flex-shrink: 0;
+  pointer-events: auto;
 }
 
 .footer .shiny-text {

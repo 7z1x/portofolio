@@ -99,34 +99,24 @@
   text-decoration: underline;
 }
 
-/* About.css */
-
-/* About.css */
-
 .about-top-left {
   grid-column: 1 / 2;
   padding-right: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  /* --- TAMBAHKAN BARIS INI --- */
   margin-top: -105px;
-  /* Angka minus ini menarik konten ke atas */
 }
 
 .about-top-right {
   grid-column: 2 / 3;
-  /* Hapus grid-row: 1 / 2; agar fleksibel */
   padding-left: 2rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   justify-content: center;
-  /* Tambahan agar kanan juga rapi di tengah */
 }
 
-/* Style untuk judul Experience (disesuaikan jadi h2) */
 .about-top-right h2 {
   font-size: 1.8rem;
   font-weight: 500;
@@ -141,12 +131,10 @@
   margin-top: 1rem;
 }
 
-/* Wrapper khusus untuk Carousel agar posisinya rapi */
 .experience-carousel-wrapper {
   position: relative;
   width: 100%;
   height: auto;
-  /* Memastikan carousel tidak menabrak elemen lain */
   display: block;
 }
 
@@ -156,12 +144,10 @@
 @media (max-width: 900px) {
   .about-content-grid {
     grid-template-columns: 1fr;
-    /* Reset padding agar benar-benar di tengah layar */
     padding: 6rem 1.5rem 2rem 1.5rem;
     grid-template-rows: auto auto 1fr;
     gap: 3rem;
     text-align: center;
-    /* Pastikan text rata tengah */
   }
 
   /* 1. BAGIAN PROFILE (Avatar, Nama, Email) */
@@ -169,9 +155,6 @@
     grid-column: 1 / 2;
     grid-row: 1 / 2;
     padding-right: 0;
-    /* Hapus padding kanan desktop */
-
-    /* Flexbox untuk menengahkan konten secara vertikal & horizontal */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -180,7 +163,6 @@
   }
 
   .profile-header-group {
-    /* Ubah orientasi jadi atas-bawah agar avatar di atas nama */
     flex-direction: column;
     justify-content: center;
     margin-bottom: 1rem;
@@ -189,9 +171,7 @@
 
   .profile-text-group {
     margin-left: 0;
-    /* Hapus margin kiri desktop */
     margin-top: 10px;
-    /* Ganti dengan margin atas */
   }
 
   /* 2. BAGIAN EXPERIENCE & CAROUSEL */
@@ -200,14 +180,11 @@
     margin-top: 0;
     grid-column: 1 / 2;
     grid-row: 2 / 3;
-
-    /* Center align items */
     align-items: center;
     text-align: center;
   }
 
   .about-top-right h2 {
-    /* Pastikan judul experience di tengah */
     width: 100%;
     text-align: center;
     max-width: 100%;
@@ -221,81 +198,54 @@
   }
 
   /* 3. BAGIAN LET'S TALK */
-  .about-bottom-text {
+  /* .about-bottom-text {
     font-size: 25vw;
     margin-top: 1rem;
     grid-column: 1 / 2;
     grid-row: 3 / 4;
     text-align: center;
-
-    /* Biar textnya ga numpuk aneh, sesuaikan line-height */
     line-height: 1;
-  }
+  } */
 
   .social-sidebar-new {
-    /* 1. Reset posisi vertikal tengah (bawaan PC) */
     top: auto;
     transform: none;
 
-    /* 2. Atur posisi baru di bawah */
     bottom: 40px;
-    /* Jarak dari bawah layar (sesuaikan agar pas dengan teks) */
-    /* Jarak dari kiri layar */
 
-    /* 3. (Opsional) Jika ingin icon berjejer menyamping, bukan menurun */
-    /* flex-direction: row; */
   }
 
-  /* 2. UPDATE bagian ini (Kurangi margin-top nya) */
   .tech-stack-container {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-
-    /* SOLUSI 2: Paksa ke tengah khusus mobile */
     justify-content: center !important;
-
     margin-top: 20px;
-    /* Jarak sedikit dari email */
   }
 }
 
-/* About.css */
-
-/* About.css */
-
-/* 1. Style baru untuk tulisan judul */
 .tech-stack-label {
   font-size: 0.9rem;
   color: #adadad;
-  /* Warna abu-abu agar sama dengan 'Contact me' */
   margin-top: 1.5rem;
-  /* Memberi jarak dari email di atasnya */
   margin-bottom: 0.5rem;
-  /* Memberi sedikit jarak ke badge di bawahnya */
   font-weight: 500;
 }
 
-/* 2. UPDATE bagian ini (Kurangi margin-top nya) */
 .tech-stack-container {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   justify-content: flex-start;
-
-  /* UBAH margin-top MENJADI 0 atau kecil, karena sudah ada jarak dari label di atas */
   margin-top: 0px;
 }
 
 .tech-stack-container img {
   height: 28px;
-  /* Mengatur tinggi badge agar tidak kegedean */
   border-radius: 4px;
-  /* Sedikit melengkung di ujungnya (opsional) */
   transition: transform 0.2s;
 }
 
 .tech-stack-container img:hover {
   transform: scale(1.05);
-  /* Efek zoom sedikit pas di-hover */
 }

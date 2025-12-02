@@ -158,7 +158,6 @@ export default function Carousel({
               }}
               transition={effectiveTransition}
             >
-              {/* --- STRUKTUR BARU DIMULAI DARI SINI --- */}
               <div className="carousel-item-content-new">
 
                 {/* 1. HEADER: Judul & Deskripsi (Di Atas) */}
@@ -196,7 +195,6 @@ export default function Carousel({
 
                 </div>
               </div>
-              {/* --- AKHIR STRUKTUR BARU --- */}
             </motion.div>
           );
         })}

@@ -8,16 +8,15 @@ import {
   FiChevronLeft,
   FiChevronRight,
   FiLink,
-  FiShield, // Placeholder logo
-  FiAnchor, // Placeholder logo
-  FiDatabase, // Placeholder logo
-  FiAward, // Placeholder logo
-  FiCpu, // Placeholder logo
-  FiCoffee // Placeholder logo
+  FiShield,
+  FiAnchor,
+  FiDatabase,
+  FiAward,
+  FiCpu,
+  FiCoffee
 } from "react-icons/fi";
 
-// --- DATA PROYEK BARU ---
-// Kita butuh data baru agar sesuai dengan layout (logo + warna bg)
+
 const projectsData = [
   {
     title: "Gulu-gulu",
@@ -27,13 +26,13 @@ const projectsData = [
   },
   {
     title: "Fed-Egg Detector",
-    logo: <FiCoffee />,
+    logo: <FiAward />,
     bgColor: "linear-gradient(145deg, #0D47A1, #2196F3)",
     link: "https://github.com/Bangkit-TheFedProject",
   },
   {
     title: "BiSpeak",
-    logo: <FiCoffee />, // Ganti dengan logo Anda nanti
+    logo: <FiCpu />,
     bgColor: "linear-gradient(145deg, #CFD8DC, #90A4AE)",
     link: "https://github.com/LaskarAI-BISpeak",
   },
@@ -46,7 +45,6 @@ const ITEMS_PER_PAGE = 6;
 // -------------------------
 
 export default function Experience() {
-  // State untuk melacak halaman saat ini
   const [currentPage, setCurrentPage] = useState(1);
 
   // Menghitung total halaman
@@ -63,11 +61,9 @@ export default function Experience() {
       setCurrentPage(pageNumber);
     }
   };
-  // ------------------------------
 
   return (
     <main className="experience-page">
-      {/* --- Latar Belakang Galaxy --- */}
       <Galaxy
         mouseRepulsion={false}
         mouseInteraction={false}
@@ -77,27 +73,24 @@ export default function Experience() {
         className="experience-galaxy-bg"
       />
 
-      {/* ===== HEADER BARU ===== */}
       <section className="experience-header">
         <h1 className="title">
           Explore My <span>Projects</span>
         </h1>
       </section>
 
-      {/* ===== PROJECTS BARU ===== */}
       <section className="projects-section">
         {currentProjects.map((p, i) => (
           <a
             href={p.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="new-project-card" // Class CSS baru
+            className="new-project-card"
             key={p.title + i}
           >
-            {/* --- Header Kartu (Title + View) --- */}
             <div className="card-header">
               <span className="card-title">
-                <FiLink size={14} /> {/* Ikon Link */}
+                <FiLink size={14} />
                 {p.title}
               </span>
               <span className="card-view-btn">
@@ -106,7 +99,6 @@ export default function Experience() {
               </span>
             </div>
 
-            {/* --- Area Gambar Kartu (Logo + BG Warna) --- */}
             <div
               className="card-image-area"
               style={{ background: p.bgColor }}
@@ -115,12 +107,10 @@ export default function Experience() {
                 {p.logo}
               </div>
             </div>
-            {/* --- Struktur HTML lama (overlay, info) dihapus --- */}
           </a>
         ))}
       </section>
 
-      {/* ===== PAGINASI BARU ===== */}
       <section className="pagination-controls">
         <div className="pagination-info">
           Showing {startIndex + 1} to {Math.min(endIndex, projectsData.length)} of {projectsData.length} results
@@ -133,7 +123,6 @@ export default function Experience() {
             <FiChevronLeft />
           </button>
 
-          {/* Membuat tombol angka... */}
           {[...Array(totalPages)].map((_, pageIndex) => (
             <button
               key={pageIndex + 1}

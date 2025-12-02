@@ -30,7 +30,6 @@ const About = () => {
       id: 1,
       title: 'Mobile Development',
       description: 'Bangkit Academy 2023 Batch 2',
-      // Nanti ganti link ini dengan import gambar lokalmu, misal: certBangkit
       certificateImage: 'src/assets/bangkit.jpg',
       detailsText: 'Mengikuti program Bangkit Academy Mobile Development (Android) dengan fokus pada pengembangan aplikasi berbasis Kotlin menggunakan komponen Android modern. Materi mencakup fundamental Kotlin, arsitektur MVVM, konsumsi API dengan Retrofit, pengelolaan data lokal menggunakan Room, penggunaan Coroutines untuk proses asynchronous, serta penerapan Material Design dalam membangun antarmuka. Program ini juga memperkuat kemampuan debugging, unit testing, dan pengembangan aplikasi secara end-to-end sesuai standar industri.',
       techStack: [
