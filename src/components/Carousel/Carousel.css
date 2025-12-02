@@ -1,136 +1,239 @@
+/* Carousel.css - VERSI FINAL (HEIGHT INCREASED) */
+
+/* --- 1. WADAH UTAMA & TRACK --- */
 .carousel-container {
-    position: relative;
-    overflow: hidden;
-    border: 1px solid #555;
-    border-radius: 24px;
-    padding: 16px;
-    --outer-r: 24px;
-    --p-distance: 12px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #555;
+  border-radius: 24px;
+  padding: 16px;
+  --outer-r: 24px;
+  --p-distance: 12px;
+
+  /* PERUBAHAN UTAMA DI SINI: */
+  /* Saya naikkan jadi 550px agar konten TIDAK TERPOTONG lagi */
+  height: 400px;
+
+  display: flex;
+  flex-direction: column;
+  background-color: #0d0716;
+
+  /* Memberi ruang nafas di bawah agar tidak terlalu mepet border */
+  padding-bottom: 0;
+}
+
+.carousel-track {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  /* Pastikan track mengisi penuh tinggi container */
+}
+
+.carousel-item {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  border-radius: calc(var(--outer-r) - var(--p-distance));
+  background-color: #0d0716;
+  overflow: hidden;
+  cursor: grab;
+  height: 100%;
+}
+
+.carousel-item:active {
+  cursor: grabbing;
+}
+
+/* --- 2. LAYOUT KONTEN --- */
+
+.carousel-item-content-new {
+  /* Padding bawah 40px memberi ruang agar konten tidak ketutup titik-titik */
+  padding: 15px 24px 50px 24px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.carousel-card-header {
+  margin-bottom: 15px;
+  /* Kurangi sedikit jarak header */
+  flex-shrink: 0;
+}
+
+.carousel-item-title {
+  margin-bottom: 0px !important;
+  padding-bottom: 0px !important;
+  line-height: 1.2;
+
+  font-weight: 700;
+  font-size: 22px;
+  color: #fff;
+}
+
+.carousel-item-description {
+  margin-top: 2px !important;
+  padding-top: 0px !important;
+
+  line-height: 1.4;
+
+  font-size: 15px;
+  color: #adadad;
+  font-weight: 400;
+}
+
+.carousel-card-body {
+  display: flex;
+  flex: 1;
+  gap: 20px;
+  overflow: hidden;
+  /* Konten di dalam body tetap rapi */
+  min-height: 0;
+}
+
+/* --- BAGIAN KIRI: GAMBAR --- */
+.carousel-cert-image-container {
+  flex: 1.3;
+  background-color: #ffffff;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  padding: 5px;
+  margin-top: 20px;
+  height: 220px;
+}
+
+.carousel-cert-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* --- BAGIAN KANAN: TEKS --- */
+.carousel-details-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.carousel-details-text {
+  font-size: 8px;
+  line-height: 1.6;
+  color: #e0e0e0;
+  text-align: left;
+  overflow-y: auto;
+  /* Scroll jika teks kepanjangan */
+  padding-right: 8px;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+/* Scrollbar styling */
+.carousel-details-text::-webkit-scrollbar {
+  width: 4px;
+}
+
+.carousel-details-text::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 4px;
+}
+
+.carousel-tech-stack-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  /* margin-top auto mendorong badge ke bawah, tapi tetap di dalam area */
+  margin-top: auto;
+  padding-bottom: 5px;
+}
+
+.tech-badge-wrapper img {
+  height: 22px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+/* --- 3. INDIKATOR (POSISI ABSOLUT) --- */
+.carousel-indicators-container {
+  position: absolute;
+  bottom: 20px;
+  /* Posisi titik dari bawah */
+  left: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.carousel-indicators {
+  display: flex;
+  width: 80px;
+  justify-content: space-between;
+  padding: 0;
+  pointer-events: auto;
+}
+
+.carousel-indicator {
+  height: 6px;
+  width: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 150ms, transform 150ms;
+}
+
+.carousel-indicator.active {
+  background-color: #fff;
+  transform: scale(1.2);
+}
+
+.carousel-indicator.inactive {
+  background-color: #555;
+}
+
+
+/* --- 4. RESPONSIVE MOBILE --- */
+@media (max-width: 768px) {
+  .carousel-container {
+    height: 600px;
+    /* Mobile butuh lebih tinggi karena ditumpuk */
   }
-  
-  .carousel-track {
-    display: flex;
-  }
-  
-  .carousel-item {
-    position: relative;
-    display: flex;
-    flex-shrink: 0;
+
+  .carousel-card-body {
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    border: 1px solid #555;
-    border-radius: calc(var(--outer-r) - var(--p-distance));
-    background-color: #0d0716;
-    overflow: hidden;
-    cursor: grab;
+    gap: 15px;
   }
-  
-  .carousel-item:active {
-    cursor: grabbing;
-  }
-  
-  .carousel-container.round {
-    border: 1px solid #555;
-  }
-  
-  .carousel-item.round {
-    background-color: #0d0716;
-    position: relative;
-    bottom: 0.1em;
-    border: 1px solid #555;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-  
-  .carousel-item-header.round {
-    padding: 0;
-    margin: 0;
-  }
-  
-  .carousel-indicators-container.round {
-    position: absolute;
-    z-index: 2;
-    bottom: 3em;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  .carousel-indicator.active {
-    background-color: #333333;
-  }
-  
-  .carousel-indicator.inactive {
-    background-color: rgba(51, 51, 51, 0.4);
-  }
-  
-  .carousel-item-header {
-    margin-bottom: 16px;
-    padding: 20px;
-    padding-top: 20px;
-  }
-  
-  .carousel-icon-container {
-    display: flex;
-    height: 28px;
-    width: 28px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background-color: #fff;
-  }
-  
-  .carousel-icon {
-    height: 16px;
-    width: 16px;
-    color: #060010;
-  }
-  
-  .carousel-item-content {
-    padding: 20px;
-    padding-bottom: 20px;
-  }
-  
-  .carousel-item-title {
-    margin-bottom: 4px;
-    font-weight: 900;
-    font-size: 18px;
-    color: #fff;
-  }
-  
-  .carousel-item-description {
-    font-size: 14px;
-    color: #fff;
-  }
-  
-  .carousel-indicators-container {
-    display: flex;
+
+  .carousel-cert-image-container {
+    flex: none;
     width: 100%;
-    justify-content: center;
+    height: 180px;
   }
-  
-  .carousel-indicators {
-    margin-top: 16px;
-    display: flex;
-    width: 150px;
-    justify-content: space-between;
-    padding: 0 32px;
+
+  .carousel-details-container {
+    flex: 1;
   }
-  
-  .carousel-indicator {
-    height: 8px;
-    width: 8px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 150ms;
+
+  .carousel-item-title {
+    font-size: 18px;
   }
-  
-  .carousel-indicator.active {
-    background-color: #fff;
+
+  .carousel-details-text {
+    font-size: 12px;
+    line-height: 1.5;
   }
-  
-  .carousel-indicator.inactive {
-    background-color: #555;
+
+  .carousel-indicators-container {
+    bottom: 20px;
   }
-  
+}

@@ -1,40 +1,25 @@
 import { useEffect, useState, useRef } from 'react';
-import { motion, useMotionValue, useTransform } from 'motion/react';
+import { motion, useMotionValue, useTransform } from "framer-motion";
 import { FiCircle, FiCode, FiFileText, FiLayers, FiLayout } from 'react-icons/fi';
 
 import './Carousel.css';
 
 const DEFAULT_ITEMS = [
   {
-    title: 'Text Animations',
+    title: 'Mobile Development - Bangkit Academy',
     description: 'Cool text animations for your projects.',
-    id: 1,
-    icon: <FiFileText className="carousel-icon" />
+    id: 1
   },
   {
-    title: 'Animations',
+    title: 'Java Fundamendal and Programming- Digitalent Kominfo',
     description: 'Smooth animations for your projects.',
-    id: 2,
-    icon: <FiCircle className="carousel-icon" />
+    id: 2
   },
   {
-    title: 'Components',
+    title: 'Ai Engineer - Laskar AI ',
     description: 'Reusable components for your projects.',
-    id: 3,
-    icon: <FiLayers className="carousel-icon" />
+    id: 3
   },
-  {
-    title: 'Backgrounds',
-    description: 'Beautiful backgrounds and patterns for your projects.',
-    id: 4,
-    icon: <FiLayout className="carousel-icon" />
-  },
-  {
-    title: 'Common UI',
-    description: 'Common UI components are coming soon!',
-    id: 5,
-    icon: <FiCode className="carousel-icon" />
-  }
 ];
 
 const DRAG_BUFFER = 0;
@@ -125,11 +110,11 @@ export default function Carousel({
   const dragProps = loop
     ? {}
     : {
-        dragConstraints: {
-          left: -trackItemOffset * (carouselItems.length - 1),
-          right: 0
-        }
-      };
+      dragConstraints: {
+        left: -trackItemOffset * (carouselItems.length - 1),
+        right: 0
+      }
+    };
 
   return (
     <div
@@ -167,19 +152,51 @@ export default function Carousel({
               className={`carousel-item ${round ? 'round' : ''}`}
               style={{
                 width: itemWidth,
-                height: round ? itemWidth : '100%',
+                height: round ? itemWidth : '100%', /* Kita set 100% agar CSS yang atur */
                 rotateY: rotateY,
                 ...(round && { borderRadius: '50%' })
               }}
               transition={effectiveTransition}
             >
-              <div className={`carousel-item-header ${round ? 'round' : ''}`}>
-                <span className="carousel-icon-container">{item.icon}</span>
+              {/* --- STRUKTUR BARU DIMULAI DARI SINI --- */}
+              <div className="carousel-item-content-new">
+
+                {/* 1. HEADER: Judul & Deskripsi (Di Atas) */}
+                <div className="carousel-card-header">
+                  <div className="carousel-item-title">{item.title}</div>
+                  <p className="carousel-item-description">{item.description}</p>
+                </div>
+
+                {/* 2. BODY: Membagi menjadi Kiri (Gambar) dan Kanan (Teks) */}
+                <div className="carousel-card-body">
+
+                  {/* BAGIAN KIRI: Gambar Sertifikat */}
+                  <div className="carousel-cert-image-container">
+                    {item.certificateImage && (
+                      <img
+                        src={item.certificateImage}
+                        alt="Certificate"
+                        className="carousel-cert-image"
+                      />
+                    )}
+                  </div>
+
+                  {/* BAGIAN KANAN: Teks Penjelasan & Badge */}
+                  <div className="carousel-details-container">
+                    <p className="carousel-details-text">
+                      {item.detailsText}
+                    </p>
+
+                    <div className="carousel-tech-stack-badges">
+                      {item.techStack && item.techStack.map((badge, idx) => (
+                        <span key={idx} className="tech-badge-wrapper">{badge}</span>
+                      ))}
+                    </div>
+                  </div>
+
+                </div>
               </div>
-              <div className="carousel-item-content">
-                <div className="carousel-item-title">{item.title}</div>
-                <p className="carousel-item-description">{item.description}</p>
-              </div>
+              {/* --- AKHIR STRUKTUR BARU --- */}
             </motion.div>
           );
         })}

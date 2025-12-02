@@ -9,12 +9,13 @@ const changingWords = [
   'Hola',
   'Konnichiwa',
   'Nǐ hǎo',
-  'Bonjour'
+  'Bonjour',
+  'Nara Gerotelo'
 ];
 export default function Home() {
   return (
     <div className="home-page-container">
-      <Galaxy 
+      <Galaxy
         mouseRepulsion={true}
         mouseInteraction={true}
         density={1}
@@ -28,15 +29,15 @@ export default function Home() {
       </div>
 
       <div className="main-text">
-                
-      <div className="home-second-line">
-          <h2 className="highlight-static"></h2> 
+
+        <div className="home-second-line">
+          <h2 className="highlight-static"></h2>
           <ShuffleUpText
             words={changingWords}
-            duration={2500} 
+            duration={2500}
           />
         </div>
-        
+
         <div className="glass-wrapper">
           <GlassSurface
             className="welcome-glass"

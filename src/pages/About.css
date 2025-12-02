@@ -1,6 +1,3 @@
-/* src/pages/About.css */
-/* HAPUS SEMUA CSS LAMA DAN GANTI DENGAN INI */
-
 .about-container-new {
   width: 100%;
   height: 100vh;
@@ -9,21 +6,19 @@
   flex-direction: column;
   color: #fff;
   font-family: 'Poppins', sans-serif;
-  overflow: hidden; /* Mencegah konten tumpah */
+  overflow: hidden;
 }
 
-/* ===== Latar Belakang Galaxy ===== */
 .about-galaxy-bg {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0; /* Posisikan di paling belakang */
-  opacity: 0.7; /* Sedikit redup agar teks terbaca */
+  z-index: 0;
+  opacity: 0.7;
 }
 
-/* ===== SIDEBAR SOSIAL KIRI ===== */
 .social-sidebar-new {
   position: absolute;
   top: 50%;
@@ -46,31 +41,25 @@
   transform: scale(1.1);
 }
 
-/* ===== LAYOUT KONTEN UTAMA ===== */
 .about-content-grid {
-  flex: 1; /* Mengisi sisa ruang */
+  flex: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto 1fr;
-  padding: 6rem 8rem 0rem 8rem; /* <-- SUDAH DIUBAH JADI 3REM */
-  padding-left: 120px; /* Ruang untuk sidebar sosial */
-  z-index: 2; /* Di atas galaxy-bg */
-  position: relative; /* Diperlukan agar di atas z-index 0 */
+  padding: 6rem 8rem 0rem 8rem;
+  padding-left: 120px;
+  z-index: 2;
+  position: relative;
 }
 
-/* KIRI ATAS: INFO USER */
-.about-top-left {
-  grid-column: 1 / 2;
-  grid-row: 1 / 2;
-  padding-right: 2rem;
-}
+
 
 .profile-avatar-new {
   width: 70px;
   height: 70px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 0; /* <-- DIUBAH */
+  margin-bottom: 0;
   border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
@@ -78,20 +67,20 @@
   font-size: 1.2rem;
   font-weight: 500;
 }
+
 .profile-role-new {
   font-size: 0.9rem;
   color: #adadad;
 }
 
-
 .profile-header-group {
   display: flex;
-  align-items: center; /* Membuat foto dan teks sejajar di tengah */
-  margin-bottom: 1.5rem; /* Memberi jarak ke "Contact me" */
+  align-items: center;
+  margin-bottom: 1.5rem;
 }
 
 .profile-text-group {
-  margin-left: 1.5rem; /* Memberi jarak antara foto dan teks */
+  margin-left: 1.5rem;
 }
 
 .contact-me-new {
@@ -99,72 +88,214 @@
   font-size: 0.9rem;
   color: #adadad;
 }
+
 .contact-email-new {
   font-size: 1.1rem;
   color: #fff;
   text-decoration: none;
 }
+
 .contact-email-new:hover {
   text-decoration: underline;
 }
 
-/* KANAN ATAS: HEADLINE */
+/* About.css */
+
+/* About.css */
+
+.about-top-left {
+  grid-column: 1 / 2;
+  padding-right: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  /* --- TAMBAHKAN BARIS INI --- */
+  margin-top: -105px;
+  /* Angka minus ini menarik konten ke atas */
+}
+
 .about-top-right {
   grid-column: 2 / 3;
-  grid-row: 1 / 2;
+  /* Hapus grid-row: 1 / 2; agar fleksibel */
   padding-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center;
+  /* Tambahan agar kanan juga rapi di tengah */
 }
-.about-top-right h1 {
-  font-size: 2.5rem;
+
+/* Style untuk judul Experience (disesuaikan jadi h2) */
+.about-top-right h2 {
+  font-size: 1.8rem;
   font-weight: 500;
-  line-height: 1.3;
+  line-height: 1;
   max-width: 90%;
+  margin: 0;
 }
+
 .about-top-right p {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #adadad;
   margin-top: 1rem;
 }
 
-/* BAWAH: TULISAN BESAR (DIMODIFIKASI) */
-.about-bottom-text {
-  grid-column: 1 / 3;
-  grid-row: 2 / 3;
-  font-size: 20vw; /* DIBUAT LEBIH BESAR (dari 18vw) */
-  font-weight: 500; /* DIBUAT LEBIH TIPIS (seperti referensi) */
-  color: rgba(255, 255, 255, 0.85); /* Sedikit lebih redup */
-  line-height: 0.9; /* Dibuat lebih rapat secara vertikal */
-  display: flex;
-  align-items: flex-end; /* DIPINDAH KE BAWAH (dari 'center') */
-  justify-content: center;
-  letter-spacing: -5px; /* Dibuat lebih rapat antar huruf */
-  user-select: none;
-  margin-top: 0; /* Hapus margin atas */
+/* Wrapper khusus untuk Carousel agar posisinya rapi */
+.experience-carousel-wrapper {
+  position: relative;
+  width: 100%;
+  height: auto;
+  /* Memastikan carousel tidak menabrak elemen lain */
+  display: block;
 }
 
 
-/* ===== RESPONSIVE (Sederhana) ===== */
+
+/* --- RESPONSIVE MEDIA QUERIES --- */
 @media (max-width: 900px) {
   .about-content-grid {
     grid-template-columns: 1fr;
-    padding: 4rem 2rem 2rem 4rem; /* Sesuaikan padding */
-    padding-left: 80px; /* Ruang untuk sidebar sosial */
+    /* Reset padding agar benar-benar di tengah layar */
+    padding: 6rem 1.5rem 2rem 1.5rem;
+    grid-template-rows: auto auto 1fr;
+    gap: 3rem;
+    text-align: center;
+    /* Pastikan text rata tengah */
   }
-  .about-top-right {
-    padding-left: 0;
+
+  /* 1. BAGIAN PROFILE (Avatar, Nama, Email) */
+  .about-top-left {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    padding-right: 0;
+    /* Hapus padding kanan desktop */
+
+    /* Flexbox untuk menengahkan konten secara vertikal & horizontal */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin-top: 2rem;
   }
+
+  .profile-header-group {
+    /* Ubah orientasi jadi atas-bawah agar avatar di atas nama */
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .profile-text-group {
+    margin-left: 0;
+    /* Hapus margin kiri desktop */
+    margin-top: 10px;
+    /* Ganti dengan margin atas */
+  }
+
+  /* 2. BAGIAN EXPERIENCE & CAROUSEL */
+  .about-top-right {
+    padding-left: 0;
+    margin-top: 0;
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+
+    /* Center align items */
+    align-items: center;
+    text-align: center;
+  }
+
+  .about-top-right h2 {
+    /* Pastikan judul experience di tengah */
+    width: 100%;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .experience-carousel-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+
+  /* 3. BAGIAN LET'S TALK */
   .about-bottom-text {
     font-size: 25vw;
     margin-top: 1rem;
+    grid-column: 1 / 2;
+    grid-row: 3 / 4;
+    text-align: center;
+
+    /* Biar textnya ga numpuk aneh, sesuaikan line-height */
+    line-height: 1;
   }
+
   .social-sidebar-new {
-    left: 20px;
+    /* 1. Reset posisi vertikal tengah (bawaan PC) */
+    top: auto;
+    transform: none;
+
+    /* 2. Atur posisi baru di bawah */
+    bottom: 40px;
+    /* Jarak dari bawah layar (sesuaikan agar pas dengan teks) */
+    /* Jarak dari kiri layar */
+
+    /* 3. (Opsional) Jika ingin icon berjejer menyamping, bukan menurun */
+    /* flex-direction: row; */
   }
-  .about-footer-new {
-    flex-direction: column;
-    gap: 1rem;
-    padding-left: 2rem;
-    align-items: flex-start;
+
+  /* 2. UPDATE bagian ini (Kurangi margin-top nya) */
+  .tech-stack-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    /* SOLUSI 2: Paksa ke tengah khusus mobile */
+    justify-content: center !important;
+
+    margin-top: 20px;
+    /* Jarak sedikit dari email */
   }
+}
+
+/* About.css */
+
+/* About.css */
+
+/* 1. Style baru untuk tulisan judul */
+.tech-stack-label {
+  font-size: 0.9rem;
+  color: #adadad;
+  /* Warna abu-abu agar sama dengan 'Contact me' */
+  margin-top: 1.5rem;
+  /* Memberi jarak dari email di atasnya */
+  margin-bottom: 0.5rem;
+  /* Memberi sedikit jarak ke badge di bawahnya */
+  font-weight: 500;
+}
+
+/* 2. UPDATE bagian ini (Kurangi margin-top nya) */
+.tech-stack-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-start;
+
+  /* UBAH margin-top MENJADI 0 atau kecil, karena sudah ada jarak dari label di atas */
+  margin-top: 0px;
+}
+
+.tech-stack-container img {
+  height: 28px;
+  /* Mengatur tinggi badge agar tidak kegedean */
+  border-radius: 4px;
+  /* Sedikit melengkung di ujungnya (opsional) */
+  transition: transform 0.2s;
+}
+
+.tech-stack-container img:hover {
+  transform: scale(1.05);
+  /* Efek zoom sedikit pas di-hover */
 }

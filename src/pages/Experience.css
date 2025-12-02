@@ -1,5 +1,5 @@
-
-html, body {
+html,
+body {
   height: 100%;
   overflow-y: auto;
 }
@@ -8,26 +8,24 @@ html, body {
   position: relative;
   width: 100%;
   min-height: 100vh;
-  color: #C9D1D9; /* Warna teks abu-abu terang */
+  color: #C9D1D9;
   background: transparent;
   font-family: "Catamaran", sans-serif;
   padding: 100px 10%;
   box-sizing: border-box;
-  overflow: hidden; /* Menjaga galaxy di dalam */
+  overflow: hidden;
 }
 
-/* --- Styling Galaxy --- */
 .experience-galaxy-bg {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0; /* Posisikan di paling belakang */
-  opacity: 0.7; /* Sedikit redup agar teks terbaca */
+  z-index: 0;
+  opacity: 0.7;
 }
 
-/* --- Header Baru --- */
 .experience-header {
   position: relative;
   z-index: 1;
@@ -37,57 +35,53 @@ html, body {
 }
 
 .title {
-  font-size: 2.5rem; /* Lebih kecil dari sebelumnya */
+  font-size: 2.5rem;
   font-weight: 700;
   line-height: 1.2;
   color: #fff;
 }
 
 .title span {
-  /* Gradient ungu untuk "Up To" */
-  background: linear-gradient(90deg, #D8B4FE, #A78BFA);
+  background: linear-gradient(90deg, #f0f0f0, #a3a3a3);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
 }
 
-/* --- Hapus Styling Header Lama --- */
-.header-left, .header-right, .dot, .year {
+.header-left,
+.header-right,
+.dot,
+.year {
   display: none;
 }
-/* -------------------------------- */
 
-
-/* --- Grid Proyek Baru --- */
 .projects-section {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 kolom */
-  gap: 1.5rem; /* Jarak antar kartu */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
 }
 
-/* --- Kartu Proyek Baru --- */
 .new-project-card {
   display: flex;
   flex-direction: column;
-  background: #161B22; /* BG Kartu (seperti GitHub) */
-  border: 1px solid #30363D; /* Border (seperti GitHub) */
+  background: #161B22;
+  border: 1px solid #30363D;
   text-decoration: none;
   color: inherit;
-  border-radius: 12px; /* Lebih rounded */
+  border-radius: 12px;
   overflow: hidden;
   transition: transform 0.3s ease, border-color 0.3s ease;
-  padding: 1rem; /* Padding di dalam kartu */
+  padding: 1rem;
 }
 
 .new-project-card:hover {
   transform: translateY(-5px);
-  border-color: #58A6FF; /* Highlight biru saat hover */
+  border-color: #58A6FF;
 }
 
-/* Header di dalam Kartu */
 .card-header {
   display: flex;
   justify-content: space-between;
@@ -100,7 +94,7 @@ html, body {
   align-items: center;
   gap: 0.5rem;
   font-weight: 600;
-  color: #C9D1D9; /* Teks abu-abu terang */
+  color: #C9D1D9;
   font-size: 0.95rem;
 }
 
@@ -109,14 +103,13 @@ html, body {
   align-items: center;
   gap: 0.3rem;
   font-size: 0.85rem;
-  color: #8B949E; /* Teks abu-abu medium */
+  color: #8B949E;
 }
 
-/* Area Gambar di dalam Kartu */
 .card-image-area {
   width: 100%;
-  height: 220px; /* Tinggi area gambar */
-  border-radius: 8px; /* Sudut lebih kecil dari kartu */
+  height: 220px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -124,18 +117,21 @@ html, body {
 }
 
 .card-logo {
-  font-size: 5rem; /* Ukuran placeholder ikon */
+  font-size: 5rem;
   color: rgba(255, 255, 255, 0.9);
 }
 
-/* --- Hapus Styling Kartu Lama --- */
-.project-card, .project-image, .overlay, .project-info, .desc, .divider, .category {
+.project-card,
+.project-image,
+.overlay,
+.project-info,
+.desc,
+.divider,
+.category {
   display: none;
 }
-/* --------------------------------- */
 
 
-/* --- Kontrol Paginasi Baru --- */
 .pagination-controls {
   position: relative;
   z-index: 1;
@@ -144,7 +140,7 @@ html, body {
   align-items: center;
   margin-top: 3rem;
   padding-top: 1.5rem;
-  border-top: 1px solid #30363D; /* Garis pemisah */
+  border-top: 1px solid #30363D;
   color: #8B949E;
 }
 
@@ -182,27 +178,25 @@ html, body {
 }
 
 .pagination-buttons button.active {
-  background: #0D47A1; /* Ganti dengan warna biru primer Anda */
+  background: #0D47A1;
   border-color: #58A6FF;
   font-weight: bold;
 }
-/* --------------------------------- */
 
 
-/* --- RESPONSIVE --- */
 @media (max-width: 1024px) {
   .projects-section {
-    grid-template-columns: repeat(2, 1fr); /* 2 kolom di tablet */
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 768px) {
   .experience-page {
-    padding: 80px 5%; /* Padding lebih kecil di mobile */
+    padding: 80px 5%;
   }
-  
+
   .projects-section {
-    grid-template-columns: 1fr; /* 1 kolom di mobile */
+    grid-template-columns: 1fr;
   }
 
   .title {
@@ -215,7 +209,6 @@ html, body {
   }
 }
 
-/* --- Hapus scrollbar (dari kode lama Anda) --- */
 body::-webkit-scrollbar {
   display: none;
 }
@@ -224,4 +217,3 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-

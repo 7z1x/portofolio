@@ -1,13 +1,13 @@
 import './MainLayout.css';
 import { Outlet } from 'react-router-dom';
-import StaggeredMenu from '../components/StaggeredMenu/StaggeredMenu'; 
+import StaggeredMenu from '../components/StaggeredMenu/StaggeredMenu';
 import logo from '../assets/logo.png';
 
 
 const menuItems = [
   { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
-  { label: 'Experience', ariaLabel: 'brick by brick', link: '/experience' },
-  { label: 'Project', ariaLabel: 'View my project', link: '/project' },
+  { label: 'Project', ariaLabel: 'brick by brick', link: '/experience' },
+  //{ label: 'Project', ariaLabel: 'View my project', link: '/project' },
   { label: 'About', ariaLabel: 'Get in touch', link: '/about' }
 ];
 
@@ -15,16 +15,16 @@ function App() {
   return (
     <>
       <StaggeredMenu
-        isFixed={true} 
+        isFixed={true}
         position="right"
         items={menuItems}
         displaySocials={true}
         displayItemNumbering={true}
         menuButtonColor="#fff"
-        openMenuButtonColor="#000" 
+        openMenuButtonColor="#000"
         changeMenuColorOnOpen={true}
         colors={['#B19EEF', '#5227FF']}
-        logoUrl="" 
+        logoUrl=""
         accentColor="#1bbdf8"
       />
 

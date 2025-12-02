@@ -1,13 +1,12 @@
-
 import { useState } from "react";
-import "./Experience.css"; // Kita akan revisi total file CSS ini
-import Galaxy from "../components/Galaxy/Galaxy.jsx"; 
+import "./Experience.css";
+import Galaxy from "../components/Galaxy/Galaxy.jsx";
 
 
-import { 
-  FiEye, 
-  FiChevronLeft, 
-  FiChevronRight, 
+import {
+  FiEye,
+  FiChevronLeft,
+  FiChevronRight,
   FiLink,
   FiShield, // Placeholder logo
   FiAnchor, // Placeholder logo
@@ -21,54 +20,24 @@ import {
 // Kita butuh data baru agar sesuai dengan layout (logo + warna bg)
 const projectsData = [
   {
-    title: "PrivacyBot",
-    logo: <FiShield />,
+    title: "Gulu-gulu",
+    logo: <FiCoffee />,
     bgColor: "linear-gradient(145deg, #2E7D32, #4CAF50)",
-    link: "#",
+    link: "https://github.com/7z1x/Gulugulu",
   },
   {
-    title: "Anchorize",
-    logo: <FiAnchor />,
+    title: "Fed-Egg Detector",
+    logo: <FiCoffee />,
     bgColor: "linear-gradient(145deg, #0D47A1, #2196F3)",
-    link: "#",
+    link: "https://github.com/Bangkit-TheFedProject",
   },
   {
-    title: "Fuel Clubs",
+    title: "BiSpeak",
     logo: <FiCoffee />, // Ganti dengan logo Anda nanti
     bgColor: "linear-gradient(145deg, #CFD8DC, #90A4AE)",
-    link: "#",
+    link: "https://github.com/LaskarAI-BISpeak",
   },
-  {
-    title: "SuperTip",
-    logo: <FiAward />,
-    bgColor: "linear-gradient(145deg, #6A1B9A, #AB47BC)",
-    link: "#",
-  },
-  {
-    title: "Mentr",
-    logo: <FiCpu />,
-    bgColor: "linear-gradient(145deg, #D32F2F, #F44336)",
-    link: "#",
-  },
-  {
-    title: "Evala.ai",
-    logo: <FiDatabase />,
-    bgColor: "linear-gradient(145deg, #006064, #00BCD4)",
-    link: "#",
-  },
-  // --- Tambahan data untuk paginasi ---
-  {
-    title: "Project 7",
-    logo: <FiShield />,
-    bgColor: "linear-gradient(145deg, #2E7D32, #4CAF50)",
-    link: "#",
-  },
-  {
-    title: "Project 8",
-    logo: <FiAnchor />,
-    bgColor: "linear-gradient(145deg, #0D47A1, #2196F3)",
-    link: "#",
-  },
+
 ];
 // ------------------------------
 
@@ -105,13 +74,13 @@ export default function Experience() {
         density={1}
         glowIntensity={0.4}
         hueShift={240}
-        className="experience-galaxy-bg" 
+        className="experience-galaxy-bg"
       />
 
       {/* ===== HEADER BARU ===== */}
       <section className="experience-header">
         <h1 className="title">
-          What I've Been <span>Up To</span>
+          Explore My <span>Projects</span>
         </h1>
       </section>
 
@@ -138,7 +107,7 @@ export default function Experience() {
             </div>
 
             {/* --- Area Gambar Kartu (Logo + BG Warna) --- */}
-            <div 
+            <div
               className="card-image-area"
               style={{ background: p.bgColor }}
             >
@@ -157,13 +126,13 @@ export default function Experience() {
           Showing {startIndex + 1} to {Math.min(endIndex, projectsData.length)} of {projectsData.length} results
         </div>
         <div className="pagination-buttons">
-          <button 
+          <button
             onClick={() => goToPage(currentPage - 1)}
             disabled={currentPage === 1}
           >
             <FiChevronLeft />
           </button>
-          
+
           {/* Membuat tombol angka... */}
           {[...Array(totalPages)].map((_, pageIndex) => (
             <button
@@ -175,7 +144,7 @@ export default function Experience() {
             </button>
           ))}
 
-          <button 
+          <button
             onClick={() => goToPage(currentPage + 1)}
             disabled={currentPage === totalPages}
           >
@@ -183,7 +152,7 @@ export default function Experience() {
           </button>
         </div>
       </section>
-      
+
     </main>
   );
 }
