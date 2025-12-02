@@ -119,7 +119,7 @@ const About = () => {
             <Carousel
               items={experienceItems}
               baseWidth={carouselWidth}
-              autoplay={true}
+              autoplay={false}
               autoplayDelay={5000}
               pauseOnHover={true}
               loop={false}

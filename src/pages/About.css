@@ -19,6 +19,7 @@
   opacity: 0.7;
 }
 
+/* --- TAMPILAN DESKTOP (DEFAULT) --- */
 .social-sidebar-new {
   position: absolute;
   top: 50%;
@@ -51,8 +52,6 @@
   z-index: 2;
   position: relative;
 }
-
-
 
 .profile-avatar-new {
   width: 70px;
@@ -138,92 +137,6 @@
   display: block;
 }
 
-
-
-/* --- RESPONSIVE MEDIA QUERIES --- */
-@media (max-width: 900px) {
-  .about-content-grid {
-    grid-template-columns: 1fr;
-    padding: 6rem 1.5rem 2rem 1.5rem;
-    grid-template-rows: auto auto 1fr;
-    gap: 3rem;
-    text-align: center;
-  }
-
-  /* 1. BAGIAN PROFILE (Avatar, Nama, Email) */
-  .about-top-left {
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-    padding-right: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 2rem;
-  }
-
-  .profile-header-group {
-    flex-direction: column;
-    justify-content: center;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-
-  .profile-text-group {
-    margin-left: 0;
-    margin-top: 10px;
-  }
-
-  /* 2. BAGIAN EXPERIENCE & CAROUSEL */
-  .about-top-right {
-    padding-left: 0;
-    margin-top: 0;
-    grid-column: 1 / 2;
-    grid-row: 2 / 3;
-    align-items: center;
-    text-align: center;
-  }
-
-  .about-top-right h2 {
-    width: 100%;
-    text-align: center;
-    max-width: 100%;
-  }
-
-  .experience-carousel-wrapper {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1rem;
-    width: 100%;
-  }
-
-  /* 3. BAGIAN LET'S TALK */
-  /* .about-bottom-text {
-    font-size: 25vw;
-    margin-top: 1rem;
-    grid-column: 1 / 2;
-    grid-row: 3 / 4;
-    text-align: center;
-    line-height: 1;
-  } */
-
-  .social-sidebar-new {
-    top: auto;
-    transform: none;
-
-    bottom: 40px;
-
-  }
-
-  .tech-stack-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center !important;
-    margin-top: 20px;
-  }
-}
-
 .tech-stack-label {
   font-size: 0.9rem;
   color: #adadad;
@@ -248,4 +161,108 @@
 
 .tech-stack-container img:hover {
   transform: scale(1.05);
+}
+
+/* --- RESPONSIVE MEDIA QUERIES (MOBILE/TABLET) --- */
+@media (max-width: 900px) {
+  
+  /* 1. Atur container utama agar fleksibel (tidak fix 100vh) */
+  .about-container-new {
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* 2. Content Grid (Profile & Carousel) di urutan pertama */
+  .about-content-grid {
+    grid-template-columns: 1fr;
+    padding: 6rem 1.5rem 2rem 1.5rem;
+    grid-template-rows: auto auto 1fr;
+    gap: 3rem;
+    text-align: center;
+    order: 1; /* Pastikan ini muncul sebelum icon */
+  }
+
+  /* Bagian Profile */
+  .about-top-left {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    padding-right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+
+  .profile-header-group {
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .profile-text-group {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  /* Bagian Experience & Carousel */
+  .about-top-right {
+    padding-left: 0;
+    margin-top: 0;
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    align-items: center;
+    text-align: center;
+  }
+
+  .about-top-right h2 {
+    width: 100%;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .experience-carousel-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+
+  .tech-stack-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center !important;
+    margin-top: 20px;
+  }
+
+  /* 3. Social Sidebar Pindah ke Bawah (Relative Position) */
+  .social-sidebar-new {
+    order: 2; /* Muncul setelah content grid */
+    position: relative; /* Ikut alur dokumen, bukan melayang */
+    top: auto;
+    left: auto;
+    bottom: auto;
+    transform: none;
+
+    /* Ubah jadi horizontal */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 4rem; /* Jarak aman dari bawah layar */
+    z-index: 20;
+  }
+
+  /* Opsional: Perbesar sedikit icon di HP agar mudah diklik */
+  .social-sidebar-new a {
+    font-size: 1.8rem;
+  }
 }

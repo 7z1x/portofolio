@@ -121,8 +121,9 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-start;
   overflow: hidden;
+  gap: 12px;
 }
 
 .carousel-details-text {
@@ -151,8 +152,10 @@
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
-  /* margin-top auto mendorong badge ke bawah, tapi tetap di dalam area */
-  margin-top: auto;
+  
+  /* HAPUS BARIS INI: margin-top: auto; */
+  /* margin-top: auto; <-- Ini biang kerok yang bikin dia maksa ke bawah */
+  
   padding-bottom: 5px;
 }
 
