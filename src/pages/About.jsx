@@ -5,7 +5,9 @@ import profilePic from '../assets/profile.jpg';
 import Galaxy from '../components/Galaxy/Galaxy';
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import Carousel from '../components/Carousel/Carousel';
-
+import bangkitImg from '../assets/bangkit.jpg';
+import digitalentImg from '../assets/digitalent.jpg';
+import laskarImg from '../assets/laskar.jpg';
 const About = () => {
   const [carouselWidth, setCarouselWidth] = useState(600);
   useEffect(() => {
@@ -30,7 +32,7 @@ const About = () => {
       id: 1,
       title: 'Mobile Development',
       description: 'Bangkit Academy 2023 Batch 2',
-      certificateImage: 'src/assets/bangkit.jpg',
+      certificateImage: bangkitImg,
       detailsText: 'Mengikuti program Bangkit Academy Mobile Development (Android) dengan fokus pada pengembangan aplikasi berbasis Kotlin menggunakan komponen Android modern. Materi mencakup fundamental Kotlin, arsitektur MVVM, konsumsi API dengan Retrofit, pengelolaan data lokal menggunakan Room, penggunaan Coroutines untuk proses asynchronous, serta penerapan Material Design dalam membangun antarmuka. Program ini juga memperkuat kemampuan debugging, unit testing, dan pengembangan aplikasi secara end-to-end sesuai standar industri.',
       techStack: [
         <img src="https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white" alt="Kotlin" />,
@@ -40,7 +42,7 @@ const About = () => {
       id: 2,
       title: 'Java Fundamental and Programming',
       description: 'Digitalent Kominfo 2024',
-      certificateImage: 'src/assets/digitalent.jpg',
+      certificateImage: digitalentImg,
       detailsText: 'Mempelajari dasar-dasar pemrograman Java, OOP (Object Oriented Programming), struktur data, dan algoritma dasar untuk pengembangan aplikasi yang efisien dan scalable.',
       techStack: [
         <img src="https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java" />
@@ -50,7 +52,7 @@ const About = () => {
       id: 3,
       title: 'AI Engineer',
       description: 'Laskar AI 2025',
-      certificateImage: 'src/assets/laskar.jpg',
+      certificateImage: laskarImg,
       detailsText: 'Mengembangkan model Machine Learning untuk mendeteksi objek, melakukan preprocessing data dalam skala besar, dan mengimplementasikan model tersebut ke dalam aplikasi nyata.',
       techStack: [
         <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" alt="Python" />,
