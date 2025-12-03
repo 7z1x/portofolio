@@ -19,7 +19,6 @@
   opacity: 0.7;
 }
 
-/* --- TAMPILAN DESKTOP (DEFAULT) --- */
 .social-sidebar-new {
   position: absolute;
   top: 50%;
@@ -163,10 +162,8 @@
   transform: scale(1.05);
 }
 
-/* --- RESPONSIVE MEDIA QUERIES (MOBILE/TABLET) --- */
 @media (max-width: 900px) {
   
-  /* 1. Atur container utama agar fleksibel (tidak fix 100vh) */
   .about-container-new {
     height: auto;
     min-height: 100vh;
@@ -175,14 +172,13 @@
     flex-direction: column;
   }
 
-  /* 2. Content Grid (Profile & Carousel) di urutan pertama */
   .about-content-grid {
     grid-template-columns: 1fr;
     padding: 6rem 1.5rem 2rem 1.5rem;
     grid-template-rows: auto auto 1fr;
     gap: 3rem;
     text-align: center;
-    order: 1; /* Pastikan ini muncul sebelum icon */
+    order: 1; 
   }
 
   /* Bagian Profile */
@@ -209,7 +205,6 @@
     margin-top: 10px;
   }
 
-  /* Bagian Experience & Carousel */
   .about-top-right {
     padding-left: 0;
     margin-top: 0;
@@ -240,16 +235,14 @@
     margin-top: 20px;
   }
 
-  /* 3. Social Sidebar Pindah ke Bawah (Relative Position) */
   .social-sidebar-new {
-    order: 2; /* Muncul setelah content grid */
-    position: relative; /* Ikut alur dokumen, bukan melayang */
+    order: 2; 
+    position: relative; 
     top: auto;
     left: auto;
     bottom: auto;
     transform: none;
 
-    /* Ubah jadi horizontal */
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -257,11 +250,10 @@
     gap: 30px;
     width: 100%;
     margin-top: 2rem;
-    margin-bottom: 4rem; /* Jarak aman dari bawah layar */
+    margin-bottom: 4rem; 
     z-index: 20;
   }
 
-  /* Opsional: Perbesar sedikit icon di HP agar mudah diklik */
   .social-sidebar-new a {
     font-size: 1.8rem;
   }

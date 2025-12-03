@@ -38,7 +38,6 @@ const projectsData = [
   },
 
 ];
-// ------------------------------
 
 // --- LOGIKA PAGINASI ---
 const ITEMS_PER_PAGE = 6;

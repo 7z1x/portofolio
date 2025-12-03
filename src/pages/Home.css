@@ -76,46 +76,41 @@
 
 
 @media (max-width: 768px) {
-  /* 1. Atur ulang posisi container utama teks agar di tengah layar HP */
   .main-text {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 90%; /* Supaya teks tidak melebar keluar layar */
+    width: 90%; 
     display: flex;
     flex-direction: column;
-    align-items: center; /* Ratakan tengah */
+    align-items: center; 
     text-align: center;
   }
 
-  /* 2. Kecilkan tulisan "Hola/Hello" (Shuffle Text) */
-  /* Kita pakai !important untuk menimpa style bawaan komponen */
+
   .home-second-line .shuffle-up-content {
-    font-size: 3.5rem !important; /* Turun drastis dari 7rem */
+    font-size: 3.5rem !important; 
     line-height: 1.2;
     justify-content: center;
   }
 
-  /* 3. Kecilkan container pembungkus "Hola" agar tingginya pas */
   .home-second-line .shuffle-up-container {
-    height: 4rem; /* Sesuaikan tinggi agar tidak ada gap besar */
+    height: 4rem; 
     margin-bottom: 10px;
     display: flex;
     justify-content: center;
   }
 
-  /* 4. Kecilkan tulisan "Welcome to My Portofolio" */
   .main-text h1.welcome-text {
-    font-size: 1.2rem !important; /* Turun dari 4rem */
-    white-space: normal; /* Biarkan teks turun ke baris baru jika kepanjangan */
+    font-size: 1.2rem !important; 
+    white-space: normal; 
   }
 
-  /* 5. (Opsional) Rapikan Social Icons di HP agar pindah ke bawah tengah */
   .social-icons {
     top: 85%;
     left: 50%;
     transform: translateX(-50%);
-    flex-direction: row; /* Jadi horizontal biar rapi */
+    flex-direction: row; 
     gap: 20px;
   }
 }
