@@ -28,6 +28,7 @@
   width: 100%;
   height: 100%;
   /* Pastikan track mengisi penuh tinggi container */
+  touch-action: pan-y;
 }
 
 .carousel-item {
@@ -136,6 +137,9 @@
   padding-right: 8px;
   margin-top: 0;
   margin-bottom: 10px;
+
+  touch-action: pan-y; 
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Scrollbar styling */

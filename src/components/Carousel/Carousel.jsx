@@ -182,7 +182,9 @@ export default function Carousel({
 
                   {/* BAGIAN KANAN: Teks Penjelasan & Badge */}
                   <div className="carousel-details-container">
-                    <p className="carousel-details-text">
+                    <p className="carousel-details-text" 
+                    onPointerDown={(e) => e.stopPropagation()}
+                    >
                       {item.detailsText}
                     </p>
 

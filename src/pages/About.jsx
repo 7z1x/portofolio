@@ -1,7 +1,7 @@
 // src/pages/About.jsx
 import { useState, useEffect } from 'react';
 import './About.css';
-import profilePic from '../assets/profile.jpg';
+import profilePic from '../assets/photo.jpeg';
 import Galaxy from '../components/Galaxy/Galaxy';
 import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
 import Carousel from '../components/Carousel/Carousel';
