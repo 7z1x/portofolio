@@ -14,6 +14,14 @@
   z-index: 40;
   overflow: hidden;
   pointer-events: none;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Hide menu on scroll */
+.staggered-menu-wrapper.fixed-wrapper.menu-hidden .staggered-menu-header {
+  opacity: 0;
+  transform: translateY(-20px);
+  pointer-events: none;
 }
 
 .staggered-menu-header {
@@ -29,9 +37,10 @@
   pointer-events: none;
   z-index: 20;
   box-sizing: border-box;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-.staggered-menu-header > * {
+.staggered-menu-header>* {
   pointer-events: auto;
 }
 
@@ -338,15 +347,15 @@
 }
 
 .sm-panel-logo-wrapper {
-  margin-top: auto; 
-  padding-top: 2.5rem; 
+  margin-top: auto;
+  padding-top: 2.5rem;
   display: flex;
-  justify-content: flex-end; 
+  justify-content: flex-end;
   width: 100%;
 }
 
 .logo-menu {
-  width: 120px; 
+  width: 120px;
   height: auto;
   opacity: 0.9;
 }

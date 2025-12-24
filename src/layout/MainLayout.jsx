@@ -1,53 +1,60 @@
-import { useState, useEffect } from 'react'; // Tambahkan ini
+import { useState, useEffect } from 'react';
 import './MainLayout.css';
 import { Outlet } from 'react-router-dom';
 import StaggeredMenu from '../components/StaggeredMenu/StaggeredMenu';
 import logo from '../assets/logo.png';
 
+
 const menuItems = [
   { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
   { label: 'Project', ariaLabel: 'brick by brick', link: '/experience' },
+  //{ label: 'Project', ariaLabel: 'View my project', link: '/project' },
   { label: 'About', ariaLabel: 'Get in touch', link: '/about' }
 ];
 
 function App() {
-  // Logic untuk menyembunyikan header saat scroll
-  const [isVisible, setIsVisible] = useState(true);
-  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [isHidden, setIsHidden] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollPos = window.pageYOffset;
-      
-      // Header muncul jika scroll ke atas atau berada di paling atas halaman
-      const visible = prevScrollPos > currentScrollPos || currentScrollPos < 10;
+      const currentScrollY = window.scrollY;
 
-      setIsVisible(visible);
-      setPrevScrollPos(currentScrollPos);
+      // Hide header when scrolling down, show when scrolling up
+      if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        setIsHidden(true);
+      } else {
+        setIsHidden(false);
+      }
+
+      setLastScrollY(currentScrollY);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [prevScrollPos]);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [lastScrollY]);
 
   return (
     <>
-      {/* Menu Staggered akan ikut tersembunyi dengan class header-hidden */}
-      <div className={`nav-wrapper ${!isVisible ? 'header-hidden' : ''}`}>
-        <StaggeredMenu
-          isFixed={true}
-          position="right"
-          items={menuItems}
-          displaySocials={true}
-          displayItemNumbering={true}
-          menuButtonColor="#fff"
-          openMenuButtonColor="#000"
-          changeMenuColorOnOpen={true}
-          colors={['#B19EEF', '#5227FF']}
-          logoUrl=""
-          accentColor="#1bbdf8"
-        />
+      <StaggeredMenu
+        className={isHidden ? 'menu-hidden' : ''}
+        isFixed={true}
+        position="right"
+        items={menuItems}
+        displaySocials={true}
+        displayItemNumbering={true}
+        menuButtonColor="#fff"
+        openMenuButtonColor="#000"
+        changeMenuColorOnOpen={true}
+        colors={['#B19EEF', '#5227FF']}
+        logoUrl=""
+        accentColor="#1bbdf8"
+      />
 
+      <div className={`header-container ${isHidden ? 'header-hidden' : ''}`}>
         <div className="top-left-text-wrapper">
           <img src={logo} alt="Logo" className="site-logo" />
         </div>

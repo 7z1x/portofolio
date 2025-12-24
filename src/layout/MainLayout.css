@@ -1,31 +1,35 @@
-/* --- 1. NAV WRAPPER (Logika Sembunyi Otomatis) --- */
-.nav-wrapper {
+.wrapper {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Header Container with hide-on-scroll */
+.header-container {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
-  /* Animasi transisi saat muncul/sembunyi */
-  transition: transform 0.4s ease-in-out; 
-  /* Pointer-events: none agar area kosong tidak menghalangi klik konten di belakangnya */
-  pointer-events: none; 
+  z-index: 100;
+  transition: transform 0.3s ease-in-out;
 }
 
-/* Pastikan elemen di dalam wrapper tetap bisa diklik */
-.nav-wrapper .top-left-text-wrapper,
-.nav-wrapper .staggered-menu-container {
-  pointer-events: auto;
+.header-container.header-hidden {
+  transform: translateY(-100%);
 }
 
-/* Logic sembunyi khusus untuk Mobile */
-@media (max-width: 768px) {
-  .header-hidden {
-    /* Geser ke atas sejauh 120px untuk menyembunyikan logo & menu */
-    transform: translateY(-120px); 
-  }
+/* Menu Wrapper with hide-on-scroll */
+.menu-wrapper {
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-/* --- 2. LOGO & TEXT WRAPPER --- */
+.menu-wrapper.menu-hidden {
+  opacity: 0;
+  transform: translateY(-20px);
+  pointer-events: none;
+}
+
 .top-left-text-wrapper {
   position: absolute;
   top: 30px;
@@ -44,21 +48,6 @@
   transform: scale(1.1);
 }
 
-/* --- 3. LAYOUT WRAPPER --- */
-.wrapper {
-  display: grid;
-  grid-template-rows: 1fr auto;
-  min-height: 100vh;
-  min-height: 100dvh;
-  /* Memberi ruang di atas agar konten tidak tertutup logo saat pertama buka */
-  padding-top: 20px; 
-}
-
-.content {
-  width: 100%;
-}
-
-/* --- 4. FOOTER --- */
 .footer {
   display: flex;
   justify-content: center;
