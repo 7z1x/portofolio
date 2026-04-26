@@ -1,0 +1,494 @@
+/* Project Detail Page */
+.pd-page {
+  padding: 6rem 4rem 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: #000;
+  min-height: 100vh;
+}
+
+.pd-not-found {
+  padding: 10rem 4rem;
+  text-align: center;
+  color: #fff;
+}
+
+.pd-not-found a {
+  color: #B5FF6D;
+  text-decoration: none;
+  margin-top: 1rem;
+  display: inline-block;
+}
+
+/* Breadcrumb */
+.pd-breadcrumb {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.pd-breadcrumb-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.pd-breadcrumb-left a {
+  color: rgba(255, 255, 255, 0.5);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.pd-breadcrumb-left a:hover {
+  color: #fff;
+}
+
+.pd-breadcrumb-left span {
+  color: #fff;
+  font-weight: 500;
+}
+
+.pd-breadcrumb-sep {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.pd-year-badge {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 14px;
+  padding: 6px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Hero */
+.pd-hero {
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  margin-bottom: 3rem;
+  min-height: 350px;
+}
+
+.pd-hero img {
+  max-width: 85%;
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* Info */
+.pd-info {
+  display: flex;
+  gap: 4rem;
+  margin-bottom: 4rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pd-info-left {
+  flex: 1;
+}
+
+.pd-title {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 36px;
+  font-weight: 600;
+  color: #F6F7FF;
+  margin: 0 0 1rem 0;
+}
+
+.pd-description {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  color: #C0C0CF;
+  margin: 0 0 1.5rem 0;
+}
+
+.pd-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pd-tag {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 18px;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pd-tag--more {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.pd-info-right {
+  flex: 0 0 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1.5rem;
+}
+
+.pd-checkout-btn {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 28px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  color: #F6F7FF;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.pd-checkout-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.pd-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: right;
+}
+
+.pd-meta-row {
+  display: flex;
+  gap: 12px;
+  font-size: 14px;
+}
+
+.pd-meta-label {
+  font-family: 'Satoshi', sans-serif;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.pd-meta-value {
+  font-family: 'Satoshi', sans-serif;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Content + Sidebar */
+.pd-content-wrapper {
+  display: flex;
+  gap: 4rem;
+  align-items: flex-start;
+}
+
+.pd-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.pd-section {
+  margin-bottom: 3rem;
+  scroll-margin-top: 120px;
+}
+
+.pd-section-title {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 28px;
+  font-weight: 500;
+  color: #F6F7FF;
+  margin: 0 0 1.25rem 0;
+}
+
+.pd-section-text {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 16px;
+  line-height: 28px;
+  color: #C0C0CF;
+  margin: 0;
+}
+
+.pd-tech-list {
+  list-style: disc;
+  padding-left: 1.2rem;
+  margin: 0;
+}
+
+.pd-tech-list li {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 16px;
+  line-height: 32px;
+  color: #C0C0CF;
+}
+
+.pd-features-list {
+  list-style: disc;
+  padding-left: 1.2rem;
+  margin: 0;
+}
+
+.pd-features-list li {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 16px;
+  line-height: 28px;
+  color: #C0C0CF;
+  margin-bottom: 0.75rem;
+}
+
+.pd-features-list li strong {
+  color: #F6F7FF;
+  font-weight: 600;
+}
+
+/* Design Screens */
+.pd-screens-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.pd-screen-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pd-screen-item img {
+  width: 100%;
+  border-radius: 12px;
+  background: #111;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.pd-screen-label {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+}
+
+/* Sidebar */
+.pd-sidebar {
+  flex: 0 0 240px;
+  position: sticky;
+  top: 120px;
+  align-self: flex-start;
+  max-height: calc(100vh - 140px);
+}
+
+.pd-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 2.5rem;
+}
+
+.pd-sidebar-heading {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 1rem 0;
+}
+
+.pd-nav-link {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 14px;
+  padding: 8px 16px;
+  border: none;
+  background: none;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: left;
+  cursor: pointer;
+  border-left: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.pd-nav-link:hover {
+  color: #F6F7FF;
+}
+
+.pd-nav-link--active {
+  color: #B5FF6D;
+  border-left-color: #B5FF6D;
+}
+
+/* Share */
+.pd-share-heading {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 1rem 0;
+}
+
+.pd-share-icons {
+  display: flex;
+  gap: 16px;
+}
+
+.pd-share-icons a,
+.pd-share-icons button {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+  text-decoration: none;
+}
+
+.pd-share-icons a:hover,
+.pd-share-icons button:hover {
+  color: #F6F7FF;
+}
+
+/* Next Project */
+.pd-next {
+  display: block;
+  margin-top: 4rem;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.pd-next:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.pd-next-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.pd-next-label {
+  font-family: 'Satoshi', sans-serif;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.pd-next-name {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: #F6F7FF;
+}
+
+/* Share — mobile only */
+.pd-share-mobile {
+  display: none;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .pd-page {
+    padding: 6rem 1.5rem 4rem;
+  }
+
+  .pd-hero {
+    padding: 2rem 1rem;
+    min-height: 220px;
+  }
+
+  .pd-info {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .pd-info-right {
+    flex: none;
+    align-items: flex-start;
+  }
+
+  .pd-content-wrapper {
+    flex-direction: column;
+  }
+
+  .pd-sidebar {
+    display: none;
+  }
+
+  .pd-screens-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pd-share-mobile {
+    display: block;
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .pd-page {
+    padding: 5rem 1rem 3rem;
+  }
+
+  .pd-breadcrumb {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 13px;
+  }
+
+  .pd-hero {
+    padding: 1.5rem 1rem;
+    min-height: 180px;
+    border-radius: 12px;
+  }
+
+  .pd-hero img {
+    max-height: 160px;
+  }
+
+  .pd-title {
+    font-size: 1.8rem;
+  }
+
+  .pd-description {
+    font-size: 0.9rem;
+  }
+
+  .pd-checkout-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .pd-sidebar-nav {
+    padding: 1rem;
+  }
+
+  .pd-sidebar-nav button {
+    font-size: 13px;
+    padding: 6px 0;
+  }
+
+  .pd-next-inner {
+    padding: 1.5rem;
+  }
+
+  .pd-next-name {
+    font-size: 1.2rem;
+  }
+
+  .pd-share-icons {
+    gap: 1rem;
+  }
+}

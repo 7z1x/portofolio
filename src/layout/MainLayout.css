@@ -1,65 +1,138 @@
-.wrapper {
-  display: grid;
-  grid-template-rows: 1fr auto;
-  min-height: 100vh;
-  min-height: 100dvh;
+body,
+html {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  overflow-x: clip;
+  scroll-behavior: smooth;
 }
 
-/* Header Container with hide-on-scroll */
-.header-container {
+.tv-app-container {
+  min-height: 100vh;
+  position: relative;
+}
+
+.tv-header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 100;
-  transition: transform 0.3s ease-in-out;
-}
-
-.header-container.header-hidden {
-  transform: translateY(-100%);
-}
-
-/* Menu Wrapper with hide-on-scroll */
-.menu-wrapper {
-  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-}
-
-.menu-wrapper.menu-hidden {
-  opacity: 0;
-  transform: translateY(-20px);
-  pointer-events: none;
-}
-
-.top-left-text-wrapper {
-  position: absolute;
-  top: 30px;
-  left: 40px;
-  z-index: 10;
-}
-
-.site-logo {
-  width: 120px;
-  height: auto;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.site-logo:hover {
-  transform: scale(1.1);
-}
-
-.footer {
+  padding: 20px 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 8px;
-  flex-shrink: 0;
-  pointer-events: auto;
+  z-index: 100;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
+  box-sizing: border-box;
+  transition: transform 0.5s ease;
 }
 
-.footer .shiny-text {
-  font-size: 1rem;
-  font-weight: normal;
-  color: rgba(255, 255, 255, 0.6);
-  font-family: 'Poppins', sans-serif;
+.tv-header--hidden {
+  transform: translateY(-100%);
+}
+
+.tv-nav-left {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.tv-nav-left a {
+  color: #e5e5e5;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.tv-nav-left a:hover,
+.tv-nav-left a.active {
+  color: #fff;
+  font-weight: 700;
+}
+
+.tv-main-content {
+  position: relative;
+}
+
+/* Mobile: hide top header, show bottom nav */
+@media (max-width: 768px) {
+  .tv-header {
+    display: none;
+  }
+
+  .tv-main-content {
+    padding-bottom: 72px; /* space for bottom nav */
+  }
+}
+
+/* ── Bottom Nav (mobile only) ── */
+.bottom-nav {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px calc(env(safe-area-inset-bottom, 8px) + 8px);
+    background: #000;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .bottom-nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: 100%;
+    max-width: 320px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    padding: 4px;
+  }
+
+  .bottom-nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 8px 0;
+    border-radius: 12px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.4);
+    font-family: 'Satoshi', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: all 0.25s ease;
+    position: relative;
+  }
+
+  .bottom-nav-item svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.25s ease;
+  }
+
+  .bottom-nav-item.active {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .bottom-nav-item.active svg {
+    transform: scale(1.1);
+  }
 }

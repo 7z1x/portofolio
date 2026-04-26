@@ -1,134 +1,158 @@
-// src/pages/About.jsx
-import { useState, useEffect } from 'react';
+import { FaArrowRight } from 'react-icons/fa';
+import { SiKotlin, SiPython, SiJavascript, SiDocker, SiFirebase, SiGit, SiReact, SiFlutter, SiPytorch, SiTensorflow, SiJetpackcompose, SiFigma, SiPostgresql, SiFastapi } from 'react-icons/si';
+import FaultyTerminal from '../components/FaultyTerminal/FaultyTerminal';
+import CircularText from '../components/CircularText/CircularText';
+import GlassSurface from '../components/GlassSurface/GlassSurface';
+import LogoLoop from '../components/LogoLoop/LogoLoop';
+import PillNav from '../components/PillNav/PillNav';
+import ExperienceSection from '../components/ExperienceSection/ExperienceSection';
+import profileImg from '../assets/profile.jpg';
 import './About.css';
-import profilePic from '../assets/photo.jpeg';
-import Galaxy from '../components/Galaxy/Galaxy';
-import { FaGithub, FaLinkedin, FaInstagram } from 'react-icons/fa';
-import Carousel from '../components/Carousel/Carousel';
-import bangkitImg from '../assets/bangkit.jpg';
-import digitalentImg from '../assets/digitalent.jpg';
-import laskarImg from '../assets/laskar.jpg';
-const About = () => {
-  const [carouselWidth, setCarouselWidth] = useState(600);
-  useEffect(() => {
-    const handleResize = () => {
-      const screenWidth = window.innerWidth;
 
-      if (screenWidth < 900) {
-        const newWidth = Math.min(screenWidth - 60, 600);
-        setCarouselWidth(newWidth > 300 ? newWidth : 300);
-      } else {
-        setCarouselWidth(600);
-      }
-    };
+const techLogos = [
+  { node: <SiKotlin />, title: 'Kotlin' },
+  { node: <SiPython />, title: 'Python' },
+  { node: <SiJavascript />, title: 'JavaScript' },
+  { node: <SiReact />, title: 'React' },
+  { node: <SiJetpackcompose />, title: 'Jetpack Compose' },
+  { node: <SiPytorch />, title: 'PyTorch' },
+  { node: <SiTensorflow />, title: 'TensorFlow' },
+  { node: <SiDocker />, title: 'Docker' },
+  { node: <SiFirebase />, title: 'Firebase' },
+  { node: <SiPostgresql />, title: 'PostgreSQL' },
+  { node: <SiFastapi />, title: 'FastAPI' },
+  { node: <SiGit />, title: 'Git' },
+  { node: <SiFigma />, title: 'Figma' },
+];
 
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const experienceItems = [
-    {
-      id: 1,
-      title: 'Mobile Development',
-      description: 'Bangkit Academy 2023 Batch 2',
-      certificateImage: bangkitImg,
-      detailsText: 'Mengikuti program Bangkit Academy Mobile Development (Android) dengan fokus pada pengembangan aplikasi berbasis Kotlin menggunakan komponen Android modern. Materi mencakup fundamental Kotlin, arsitektur MVVM, konsumsi API dengan Retrofit, pengelolaan data lokal menggunakan Room, penggunaan Coroutines untuk proses asynchronous, serta penerapan Material Design dalam membangun antarmuka. Program ini juga memperkuat kemampuan debugging, unit testing, dan pengembangan aplikasi secara end-to-end sesuai standar industri.',
-      techStack: [
-        <img src="https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white" alt="Kotlin" />,
-      ]
-    },
-    {
-      id: 2,
-      title: 'Java Fundamental and Programming',
-      description: 'Digitalent Kominfo 2024',
-      certificateImage: digitalentImg,
-      detailsText: 'Mempelajari dasar-dasar pemrograman Java, OOP (Object Oriented Programming), struktur data, dan algoritma dasar untuk pengembangan aplikasi yang efisien dan scalable.',
-      techStack: [
-        <img src="https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java" />
-      ]
-    },
-    {
-      id: 3,
-      title: 'AI Engineer',
-      description: 'Laskar AI 2025',
-      certificateImage: laskarImg,
-      detailsText: 'Mengembangkan model Machine Learning untuk mendeteksi objek, melakukan preprocessing data dalam skala besar, dan mengimplementasikan model tersebut ke dalam aplikasi nyata.',
-      techStack: [
-        <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" alt="Python" />,
-      ]
-    },
-  ];
+export default function About() {
 
   return (
-    <div className="about-container-new">
-      <Galaxy
-        mouseRepulsion={false}
-        mouseInteraction={false}
-        density={1}
-        glowIntensity={0.4}
-        hueShift={240}
-        className="about-galaxy-bg"
-      />
+    <div className="about-movie-container">
+      {/* First Screen: Terminal BG + Hero */}
+      <div className="hero-viewport">
+        <div className="terminal-bg">
+          <FaultyTerminal
+            scale={1.5}
+            gridMul={[2, 1]}
+            digitSize={1.2}
+            timeScale={0.5}
+            pause={false}
+            scanlineIntensity={0.5}
+            glitchAmount={1}
+            flickerAmount={1}
+            noiseAmp={1}
+            chromaticAberration={0}
+            dither={0}
+            curvature={0.1}
+            tint="#A7EF9E"
+            mouseReact
+            mouseStrength={0.5}
+            pageLoadAnimation
+            brightness={0.6}
+          />
+        </div>
 
-      <div className="social-sidebar-new">
-        <a href="https://github.com/7z1x" target="_blank" rel="noopener noreferrer"><FaGithub /></a>
-        <a href="https://www.linkedin.com/in/zulfahmi-m-ardianto/" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
-        <a href="https://www.instagram.com/llzf4_/" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
-      </div>
-
-      <div className="about-content-grid">
-        <div className="about-top-left">
-          <div className="profile-header-group">
-            <img src={profilePic} alt="Profile" className="profile-avatar-new" />
-            <div className="profile-text-group">
-              <h3 className="profile-name-new">Zulfahmi M Ardianto</h3>
-              <p className="profile-role-new">Software Engineer</p>
+        <div className="about-hero-section">
+          {/* Left Column: Photo & Badge */}
+          <div className="hero-photo-container">
+            <div
+              className="hero-photo-placeholder"
+              style={{
+                backgroundImage: `url(${profileImg})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat'
+              }}
+            >
+            </div>
+            <div className="circular-badge">
+              <CircularText
+                text="LETS*TALK*LETS*TALK*"
+                onHover="speedUp"
+                spinDuration={20}
+              />
+              <div className="circular-arrow">
+                <FaArrowRight />
+              </div>
             </div>
           </div>
-          <p className="contact-me-new">Contact me</p>
-          <a href="mailto:zulfahmi.office@gmail.com" className="contact-email-new">
-            zulfahmi.office@gmail.com
-          </a>
 
-          <p className="tech-stack-label">Languages and Tools:</p>
-
-          <div className="tech-stack-container">
-            {/* --- Languages & Web --- */}
-            <img src="https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white" alt="Kotlin" />
-            <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" alt="Python" />
-            <img src="https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java" />
-
-
-            {/* --- Mobile & Tools --- */}
-            <img src="https://img.shields.io/badge/Jetpack%20Compose-4285F4?style=for-the-badge&logo=jetpackcompose&logoColor=white" alt="Jetpack Compose" />
-            <img src="https://img.shields.io/badge/Android%20Studio-3DDC84?style=for-the-badge&logo=android-studio&logoColor=white" alt="Android Studio" />
-            <img src="https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
-
-            {/* --- AI / Machine Learning --- */}
-            <img src="https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white" alt="PyTorch" />
-            <img src="https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white" alt="Scikit-learn" />
-            <img src="https://img.shields.io/badge/Keras-%23D00000.svg?style=for-the-badge&logo=Keras&logoColor=white" alt="Keras" />
+          {/* Right Column: Content */}
+          <div className="hero-text-container">
+            <GlassSurface
+              width="100%"
+              height="auto"
+              borderRadius={24}
+              displace={0.3}
+              distortionScale={-120}
+              redOffset={0}
+              greenOffset={8}
+              blueOffset={16}
+              brightness={35}
+              opacity={0.85}
+              blur={8}
+              backgroundOpacity={0.15}
+              mixBlendMode="screen"
+              className="hero-glass-bg"
+            >
+              <div className="hero-glass-content">
+                <h1 className="hero-title">
+                  A Creative Developer<br />
+                  <span className="hero-title-highlight">&amp; Digital Designer</span>
+                </h1>
+              </div>
+            </GlassSurface>
+            <div className="hero-actions-row">
+              <PillNav
+                className="resume-pill-nav"
+                items={[
+                  { label: 'My Resume', href: '#' }
+                ]}
+                hoveredPillTextColor="#000000"
+                pillTextColor="#ffffffff"
+                initialLoadAnimation={false}
+              />
+              <div className="hero-socials">
+                <a href="https://instagram.com/7z1x" target="_blank" rel="noreferrer" className="social-icon social-ig" aria-label="Instagram">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10m0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" /></svg>
+                </a>
+                <a href="https://github.com/7z1x" target="_blank" rel="noreferrer" className="social-icon social-gh" aria-label="GitHub">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z" /></svg>
+                </a>
+                <a href="https://linkedin.com/in/7z1x" target="_blank" rel="noreferrer" className="social-icon social-li" aria-label="LinkedIn">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" /></svg>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="about-top-right">
-          <h2>Experience</h2>
+        {/* Gradient fade at bottom of hero */}
+        <div className="hero-bottom-fade"></div>
+      </div>
 
-          <div className="experience-carousel-wrapper">
-            <Carousel
-              items={experienceItems}
-              baseWidth={carouselWidth}
-              autoplay={false}
-              autoplayDelay={5000}
-              pauseOnHover={true}
-              loop={false}
-            />
-          </div>
+      {/* Tech Stack Marquee Section */}
+      <div className="tech-stack-section">
+        <div className="tech-stack-loop">
+          <LogoLoop
+            logos={techLogos}
+            speed={80}
+            direction="left"
+            logoHeight={40}
+            gap={60}
+            hoverSpeed={0}
+            scaleOnHover
+            fadeOut
+            fadeOutColor="#000"
+            ariaLabel="Technology stack"
+          />
         </div>
       </div>
+
+      {/* Experience Section */}
+      <ExperienceSection />
+
     </div>
   );
-};
-
-export default About;
+}

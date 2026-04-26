@@ -4,19 +4,17 @@ import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import MainLayout from './layout/MainLayout';
-import Home from './pages/Home';
-//import Project from './pages/Project';
-import Experience from './pages/Experience';
 import About from './pages/About';
+import AllProjects from './pages/AllProjects';
+import ProjectDetail from './pages/ProjectDetail';
 
 const router = createBrowserRouter([
   {
     element: <MainLayout />,
     children: [
-      { index: true, element: <Home /> },
-      //{ path: 'project', element: <Project /> },
-      { path: 'experience', element: <Experience /> },
-      { path: 'about', element: <About /> },
+      { index: true, element: <About /> },
+      { path: 'project', element: <AllProjects /> },
+      { path: 'project/:id', element: <ProjectDetail /> },
     ],
   },
 ]);
