@@ -1,11 +1,12 @@
 import { Outlet, useLocation, NavLink } from 'react-router-dom';
 import { GoHome, GoHomeFill } from 'react-icons/go';
 import { HiOutlineViewGrid, HiViewGrid } from 'react-icons/hi';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import PillNav from '../components/PillNav/PillNav';
-import GridScan from '../components/GridScan/GridScan';
 import Footer from '../components/Footer/Footer';
 import './MainLayout.css';
+
+const GridScan = lazy(() => import('../components/GridScan/GridScan'));
 
 export default function MainLayout() {
   const location = useLocation();
@@ -63,71 +64,73 @@ export default function MainLayout() {
           opacity: fadeSplash ? 0 : 1, transition: 'opacity 0.5s ease',
           pointerEvents: 'none'
         }}>
-          <GridScan
-            sensitivity={0.55}
-            lineThickness={1}
-            linesColor="#2F293A"
-            gridScale={0.1}
-            scanColor="#FF9FFC"
-            scanOpacity={0.4}
-            enablePost={true}
-            bloomIntensity={0.6}
-            chromaticAberration={0.002}
-            noiseIntensity={0.01}
-          />
+          <Suspense fallback={null}>
+            <GridScan
+              sensitivity={0.55}
+              lineThickness={1}
+              linesColor="#2F293A"
+              gridScale={0.1}
+              scanColor="#6abf5b"
+              scanOpacity={0.4}
+              enablePost={typeof window !== 'undefined' && window.innerWidth > 768}
+              bloomIntensity={0.6}
+              chromaticAberration={0.002}
+              noiseIntensity={0.01}
+            />
+          </Suspense>
         </div>
       )}
       <div className="tv-app-container">
-      <header className={`tv-header ${headerVisible ? '' : 'tv-header--hidden'}`}>
-        <PillNav
-          logo="/logo.png"
-          logoAlt="Zulfahmi Logo"
-          logoHref="/"
-          items={navItems}
-          activeHref={location.pathname}
-          ease="power2.easeOut"
-          baseColor="#ffffff"
-          pillColor="rgba(0, 0, 0, 0.6)"
-          hoveredPillTextColor="#000000"
-          pillTextColor="#e5e5e5"
-          initialLoadAnimation={true}
-        />
-      </header>
+        <header className={`tv-header ${headerVisible ? '' : 'tv-header--hidden'}`}>
+          <PillNav
+            logo="/logo.png"
+            logoAlt="Zulfahmi Logo"
+            logoHref="/"
+            items={navItems}
+            activeHref={location.pathname}
+            ease="power2.easeOut"
+            baseColor="#ffffff"
+            pillColor="rgba(0, 0, 0, 0.6)"
+            hoveredPillTextColor="#000000"
+            pillTextColor="#e5e5e5"
+            initialLoadAnimation={true}
+          />
+        </header>
 
-      {/* Bottom Nav — mobile only */}
-      <nav className="bottom-nav">
-        <div className="bottom-nav-inner">
-          <NavLink
-            to="/"
-            end
-            className={({ isActive }) => `bottom-nav-item ${isActive ? 'active' : ''}`}
-          >
-            {({ isActive }) => (
-              <>
-                {isActive ? <GoHomeFill /> : <GoHome />}
-                <span>Home</span>
-              </>
-            )}
-          </NavLink>
-          <NavLink
-            to="/project"
-            className={({ isActive }) => `bottom-nav-item ${isActive ? 'active' : ''}`}
-          >
-            {({ isActive }) => (
-              <>
-                {isActive ? <HiViewGrid /> : <HiOutlineViewGrid />}
-                <span>Project</span>
-              </>
-            )}
-          </NavLink>
-        </div>
-      </nav>
+        {/* Bottom Nav — mobile only */}
+        <nav className="bottom-nav">
+          <div className="bottom-nav-inner">
+            <NavLink
+              to="/"
+              end
+              className={({ isActive }) => `bottom-nav-item ${isActive ? 'active' : ''}`}
+            >
+              {({ isActive }) => (
+                <>
+                  {isActive ? <GoHomeFill /> : <GoHome />}
+                  <span>Home</span>
+                </>
+              )}
+            </NavLink>
+            <NavLink
+              to="/project"
+              className={({ isActive }) => `bottom-nav-item ${isActive ? 'active' : ''}`}
+            >
+              {({ isActive }) => (
+                <>
+                  {isActive ? <HiViewGrid /> : <HiOutlineViewGrid />}
+                  <span>Project</span>
+                </>
+              )}
+            </NavLink>
+          </div>
+        </nav>
 
-      <main className="tv-main-content">
-        <Outlet />
-      </main>
-      <Footer />
-    </div>
+        <main className="tv-main-content">
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
     </>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ShinyText from '../ShinyText/ShinyText';
+import SplitText from '../SplitText/SplitText';
 
 const experiences = [
   {
@@ -77,9 +78,12 @@ const ExperienceSection = React.memo(() => {
         <span className="experience-badge">
           <ShinyText text="✦ WORK HISTORY" speed={3} className="shiny-green" />
         </span>
-        <h2 className="experience-heading">Experience</h2>
+        <h2 className="experience-heading">
+          <SplitText text="Experience" delay={0.1} />
+        </h2>
         <p className="experience-sub">
-          I have worked with some of the most innovative industry leaders to create cutting-edge technology.        </p>
+          <SplitText text="I have worked with some of the most innovative industry leaders to create cutting-edge technology." delay={0.4} animationDuration={0.4} animationStagger={0.005} />
+        </p>
       </div>
 
       <div className="experience-right">

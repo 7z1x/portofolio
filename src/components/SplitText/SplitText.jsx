@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
-const SplitText = ({ text, className = '', delay = 0 }) => {
+const SplitText = ({ text, className = '', delay = 0, animationDuration = 1.2, animationStagger = 0.05 }) => {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -13,23 +13,32 @@ const SplitText = ({ text, className = '', delay = 0 }) => {
         y: 0, 
         rotateX: 0, 
         filter: 'blur(0px)',
-        duration: 1.2, 
-        stagger: 0.05, 
+        duration: animationDuration, 
+        stagger: animationStagger, 
         ease: 'back.out(2)',
         delay: delay
       }
     );
-  }, [text, delay]);
+  }, [text, delay, animationDuration, animationStagger]);
+
+  const words = text.split(' ');
 
   return (
-    <span ref={containerRef} className={className} style={{ display: 'inline-block', perspective: '1000px' }}>
-      {text.split('').map((char, index) => (
-        <span 
-          key={index} 
-          className="char" 
-          style={{ display: 'inline-block', whiteSpace: char === ' ' ? 'pre' : 'normal' }}
-        >
-          {char}
+    <span ref={containerRef} className={className} style={{ display: 'inline', perspective: '1000px' }}>
+      {words.map((word, wIdx) => (
+        <span key={wIdx} style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
+          {word.split('').map((char, cIdx) => (
+            <span
+              key={cIdx}
+              className="char"
+              style={{ display: 'inline-block' }}
+            >
+              {char}
+            </span>
+          ))}
+          {wIdx < words.length - 1 && (
+            <span className="char" style={{ display: 'inline-block', whiteSpace: 'pre' }}> </span>
+          )}
         </span>
       ))}
     </span>

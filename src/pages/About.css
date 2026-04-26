@@ -121,12 +121,24 @@
 /* Right: Text Container */
 .hero-text-container {
   max-width: 500px;
+  height: 400px;
+  margin-bottom: 80px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-glass-bg {
+  height: 100% !important;
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .hero-title {
   font-family: 'Clash Display', sans-serif;
-  font-size: 4rem;
-  line-height: 1.1;
+  font-size: 2.8rem;
+  line-height: 1.15;
   font-weight: 700;
   margin-bottom: 0;
   letter-spacing: -1px;
@@ -134,132 +146,12 @@
 }
 
 .hero-title-highlight {
-  font-family: 'Clash Display', serif;
-  font-style: italic;
-  font-weight: 400;
-  color: #A7EF9E;
-}
-
-
-@media (max-width: 1024px) {
-  .about-hero-section {
-    flex-direction: column;
-    text-align: center;
-    gap: 3rem;
-    padding-top: 6rem;
-  }
-
-  .hero-text-container {
-    max-width: 100%;
-  }
-
-  .hero-title {
-    font-size: 3rem;
-  }
-
-  .circular-badge {
-    bottom: -20px;
-    right: -20px;
-    width: 120px;
-    height: 120px;
-  }
-}
-
-@media (max-width: 600px) {
-  .about-hero-section {
-    gap: 2rem;
-    padding: 3rem 1rem 0;
-  }
-
-  .hero-text-container {
-    padding-bottom: 3rem;
-    max-width: 340px;
-  }
-
-  .hero-glass-bg {
-    border-radius: 18px !important;
-  }
-
-  .hero-photo-container {
-    flex-shrink: unset;
-    width: 100%;
-  }
-
-  .hero-photo-placeholder {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 3 / 4;
-    border-radius: 12px 12px 12px 120px;
-  }
-
-  .circular-badge {
-    width: 120px;
-    height: 120px;
-    bottom: -24px;
-    right: -10px;
-  }
-
-  .circular-arrow {
-    width: 40px;
-    height: 40px;
-    font-size: 1rem;
-  }
-
-  .hero-title {
-    font-size: 2rem;
-    text-align: center;
-  }
-
-  .hero-glass-content {
-    padding: 1.2rem;
-    text-align: center;
-  }
-
-  .hero-actions-row {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
-  }
-
-  /* Force PillNav resume to stay as pill button on mobile (no burger) */
-  .resume-pill-nav .desktop-only {
-    display: flex !important;
-  }
-
-  .resume-pill-nav .mobile-only {
-    display: none !important;
-  }
-
-  .resume-pill-nav .mobile-menu-popover {
-    display: none !important;
-  }
-
-  .hero-socials {
-    gap: 10px;
-  }
-
-  .social-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-  }
-
-  .social-icon svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  .tech-stack-loop {
-    height: 60px;
-  }
-}
-
-
-
-/* Glass Surface behind text */
-.hero-glass-bg {
-  height: auto !important;
+  display: block;
+  font-family: 'Clash Display', sans-serif;
+  font-weight: 700;
+  color: #fff;
+  font-size: 2.8rem;
+  line-height: 1.15;
 }
 
 .hero-glass-content {
@@ -270,6 +162,10 @@
 
 /* Resume + Socials Row */
 .hero-actions-row {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -325,6 +221,134 @@
 
 .resume-pill-nav .pill {
   padding: 12px 24px;
+}
+
+@media (max-width: 1024px) {
+  .about-hero-section {
+    flex-direction: column;
+    text-align: center;
+    gap: 3rem;
+    padding-top: 6rem;
+  }
+
+  .hero-text-container {
+    max-width: 100%;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-title-highlight {
+    font-size: 2.5rem;
+  }
+
+  .circular-badge {
+    bottom: -20px;
+    right: -20px;
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (max-width: 600px) {
+  .about-hero-section {
+    gap: 2rem;
+    padding: 3rem 1rem 0;
+  }
+
+  .hero-text-container {
+    padding-bottom: 5rem;
+    max-width: 340px;
+    height: auto;
+    margin-bottom: 0;
+  }
+
+  .hero-glass-bg {
+    border-radius: 18px !important;
+    height: auto !important;
+  }
+
+  .hero-photo-container {
+    flex-shrink: unset;
+    width: 100%;
+  }
+
+  .hero-photo-placeholder {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    border-radius: 12px 12px 12px 120px;
+  }
+
+  .circular-badge {
+    width: 120px;
+    height: 120px;
+    bottom: -24px;
+    right: -10px;
+  }
+
+  .circular-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  .hero-title {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  .hero-title-highlight {
+    font-size: 1.6rem;
+  }
+
+  .hero-glass-content {
+    padding: 1.2rem;
+    text-align: center;
+  }
+
+  .hero-actions-row {
+    position: static;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    margin-top: 1.5rem;
+  }
+
+  /* Force PillNav resume to stay as pill button on mobile (no burger) */
+  .resume-pill-nav .desktop-only {
+    display: flex !important;
+  }
+
+  .resume-pill-nav .mobile-only {
+    display: none !important;
+  }
+
+  .resume-pill-nav .mobile-menu-popover {
+    display: none !important;
+  }
+
+  .hero-socials {
+    gap: 10px;
+  }
+
+  .social-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+  }
+
+  .social-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .tech-stack-loop {
+    height: 60px;
+  }
 }
 
 /* Tech Stack Section */

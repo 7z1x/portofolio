@@ -212,7 +212,8 @@ const PillNav = ({
     href.startsWith('//') ||
     href.startsWith('mailto:') ||
     href.startsWith('tel:') ||
-    href.startsWith('#');
+    href.startsWith('#') ||
+    href.toLowerCase().endsWith('.pdf');
 
   const isRouterLink = href => href && !isExternalLink(href);
 
@@ -286,10 +287,23 @@ const PillNav = ({
                   <a
                     role="menuitem"
                     href={item.href}
+                    target={item.href?.toLowerCase().endsWith('.pdf') ? '_blank' : undefined}
+                    rel={item.href?.toLowerCase().endsWith('.pdf') ? 'noopener noreferrer' : undefined}
                     className={`pill${activeHref === item.href ? ' is-active' : ''}`}
                     aria-label={item.ariaLabel || item.label}
                     onMouseEnter={() => handleEnter(i)}
                     onMouseLeave={() => handleLeave(i)}
+                    onClick={(e) => {
+                      if (item.onClick) {
+                        e.preventDefault();
+                        item.onClick(e);
+                        return;
+                      }
+                      if (item.href?.toLowerCase().endsWith('.pdf')) {
+                        e.preventDefault();
+                        window.open(item.href, '_blank');
+                      }
+                    }}
                   >
                     <span
                       className="hover-circle"
@@ -337,8 +351,22 @@ const PillNav = ({
               ) : (
                 <a
                   href={item.href}
+                  target={item.href?.toLowerCase().endsWith('.pdf') ? '_blank' : undefined}
+                  rel={item.href?.toLowerCase().endsWith('.pdf') ? 'noopener noreferrer' : undefined}
                   className={`mobile-menu-link${activeHref === item.href ? ' is-active' : ''}`}
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => {
+                    if (item.onClick) {
+                      e.preventDefault();
+                      item.onClick(e);
+                      setIsMobileMenuOpen(false);
+                      return;
+                    }
+                    setIsMobileMenuOpen(false);
+                    if (item.href?.toLowerCase().endsWith('.pdf')) {
+                      e.preventDefault();
+                      window.open(item.href, '_blank');
+                    }
+                  }}
                 >
                   {item.label}
                 </a>
