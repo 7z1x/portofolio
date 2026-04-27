@@ -35,9 +35,7 @@ export default function useGitHubRepos() {
           return base;
         })
         .sort((a, b) => {
-          if (a._hasOverride && !b._hasOverride) return -1;
-          if (!a._hasOverride && b._hasOverride) return 1;
-          return new Date(b.updatedAt) - new Date(a.updatedAt);
+          return new Date(b.pushedAt) - new Date(a.pushedAt);
         });
 
       // Use startTransition so React batches this update as low-priority

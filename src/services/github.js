@@ -150,6 +150,7 @@ export function mapRepoToProject(repo) {
     forks: repo.forks_count,
     language: repo.language,
     updatedAt: repo.updated_at,
+    pushedAt: repo.pushed_at || repo.created_at,
     fork: repo.fork,
     _raw: repo,
   };
