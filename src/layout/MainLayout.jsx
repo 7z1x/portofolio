@@ -1,15 +1,17 @@
-import { Outlet, useLocation, NavLink } from 'react-router-dom';
+import { useLocation, useOutlet, NavLink } from 'react-router-dom';
 import { GoHome, GoHomeFill } from 'react-icons/go';
 import { HiOutlineViewGrid, HiViewGrid } from 'react-icons/hi';
-import { useState, useEffect, useRef, lazy, Suspense } from 'react';
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import PillNav from '../components/PillNav/PillNav';
 import Footer from '../components/Footer/Footer';
+import { motion, AnimatePresence } from 'motion/react';
 import './MainLayout.css';
 
 const GridScan = lazy(() => import('../components/GridScan/GridScan'));
 
 export default function MainLayout() {
   const location = useLocation();
+  const outletElement = useOutlet();
 
   const navItems = [
     { label: 'Home', href: '/' },
@@ -23,10 +25,10 @@ export default function MainLayout() {
     // Fade out after 2.5s, remove entirely after 3s
     const timer1 = setTimeout(() => {
       setFadeSplash(true);
-    }, 2500);
+    }, 1500);
     const timer2 = setTimeout(() => {
       setShowSplash(false);
-    }, 3000);
+    }, 2000);
     return () => { clearTimeout(timer1); clearTimeout(timer2); };
   }, []);
 
@@ -127,7 +129,17 @@ export default function MainLayout() {
         </nav>
 
         <main className="tv-main-content">
-          <Outlet />
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={location.pathname}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.1, ease: 'easeOut' }}
+            >
+              {outletElement && React.cloneElement(outletElement, { key: location.pathname })}
+            </motion.div>
+          </AnimatePresence>
         </main>
         <Footer />
       </div>

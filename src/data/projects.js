@@ -11,39 +11,40 @@
  */
 const QUICK_CONFIG = {
   // ── AI Engineer ──
-  'portofolio':                    { cat: ['AI Engineer'],                     img: '/project_hero_3.png' },
-  'ai-marketplace-assistant':      { cat: ['AI Engineer'] },
+  'portofolio': { cat: ['AI Engineer'], img: '/project_hero_3.png' },
+  'ai-marketplace-assistant': { cat: ['AI Engineer'] },
 
   // ── Mobile Development ──
-  'duet-duetku-finance-traker-app':{ cat: ['Mobile Development'],              img: '/project_hero_2.png' },
-  'DicodingEvent':                 { cat: ['Mobile Development'] },
-  'Todo-app':                      { cat: ['Mobile Development'] },
-  'FindAnimal':                    { cat: ['Mobile Development'] },
-  'UnescoApp':                     { cat: ['Mobile Development'] },
-  'kalkulator':                    { cat: ['Mobile Development'] },
-  'FED':                           { cat: ['Mobile Development'] },
-  'Gulugulu':                      { cat: ['Mobile Development'] },
+  'duet-duetku-finance-traker-app': { cat: ['Mobile Development'], img: '/project_hero_2.png' },
+  'DicodingEvent': { cat: ['Mobile Development'] },
+  'Todo-app': { cat: ['Mobile Development'] },
+  'FindAnimal': { cat: ['Mobile Development'] },
+  'UnescoApp': { cat: ['Mobile Development'] },
+  'kalkulator': { cat: ['Mobile Development'] },
+  'FED': { cat: ['Mobile Development'] },
 
   // ── Machine Learning ──
-  'Sign_language':                 { cat: ['AI Engineer', 'Machine Learning'] },
+  'Sign_language': { cat: ['AI Engineer', 'Machine Learning'] },
   'Eksperimen_SML_Zulfahmi_M_Ardianto': { cat: ['Machine Learning'] },
-  'SMSML_Zulfahmi-M.-Ardianto':   { cat: ['Machine Learning'] },
-  'Membangun_model':               { cat: ['Machine Learning'] },
-  'Belajar-Machine-Learning-Pemula':{ cat: ['Machine Learning'] },
-  'Proyek-Klasifikasi-gambar':     { cat: ['Machine Learning'] },
-  'Proyek-Analisis-Sentimen':      { cat: ['Machine Learning'] },
+  'SMSML_Zulfahmi-M.-Ardianto': { cat: ['Machine Learning'] },
+  'Membangun_model': { cat: ['Machine Learning'] },
+  'Belajar-Machine-Learning-Pemula': { cat: ['Machine Learning'] },
+  'Proyek-Klasifikasi-gambar': { cat: ['Machine Learning'] },
+  'Proyek-Analisis-Sentimen': { cat: ['Machine Learning'] },
   'Netfix-movie-and-film-rekomendation-project': { cat: ['Machine Learning'] },
-  'Breast-Cancer-Predictive-Analityc-Project':   { cat: ['Machine Learning'] },
+  'Breast-Cancer-Predictive-Analityc-Project': { cat: ['Machine Learning'] },
   'Menyelesaikan-Permasalahan-Institusi-Pendidikan': { cat: ['Machine Learning'] },
-  'Menyelesaikan-Permasalahan-Human-Resources':  { cat: ['Machine Learning'] },
-  'Monitoring-dan-Logging':        { cat: ['Machine Learning'] },
-  'Workflow-CI':                   { cat: ['Machine Learning'] },
-  'dicoding':                      { cat: ['Machine Learning'] },
+  'Menyelesaikan-Permasalahan-Human-Resources': { cat: ['Machine Learning'] },
+  'Monitoring-dan-Logging': { cat: ['Machine Learning'] },
+  'Workflow-CI': { cat: ['Machine Learning'] },
+  'dicoding': { cat: ['Machine Learning'] },
 
   // ── Lain-lain ──
-  'Parsing-CSharp':                { cat: ['Others'] },
-  'Skibidi_Dor':                   { cat: ['Others'] },
-  'CodeProcessing-GravisVisual':   { cat: ['Others'] },
+  'Parsing-CSharp': { cat: ['Others'] },
+  'Skibidi_Dor': { cat: ['Others'] },
+  'CodeProcessing-GravisVisual': { cat: ['Others'] },
+  'Gulugulu': { cat: ['Others'] },
+
 };
 
 
