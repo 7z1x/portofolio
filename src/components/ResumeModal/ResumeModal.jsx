@@ -1,80 +1,10 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import * as pdfjsLib from 'pdfjs-dist';
-import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.mjs?url';
-import resumeBase64 from '../../assets/resumeData.js';
 import './ResumeModal.css';
-
-pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
-
-// Decode base64 to Uint8Array
-function base64ToUint8Array(base64) {
-  const raw = atob(base64);
-  const arr = new Uint8Array(raw.length);
-  for (let i = 0; i < raw.length; i++) {
-    arr[i] = raw.charCodeAt(i);
-  }
-  return arr;
-}
-
-// Module-level cache — survives re-renders and re-mounts
-let cachedPages = null;
 
 export default function ResumeModal({ isOpen, onClose }) {
   const overlayRef = useRef(null);
   const modalRef = useRef(null);
-  const scrollRef = useRef(null);
-  const [pages, setPages] = useState(cachedPages || []);
-  const [loading, setLoading] = useState(!cachedPages);
-  const [error, setError] = useState(null);
-
-  const loadPdf = useCallback(async () => {
-    // Instant re-open from cache
-    if (cachedPages) {
-      setPages(cachedPages);
-      setLoading(false);
-      return;
-    }
-
-    setLoading(true);
-    setError(null);
-
-    try {
-      const data = base64ToUint8Array(resumeBase64);
-      const pdf = await pdfjsLib.getDocument({ data }).promise;
-
-      const rendered = [];
-      for (let i = 1; i <= pdf.numPages; i++) {
-        const page = await pdf.getPage(i);
-        // Lower scale for mobile performance
-        const isMobile = window.innerWidth <= 768;
-        const scale = isMobile ? 1.5 : 2;
-        const viewport = page.getViewport({ scale });
-
-        const canvas = document.createElement('canvas');
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
-
-        const ctx = canvas.getContext('2d');
-        await page.render({ canvasContext: ctx, viewport }).promise;
-
-        // Show each page progressively as it's rendered
-        rendered.push(canvas.toDataURL('image/png'));
-        setPages([...rendered]);
-        if (i === 1) setLoading(false); // Show first page immediately
-      }
-
-      cachedPages = rendered;
-    } catch (err) {
-      console.error('PDF render error:', err);
-      setError('Failed to load resume.');
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (isOpen) loadPdf();
-  }, [isOpen, loadPdf]);
 
   // Animate open
   useEffect(() => {
@@ -116,27 +46,13 @@ export default function ResumeModal({ isOpen, onClose }) {
             </svg>
           </button>
         </div>
-        <div className="resume-modal-body" ref={scrollRef}>
-          {loading && (
-            <div className="resume-loading">
-              <div className="resume-spinner" />
-              <span>Loading Resume...</span>
-            </div>
-          )}
-          {error && (
-            <div className="resume-loading">
-              <span>{error}</span>
-            </div>
-          )}
-          {pages.map((dataUrl, i) => (
-            <img
-              key={i}
-              src={dataUrl}
-              alt={`Resume page ${i + 1}`}
-              className="resume-page-img"
-              draggable={false}
-            />
-          ))}
+        <div className="resume-modal-body">
+          <img
+            src="/resume.webp"
+            alt="Resume"
+            className="resume-page-img"
+            draggable={false}
+          />
         </div>
       </div>
     </div>

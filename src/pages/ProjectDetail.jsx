@@ -1,19 +1,50 @@
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
-import { FaHome, FaChevronRight, FaGithub, FaTwitter, FaLinkedin, FaEnvelope, FaShareAlt } from 'react-icons/fa';
-import { PROJECT_DATA } from '../data/projects';
+import { FaHome, FaChevronRight, FaGithub, FaTwitter, FaLinkedin, FaEnvelope, FaShareAlt, FaExternalLinkAlt } from 'react-icons/fa';
+import useGitHubRepos from '../hooks/useGitHubRepos';
+import { fetchReadme, fetchLanguages } from '../services/github';
 import './ProjectDetail.css';
 
 export default function ProjectDetail() {
   const { id } = useParams();
-  const project = PROJECT_DATA.find(p => p.id === id);
+  const { projects, loading: reposLoading } = useGitHubRepos();
+  const project = projects.find(p => p.id === id);
+
   const [activeSection, setActiveSection] = useState('overview');
+  const [readme, setReadme] = useState(null);
+  const [languages, setLanguages] = useState(null);
+  const [loadingDetail, setLoadingDetail] = useState(true);
 
   const overviewRef = useRef(null);
   const designRef = useRef(null);
   const techRef = useRef(null);
   const featuresRef = useRef(null);
+  const readmeRef = useRef(null);
 
+  // Fetch README & languages when project is available
+  useEffect(() => {
+    if (!project) return;
+
+    let cancelled = false;
+
+    async function loadDetails() {
+      const [readmeData, langData] = await Promise.all([
+        fetchReadme(id),
+        fetchLanguages(id),
+      ]);
+
+      if (!cancelled) {
+        setReadme(readmeData);
+        setLanguages(langData);
+        setLoadingDetail(false);
+      }
+    }
+
+    loadDetails();
+    return () => { cancelled = true; };
+  }, [project, id]);
+
+  // Scroll-spy for sidebar
   useEffect(() => {
     const handleScroll = () => {
       const sections = [
@@ -21,6 +52,7 @@ export default function ProjectDetail() {
         { id: 'design-screens', ref: designRef },
         { id: 'tech-stack', ref: techRef },
         { id: 'features', ref: featuresRef },
+        { id: 'readme', ref: readmeRef },
       ];
 
       for (const section of sections.reverse()) {
@@ -38,6 +70,18 @@ export default function ProjectDetail() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Loading state
+  if (reposLoading) {
+    return (
+      <div className="pd-page">
+        <div className="pd-loading">
+          <div className="pd-loading-spinner" />
+          <p>Loading project...</p>
+        </div>
+      </div>
+    );
+  }
+
   if (!project) {
     return (
       <div className="pd-not-found">
@@ -52,8 +96,18 @@ export default function ProjectDetail() {
   };
 
   // Find next project
-  const currentIndex = PROJECT_DATA.findIndex(p => p.id === id);
-  const nextProject = PROJECT_DATA[(currentIndex + 1) % PROJECT_DATA.length];
+  const currentIndex = projects.findIndex(p => p.id === id);
+  const nextProject = projects[(currentIndex + 1) % projects.length];
+
+  // Merge fetched languages into techStack if no override
+  const techStack = project.techStack && project.techStack.length > 1
+    ? project.techStack
+    : languages
+      ? Object.keys(languages)
+      : project.techStack || [];
+
+  // Compute language percentages
+  const totalBytes = languages ? Object.values(languages).reduce((a, b) => a + b, 0) : 0;
 
   return (
     <div className="pd-page">
@@ -71,7 +125,14 @@ export default function ProjectDetail() {
 
       {/* Hero Banner */}
       <div className="pd-hero" style={{ background: project.bgColor }}>
-        <img src={project.coverImage} alt={project.name} />
+        {project.coverImage ? (
+          <img src={project.coverImage} alt={project.name} />
+        ) : (
+          <div className="pd-hero-placeholder">
+            <FaGithub className="pd-hero-icon" />
+            <h2>{project.name}</h2>
+          </div>
+        )}
       </div>
 
       {/* Info Section */}
@@ -80,18 +141,25 @@ export default function ProjectDetail() {
           <h1 className="pd-title">{project.name}</h1>
           <p className="pd-description">{project.description}</p>
           <div className="pd-tags">
-            {project.techStack.slice(0, 3).map(t => (
+            {techStack.slice(0, 3).map(t => (
               <span key={t} className="pd-tag">{t}</span>
             ))}
-            {project.techStack.length > 3 && (
-              <span className="pd-tag pd-tag--more">+{project.techStack.length - 3}</span>
+            {techStack.length > 3 && (
+              <span className="pd-tag pd-tag--more">+{techStack.length - 3}</span>
             )}
           </div>
         </div>
         <div className="pd-info-right">
-          <a href={project.github} target="_blank" rel="noreferrer" className="pd-checkout-btn">
-            Check it out
-          </a>
+          <div className="pd-action-buttons">
+            <a href={project.github} target="_blank" rel="noreferrer" className="pd-checkout-btn">
+              <FaGithub /> View Source
+            </a>
+            {project.homepage && (
+              <a href={project.homepage} target="_blank" rel="noreferrer" className="pd-checkout-btn pd-checkout-btn--live">
+                <FaExternalLinkAlt /> Live Demo
+              </a>
+            )}
+          </div>
           <div className="pd-meta">
             <div className="pd-meta-row">
               <span className="pd-meta-label">Roles:</span>
@@ -111,7 +179,9 @@ export default function ProjectDetail() {
           {/* Overview */}
           <section ref={overviewRef} id="overview" className="pd-section">
             <h2 className="pd-section-title">Overview</h2>
-            <p className="pd-section-text">{project.overview}</p>
+            <p className="pd-section-text">
+              {project.overview || project.description}
+            </p>
           </section>
 
           {/* Design Screens */}
@@ -133,23 +203,35 @@ export default function ProjectDetail() {
           <section ref={techRef} id="tech-stack" className="pd-section">
             <h2 className="pd-section-title">Tech Stack</h2>
             <ul className="pd-tech-list">
-              {project.techStack.map(t => (
+              {techStack.map(t => (
                 <li key={t}>{t}</li>
               ))}
             </ul>
           </section>
 
           {/* Features */}
-          <section ref={featuresRef} id="features" className="pd-section">
-            <h2 className="pd-section-title">Features</h2>
-            <ul className="pd-features-list">
-              {project.features.map((f, i) => (
-                <li key={i}>
-                  <strong>{f.title}:</strong> {f.desc}
-                </li>
-              ))}
-            </ul>
-          </section>
+          {project.features && project.features.length > 0 && (
+            <section ref={featuresRef} id="features" className="pd-section">
+              <h2 className="pd-section-title">Features</h2>
+              <ul className="pd-features-list">
+                {project.features.map((f, i) => (
+                  <li key={i}>
+                    <strong>{f.title}:</strong> {f.desc}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {/* README */}
+          {readme && (
+            <section ref={readmeRef} id="readme" className="pd-section">
+              <h2 className="pd-section-title">📄 README</h2>
+              <div className="pd-readme">
+                <pre className="pd-readme-content">{readme}</pre>
+              </div>
+            </section>
+          )}
         </div>
 
         {/* Sidebar */}
@@ -162,24 +244,36 @@ export default function ProjectDetail() {
             >
               Overview
             </button>
-            <button
-              className={`pd-nav-link ${activeSection === 'design-screens' ? 'pd-nav-link--active' : ''}`}
-              onClick={() => scrollTo(designRef)}
-            >
-              Design Screens
-            </button>
+            {project.designScreens?.length > 0 && (
+              <button
+                className={`pd-nav-link ${activeSection === 'design-screens' ? 'pd-nav-link--active' : ''}`}
+                onClick={() => scrollTo(designRef)}
+              >
+                Design Screens
+              </button>
+            )}
             <button
               className={`pd-nav-link ${activeSection === 'tech-stack' ? 'pd-nav-link--active' : ''}`}
               onClick={() => scrollTo(techRef)}
             >
               Tech Stack
             </button>
-            <button
-              className={`pd-nav-link ${activeSection === 'features' ? 'pd-nav-link--active' : ''}`}
-              onClick={() => scrollTo(featuresRef)}
-            >
-              Features
-            </button>
+            {project.features?.length > 0 && (
+              <button
+                className={`pd-nav-link ${activeSection === 'features' ? 'pd-nav-link--active' : ''}`}
+                onClick={() => scrollTo(featuresRef)}
+              >
+                Features
+              </button>
+            )}
+            {readme && (
+              <button
+                className={`pd-nav-link ${activeSection === 'readme' ? 'pd-nav-link--active' : ''}`}
+                onClick={() => scrollTo(readmeRef)}
+              >
+                README
+              </button>
+            )}
           </div>
 
           <div className="pd-share">
@@ -206,12 +300,14 @@ export default function ProjectDetail() {
       </div>
 
       {/* Next Project */}
-      <Link to={`/project/${nextProject.id}`} className="pd-next">
-        <div className="pd-next-inner">
-          <span className="pd-next-label">Next Page ›</span>
-          <span className="pd-next-name">{nextProject.name}</span>
-        </div>
-      </Link>
+      {nextProject && (
+        <Link to={`/project/${nextProject.id}`} className="pd-next">
+          <div className="pd-next-inner">
+            <span className="pd-next-label">Next Page ›</span>
+            <span className="pd-next-name">{nextProject.name}</span>
+          </div>
+        </Link>
+      )}
     </div>
   );
 }

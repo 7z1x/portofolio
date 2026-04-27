@@ -251,6 +251,11 @@ export default function FaultyTerminal({
   const rafRef = useRef(0);
   const loadAnimationStartRef = useRef(0);
   const timeOffsetRef = useRef(Math.random() * 100);
+  const pauseRef = useRef(pause);
+
+  useEffect(() => {
+    pauseRef.current = pause;
+  }, [pause]);
 
   const tintVec = useMemo(() => hexToRgb(tint), [tint]);
 
@@ -331,20 +336,21 @@ export default function FaultyTerminal({
         loadAnimationStartRef.current = t;
       }
 
-      if (!pause) {
-        const elapsed = (t * 0.001 + timeOffsetRef.current) * timeScale;
-        program.uniforms.iTime.value = elapsed;
-        frozenTimeRef.current = elapsed;
-      } else {
-        program.uniforms.iTime.value = frozenTimeRef.current;
-      }
-
       if (pageLoadAnimation && loadAnimationStartRef.current > 0) {
         const animationDuration = 2000;
         const animationElapsed = t - loadAnimationStartRef.current;
         const progress = Math.min(animationElapsed / animationDuration, 1);
         program.uniforms.uPageLoadProgress.value = progress;
       }
+
+      // Skip heavy updates and rendering if paused
+      if (pauseRef.current) {
+        return; 
+      }
+
+      const elapsed = (t * 0.001 + timeOffsetRef.current) * timeScale;
+      program.uniforms.iTime.value = elapsed;
+      frozenTimeRef.current = elapsed;
 
       if (mouseReact) {
         const dampingFactor = 0.08;
@@ -376,7 +382,6 @@ export default function FaultyTerminal({
     };
   }, [
     dpr,
-    pause,
     timeScale,
     scale,
     gridMul,

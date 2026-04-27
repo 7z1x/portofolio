@@ -5,8 +5,6 @@ import CircularText from '../components/CircularText/CircularText';
 import PillNav from '../components/PillNav/PillNav';
 import DecryptedText from '../components/DecryptedText/DecryptedText';
 import profileImg from '../assets/profile.jpg';
-
-// Lazy load heavy WebGL/animation components
 const FaultyTerminal = lazy(() => import('../components/FaultyTerminal/FaultyTerminal'));
 const GlassSurface = lazy(() => import('../components/GlassSurface/GlassSurface'));
 const LogoLoop = lazy(() => import('../components/LogoLoop/LogoLoop'));
@@ -35,14 +33,12 @@ export default function About() {
 
   return (
     <div className="about-movie-container">
-      {isModalOpen && (
-        <Suspense fallback={null}>
-          <LazyResumeModal 
-            isOpen={isModalOpen} 
-            onClose={() => setIsModalOpen(false)} 
-          />
-        </Suspense>
-      )}
+      <Suspense fallback={null}>
+        <LazyResumeModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
+      </Suspense>
 
       <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000' }} />}>
         {/* First Screen: Terminal BG + Hero */}
@@ -53,7 +49,7 @@ export default function About() {
               gridMul={[2, 1]}
               digitSize={1.2}
               timeScale={0.5}
-              pause={false}
+              pause={isModalOpen}
               scanlineIntensity={0.5}
               glitchAmount={1}
               flickerAmount={1}
