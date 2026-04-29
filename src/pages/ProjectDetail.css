@@ -364,29 +364,131 @@
   background: rgba(255, 255, 255, 0.02);
   max-height: 600px;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.4) rgba(255, 255, 255, 0.05);
 }
 
 .pd-readme-content {
-  font-family: 'Satoshi', monospace;
-  font-size: 14px;
-  line-height: 24px;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
   color: #C0C0CF;
-  white-space: pre-wrap;
-  word-wrap: break-word;
   margin: 0;
 }
 
+.pd-readme-content h1,
+.pd-readme-content h2,
+.pd-readme-content h3,
+.pd-readme-content h4,
+.pd-readme-content h5,
+.pd-readme-content h6 {
+  color: #F6F7FF;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+  font-family: 'Clash Display', sans-serif;
+}
+
+.pd-readme-content h1 { font-size: 2em; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.3em; }
+.pd-readme-content h2 { font-size: 1.5em; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.3em; }
+.pd-readme-content h3 { font-size: 1.25em; }
+
+.pd-readme-content p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.pd-readme-content a {
+  color: #B5FF6D;
+  text-decoration: none;
+}
+
+.pd-readme-content a:hover {
+  text-decoration: underline;
+}
+
+.pd-readme-content ul,
+.pd-readme-content ol {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding-left: 2em;
+}
+
+.pd-readme-content li {
+  margin-bottom: 0.25em;
+}
+
+.pd-readme-content blockquote {
+  margin: 0 0 1rem 0;
+  padding: 0 1em;
+  color: #8b8b9b;
+  border-left: 0.25em solid rgba(255,255,255,0.2);
+}
+
+.pd-readme-content code {
+  font-family: monospace;
+  font-size: 85%;
+  background-color: rgba(255,255,255,0.1);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+}
+
+.pd-readme-content pre {
+  background-color: #111;
+  border-radius: 6px;
+  padding: 16px;
+  overflow: auto;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.pd-readme-content pre code {
+  background-color: transparent;
+  padding: 0;
+  font-size: 100%;
+  color: #e6e6e6;
+}
+
+.pd-readme-content img {
+  max-width: 100%;
+  box-sizing: content-box;
+  background-color: #111;
+}
+
+.pd-readme-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.pd-readme-content table th,
+.pd-readme-content table td {
+  padding: 8px 12px;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.pd-readme-content table th {
+  background-color: rgba(255,255,255,0.05);
+  color: #F6F7FF;
+  font-weight: 600;
+}
+
 .pd-readme::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 .pd-readme::-webkit-scrollbar-track {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
 }
 
 .pd-readme::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+}
+
+.pd-readme::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.6);
 }
 
 /* Design Screens */

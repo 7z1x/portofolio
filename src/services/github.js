@@ -1,7 +1,6 @@
 const GITHUB_USERNAME = '7z1x';
 const API_BASE = 'https://api.github.com';
 
-// Simple session cache to avoid hitting rate limits
 const cache = new Map();
 
 async function fetchWithCache(url, ttl = 5 * 60 * 1000) {
@@ -23,9 +22,6 @@ async function fetchWithCache(url, ttl = 5 * 60 * 1000) {
   return data;
 }
 
-/**
- * Fetch all public repos for the user, sorted by most recently updated.
- */
 export async function fetchRepos() {
   const repos = await fetchWithCache(
     `${API_BASE}/users/${GITHUB_USERNAME}/repos?sort=pushed&per_page=100`
@@ -33,42 +29,28 @@ export async function fetchRepos() {
   return repos;
 }
 
-/**
- * Fetch a single repo by name.
- */
 export async function fetchRepo(repoName) {
   return fetchWithCache(`${API_BASE}/repos/${GITHUB_USERNAME}/${repoName}`);
 }
 
-/**
- * Fetch the languages breakdown for a repo.
- * Returns an object like { JavaScript: 12345, CSS: 6789 }
- */
 export async function fetchLanguages(repoName) {
   return fetchWithCache(`${API_BASE}/repos/${GITHUB_USERNAME}/${repoName}/languages`);
 }
 
-/**
- * Fetch the decoded README content for a repo.
- * Returns the raw markdown string, or null if no README exists.
- */
 export async function fetchReadme(repoName) {
   try {
     const data = await fetchWithCache(
       `${API_BASE}/repos/${GITHUB_USERNAME}/${repoName}/readme`
     );
-    // content is base64-encoded
-    return atob(data.content);
+    const binString = atob(data.content);
+    const bytes = Uint8Array.from(binString, (m) => m.codePointAt(0));
+    return new TextDecoder().decode(bytes);
   } catch {
     return null;
   }
 }
 
-/**
- * Map a raw GitHub API repo object to the shape our UI expects.
- */
 export function mapRepoToProject(repo) {
-  // Generate a deterministic pastel bg color based on repo name
   const colors = [
     '#C5CAE9', '#F5C6D0', '#B8F0D1', '#FFE0B2', '#D1C4E9',
     '#E8DCC8', '#B3E5FC', '#DCEDC8', '#F0F4C3', '#FFD6E0',
@@ -78,12 +60,10 @@ export function mapRepoToProject(repo) {
   const hash = repo.name.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
   const bgColor = colors[hash % colors.length];
 
-  // ── Auto-categorize based on language, name, and description ──
   const nameLower = (repo.name + ' ' + (repo.description || '')).toLowerCase();
   const lang = (repo.language || '').toLowerCase();
   const category = [];
 
-  // AI Engineer: Python/TS projects with AI/ML/NLP/RAG/chatbot/agent keywords
   const aiKeywords = [
     'ai', 'artificial', 'rag',
     'chatbot', 'agent', 'langchain', 'openai', 'llm', 'gpt',
@@ -93,13 +73,11 @@ export function mapRepoToProject(repo) {
     category.push('AI Engineer');
   }
 
-  // Mobile Development: Kotlin/Java/Dart/Swift projects or app-related names
   const mobileKeywords = ['app', 'android', 'ios', 'mobile', 'compose', 'flutter'];
   if (['kotlin', 'dart', 'swift'].includes(lang) || mobileKeywords.some(k => nameLower.includes(k))) {
     category.push('Mobile Development');
   }
 
-  // Machine Learning: Jupyter Notebook, Python with ML/model/analysis keywords
   const mlKeywords = [
     'model', 'machine', 'learning', 'tensorflow', 'eksperimen',
     'sml', 'notebook', 'belajar', 'klasifikasi', 'predictive',
@@ -112,17 +90,14 @@ export function mapRepoToProject(repo) {
     category.push('Machine Learning');
   }
 
-  // Remove duplicates
   const uniqueCategory = [...new Set(category)];
 
-  // Fallback: if nothing matched, guess from language
   if (uniqueCategory.length === 0) {
     if (['python'].includes(lang)) uniqueCategory.push('Machine Learning');
     else if (['kotlin', 'java', 'dart'].includes(lang)) uniqueCategory.push('Mobile Development');
     else uniqueCategory.push('Other');
   }
 
-  // Format the name: replace hyphens/underscores with spaces, title case
   const prettyName = repo.name
     .replace(/[-_]/g, ' ')
     .replace(/\b\w/g, c => c.toUpperCase());
@@ -142,7 +117,7 @@ export function mapRepoToProject(repo) {
     roles: 'Developer',
     client: 'Personal Project',
     description: repo.description || `A ${repo.language || ''} project hosted on GitHub.`,
-    overview: null, // fetched separately from README
+    overview: null,
     techStack: repo.language ? [repo.language] : [],
     features: [],
     designScreens: [],

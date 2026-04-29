@@ -1,6 +1,9 @@
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { FaHome, FaChevronRight, FaGithub, FaTwitter, FaLinkedin, FaEnvelope, FaShareAlt, FaExternalLinkAlt } from 'react-icons/fa';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 import useGitHubRepos from '../hooks/useGitHubRepos';
 import { fetchReadme, fetchLanguages } from '../services/github';
 import './ProjectDetail.css';
@@ -21,7 +24,6 @@ export default function ProjectDetail() {
   const featuresRef = useRef(null);
   const readmeRef = useRef(null);
 
-  // Fetch README & languages when project is available
   useEffect(() => {
     if (!project) return;
 
@@ -44,7 +46,6 @@ export default function ProjectDetail() {
     return () => { cancelled = true; };
   }, [project, id]);
 
-  // Scroll-spy for sidebar
   useEffect(() => {
     const handleScroll = () => {
       const sections = [
@@ -70,7 +71,6 @@ export default function ProjectDetail() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Loading state
   if (reposLoading) {
     return (
       <div className="pd-page">
@@ -95,23 +95,19 @@ export default function ProjectDetail() {
     ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  // Find next project
   const currentIndex = projects.findIndex(p => p.id === id);
   const nextProject = projects[(currentIndex + 1) % projects.length];
 
-  // Merge fetched languages into techStack if no override
   const techStack = project.techStack && project.techStack.length > 1
     ? project.techStack
     : languages
       ? Object.keys(languages)
       : project.techStack || [];
 
-  // Compute language percentages
   const totalBytes = languages ? Object.values(languages).reduce((a, b) => a + b, 0) : 0;
 
   return (
     <div className="pd-page">
-      {/* Breadcrumb */}
       <div className="pd-breadcrumb">
         <div className="pd-breadcrumb-left">
           <Link to="/"><FaHome /></Link>
@@ -123,7 +119,6 @@ export default function ProjectDetail() {
         <span className="pd-year-badge">{project.year}</span>
       </div>
 
-      {/* Hero Banner */}
       <div className="pd-hero" style={{ background: project.bgColor }}>
         {project.coverImage ? (
           <img src={project.coverImage} alt={project.name} />
@@ -135,7 +130,6 @@ export default function ProjectDetail() {
         )}
       </div>
 
-      {/* Info Section */}
       <div className="pd-info">
         <div className="pd-info-left">
           <h1 className="pd-title">{project.name}</h1>
@@ -173,10 +167,8 @@ export default function ProjectDetail() {
         </div>
       </div>
 
-      {/* Content + Sidebar */}
       <div className="pd-content-wrapper">
         <div className="pd-content">
-          {/* Overview */}
           <section ref={overviewRef} id="overview" className="pd-section">
             <h2 className="pd-section-title">Overview</h2>
             <p className="pd-section-text">
@@ -184,7 +176,6 @@ export default function ProjectDetail() {
             </p>
           </section>
 
-          {/* Design Screens */}
           {project.designScreens && project.designScreens.length > 0 && (
             <section ref={designRef} id="design-screens" className="pd-section">
               <h2 className="pd-section-title">Design Screens</h2>
@@ -199,7 +190,6 @@ export default function ProjectDetail() {
             </section>
           )}
 
-          {/* Tech Stack */}
           <section ref={techRef} id="tech-stack" className="pd-section">
             <h2 className="pd-section-title">Tech Stack</h2>
             <ul className="pd-tech-list">
@@ -209,7 +199,6 @@ export default function ProjectDetail() {
             </ul>
           </section>
 
-          {/* Features */}
           {project.features && project.features.length > 0 && (
             <section ref={featuresRef} id="features" className="pd-section">
               <h2 className="pd-section-title">Features</h2>
@@ -223,18 +212,23 @@ export default function ProjectDetail() {
             </section>
           )}
 
-          {/* README */}
           {readme && (
             <section ref={readmeRef} id="readme" className="pd-section">
               <h2 className="pd-section-title">📄 README</h2>
               <div className="pd-readme">
-                <pre className="pd-readme-content">{readme}</pre>
+                <div className="pd-readme-content">
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    rehypePlugins={[rehypeRaw]}
+                  >
+                    {readme}
+                  </ReactMarkdown>
+                </div>
               </div>
             </section>
           )}
         </div>
 
-        {/* Sidebar */}
         <aside className="pd-sidebar">
           <div className="pd-sidebar-nav">
             <h4 className="pd-sidebar-heading">≡ On this page</h4>
@@ -288,7 +282,6 @@ export default function ProjectDetail() {
         </aside>
       </div>
 
-      {/* Share — mobile only (sidebar hidden on mobile) */}
       <div className="pd-share-mobile">
         <h4 className="pd-share-heading">Share this project</h4>
         <div className="pd-share-icons">
@@ -299,7 +292,6 @@ export default function ProjectDetail() {
         </div>
       </div>
 
-      {/* Next Project */}
       {nextProject && (
         <Link to={`/project/${nextProject.id}`} className="pd-next">
           <div className="pd-next-inner">

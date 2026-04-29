@@ -6,10 +6,9 @@ import SplitText from '../components/SplitText/SplitText';
 import useGitHubRepos from '../hooks/useGitHubRepos';
 import './AllProjects.css';
 
-const FILTERS = ['All', 'AI Engineer', 'Mobile Development', 'Machine Learning', 'Others'];
+const FILTERS = ['All', 'AI Engineer', 'Machine Learning', 'Mobile Development', 'Others'];
 const ITEMS_PER_PAGE = 6;
 
-// Language color mapping (GitHub-style)
 const LANG_COLORS = {
   JavaScript: '#f1e05a',
   TypeScript: '#3178c6',
@@ -30,7 +29,6 @@ export default function AllProjects() {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Reset page when filter/search changes
   const handleFilterChange = (f) => {
     setActiveFilter(f);
     setCurrentPage(1);
@@ -41,21 +39,27 @@ export default function AllProjects() {
     setCurrentPage(1);
   };
 
-  // Filter projects
   const filtered = useMemo(() => {
-    return projects.filter(p => {
+    let result = projects.filter(p => {
       const matchFilter = activeFilter === 'All' || p.category.includes(activeFilter);
       const matchSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase());
       return matchFilter && matchSearch;
     });
+
+    result.sort((a, b) => {
+      if (b.stars !== a.stars) {
+        return b.stars - a.stars;
+      }
+      return new Date(b.pushedAt) - new Date(a.pushedAt);
+    });
+
+    return result;
   }, [projects, activeFilter, searchQuery]);
 
-  // Pagination logic
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
   const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedProjects = filtered.slice(startIdx, startIdx + ITEMS_PER_PAGE);
 
-  // Generate page numbers to display
   const getPageNumbers = () => {
     const pages = [];
     const maxVisible = 5;
@@ -63,7 +67,6 @@ export default function AllProjects() {
     if (totalPages <= maxVisible) {
       for (let i = 1; i <= totalPages; i++) pages.push(i);
     } else {
-      // Always show first page
       pages.push(1);
 
       let start = Math.max(2, currentPage - 1);
@@ -80,7 +83,6 @@ export default function AllProjects() {
       for (let i = start; i <= end; i++) pages.push(i);
       if (end < totalPages - 1) pages.push('...');
 
-      // Always show last page
       pages.push(totalPages);
     }
 
@@ -89,13 +91,11 @@ export default function AllProjects() {
 
   const goToPage = (page) => {
     setCurrentPage(page);
-    // Scroll to top of grid
     window.scrollTo({ top: 300, behavior: 'smooth' });
   };
 
   return (
     <div className="projects-page">
-      {/* Header */}
       <div className="projects-hero">
         <span className="projects-badge">
           <ShinyText text="✦ MY WORK" speed={3} className="shiny-green" />
@@ -108,7 +108,6 @@ export default function AllProjects() {
         </p>
       </div>
 
-      {/* Toolbar */}
       <div className="projects-toolbar">
         <div className="projects-search">
           <FaSearch className="search-icon" />
@@ -132,7 +131,6 @@ export default function AllProjects() {
         </div>
       </div>
 
-      {/* Loading State */}
       {loading && (
         <div className="projects-grid">
           {[...Array(4)].map((_, i) => (
@@ -149,7 +147,6 @@ export default function AllProjects() {
         </div>
       )}
 
-      {/* Error State */}
       {error && (
         <div className="projects-error">
           <p>⚠ Failed to load projects from GitHub</p>
@@ -157,10 +154,8 @@ export default function AllProjects() {
         </div>
       )}
 
-      {/* Grid */}
       {!loading && !error && (
         <>
-          {/* Project count */}
           <div className="projects-count">
             Showing {startIdx + 1}–{Math.min(startIdx + ITEMS_PER_PAGE, filtered.length)} of {filtered.length} projects
           </div>
@@ -212,7 +207,6 @@ export default function AllProjects() {
             ))}
           </div>
 
-          {/* Pagination */}
           {totalPages > 1 && (
             <div className="pagination">
               <button
@@ -249,7 +243,6 @@ export default function AllProjects() {
         </>
       )}
 
-      {/* Empty State */}
       {!loading && !error && filtered.length === 0 && (
         <div className="projects-empty">
           <p>No projects found matching "{searchQuery}"</p>

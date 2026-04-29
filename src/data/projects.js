@@ -10,11 +10,9 @@
  * ╚══════════════════════════════════════════════════════════════════╝
  */
 const QUICK_CONFIG = {
-  // ── AI Engineer ──
   'portofolio': { cat: ['AI Engineer'], img: '/project_hero_3.png' },
   'ai-marketplace-assistant': { cat: ['AI Engineer'] },
 
-  // ── Mobile Development ──
   'duet-duetku-finance-traker-app': { cat: ['Mobile Development'], img: '/project_hero_2.png' },
   'DicodingEvent': { cat: ['Mobile Development'] },
   'Todo-app': { cat: ['Mobile Development'] },
@@ -23,8 +21,7 @@ const QUICK_CONFIG = {
   'kalkulator': { cat: ['Mobile Development'] },
   'FED': { cat: ['Mobile Development'] },
 
-  // ── Machine Learning ──
-  'Sign_language': { cat: ['AI Engineer', 'Machine Learning'] },
+  'Sign_language': { cat: ['Machine Learning'] },
   'Eksperimen_SML_Zulfahmi_M_Ardianto': { cat: ['Machine Learning'] },
   'SMSML_Zulfahmi-M.-Ardianto': { cat: ['Machine Learning'] },
   'Membangun_model': { cat: ['Machine Learning'] },
@@ -37,21 +34,13 @@ const QUICK_CONFIG = {
   'Menyelesaikan-Permasalahan-Human-Resources': { cat: ['Machine Learning'] },
   'Monitoring-dan-Logging': { cat: ['Machine Learning'] },
   'Workflow-CI': { cat: ['Machine Learning'] },
-  'dicoding': { cat: ['Machine Learning'] },
+  'Submission Dicoding : Belajar Data Analytics dengan Python': { cat: ['Machine Learning'] },
 
-  // ── Lain-lain ──
   'Parsing-CSharp': { cat: ['Others'] },
   'Skibidi_Dor': { cat: ['Others'] },
   'CodeProcessing-GravisVisual': { cat: ['Others'] },
   'Gulugulu': { cat: ['Others'] },
-
 };
-
-
-// ═══════════════════════════════════════════════════════════
-// DETAILED OVERRIDES — Deskripsi lengkap untuk project utama
-// (Ini opsional, cuma untuk project yang mau ditampilin detail)
-// ═══════════════════════════════════════════════════════════
 
 const DETAILED_OVERRIDES = {
   portofolio: {
@@ -139,15 +128,8 @@ const DETAILED_OVERRIDES = {
   },
 };
 
-
-// ═══════════════════════════════════════════════════
-// MERGE — Gabungkan QUICK_CONFIG + DETAILED_OVERRIDES
-// (Jangan edit bagian ini)
-// ═══════════════════════════════════════════════════
-
 export const PROJECT_OVERRIDES = {};
 
-// 1. Apply quick config (kategori & foto)
 for (const [repo, config] of Object.entries(QUICK_CONFIG)) {
   PROJECT_OVERRIDES[repo] = {
     category: config.cat,
@@ -155,7 +137,6 @@ for (const [repo, config] of Object.entries(QUICK_CONFIG)) {
   };
 }
 
-// 2. Merge detailed overrides on top
 for (const [repo, details] of Object.entries(DETAILED_OVERRIDES)) {
   PROJECT_OVERRIDES[repo] = {
     ...PROJECT_OVERRIDES[repo],
@@ -163,7 +144,6 @@ for (const [repo, details] of Object.entries(DETAILED_OVERRIDES)) {
   };
 }
 
-// Legacy export for backward compatibility.
 export const PROJECT_DATA = Object.entries(PROJECT_OVERRIDES).map(([id, data]) => ({
   id,
   ...data,
