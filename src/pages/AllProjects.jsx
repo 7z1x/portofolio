@@ -101,7 +101,7 @@ export default function AllProjects() {
           <ShinyText text="✦ MY WORK" speed={3} className="shiny-green" />
         </span>
         <h1 className="projects-heading">
-          <SplitText text="Creating next level digital" delay={0.3} />
+          <SplitText text="From idea to reality" delay={0.3} />
         </h1>
         <p className="projects-subtitle">
           Fetched live from GitHub · Always up-to-date

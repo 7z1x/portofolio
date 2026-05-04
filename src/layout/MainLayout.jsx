@@ -1,13 +1,11 @@
 import { useLocation, useOutlet, NavLink } from 'react-router-dom';
 import { GoHome, GoHomeFill } from 'react-icons/go';
 import { HiOutlineViewGrid, HiViewGrid } from 'react-icons/hi';
-import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PillNav from '../components/PillNav/PillNav';
 import Footer from '../components/Footer/Footer';
 import { motion, AnimatePresence } from 'motion/react';
 import './MainLayout.css';
-
-const GridScan = lazy(() => import('../components/GridScan/GridScan'));
 
 export default function MainLayout() {
   const location = useLocation();
@@ -18,19 +16,6 @@ export default function MainLayout() {
     { label: 'Project', href: '/project' }
   ];
 
-  const [showSplash, setShowSplash] = useState(true);
-  const [fadeSplash, setFadeSplash] = useState(false);
-
-  useEffect(() => {
-    // Fade out after 2.5s, remove entirely after 3s
-    const timer1 = setTimeout(() => {
-      setFadeSplash(true);
-    }, 1500);
-    const timer2 = setTimeout(() => {
-      setShowSplash(false);
-    }, 2000);
-    return () => { clearTimeout(timer1); clearTimeout(timer2); };
-  }, []);
 
   // Hide navbar on scroll down, show on scroll up
   const [headerVisible, setHeaderVisible] = useState(true);
@@ -59,29 +44,7 @@ export default function MainLayout() {
 
   return (
     <>
-      {showSplash && (
-        <div style={{
-          position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
-          zIndex: 9999, backgroundColor: '#000',
-          opacity: fadeSplash ? 0 : 1, transition: 'opacity 0.5s ease',
-          pointerEvents: 'none'
-        }}>
-          <Suspense fallback={null}>
-            <GridScan
-              sensitivity={0.55}
-              lineThickness={1}
-              linesColor="#2F293A"
-              gridScale={0.1}
-              scanColor="#6abf5b"
-              scanOpacity={0.4}
-              enablePost={typeof window !== 'undefined' && window.innerWidth > 768}
-              bloomIntensity={0.6}
-              chromaticAberration={0.002}
-              noiseIntensity={0.01}
-            />
-          </Suspense>
-        </div>
-      )}
+
       <div className="tv-app-container">
         <header className={`tv-header ${headerVisible ? '' : 'tv-header--hidden'}`}>
           <PillNav
