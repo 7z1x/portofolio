@@ -1,9 +1,22 @@
 const GITHUB_USERNAME = '7z1x';
-const API_BASE = 'https://api.github.com';
+const GITHUB_API = 'https://api.github.com';
+const IS_PROD = typeof window !== 'undefined' && window.location.hostname !== 'localhost';
 
 const cache = new Map();
 
-async function fetchWithCache(url, ttl = 5 * 60 * 1000) {
+function buildUrl(githubPath) {
+  if (IS_PROD) {
+    const url = new URL(githubPath, GITHUB_API);
+    const params = new URLSearchParams(url.search);
+    params.set('path', url.pathname);
+    return `/api/github?${params.toString()}`;
+  }
+  return `${GITHUB_API}${githubPath}`;
+}
+
+async function fetchWithCache(githubPath, ttl = 5 * 60 * 1000) {
+  const url = buildUrl(githubPath);
+
   if (cache.has(url)) {
     const { data, timestamp } = cache.get(url);
     if (Date.now() - timestamp < ttl) return data;
@@ -24,23 +37,23 @@ async function fetchWithCache(url, ttl = 5 * 60 * 1000) {
 
 export async function fetchRepos() {
   const repos = await fetchWithCache(
-    `${API_BASE}/users/${GITHUB_USERNAME}/repos?sort=pushed&per_page=100`
+    `/users/${GITHUB_USERNAME}/repos?sort=pushed&per_page=100`
   );
   return repos;
 }
 
 export async function fetchRepo(repoName) {
-  return fetchWithCache(`${API_BASE}/repos/${GITHUB_USERNAME}/${repoName}`);
+  return fetchWithCache(`/repos/${GITHUB_USERNAME}/${repoName}`);
 }
 
 export async function fetchLanguages(repoName) {
-  return fetchWithCache(`${API_BASE}/repos/${GITHUB_USERNAME}/${repoName}/languages`);
+  return fetchWithCache(`/repos/${GITHUB_USERNAME}/${repoName}/languages`);
 }
 
 export async function fetchReadme(repoName) {
   try {
     const data = await fetchWithCache(
-      `${API_BASE}/repos/${GITHUB_USERNAME}/${repoName}/readme`
+      `/repos/${GITHUB_USERNAME}/${repoName}/readme`
     );
     const binString = atob(data.content);
     const bytes = Uint8Array.from(binString, (m) => m.codePointAt(0));
