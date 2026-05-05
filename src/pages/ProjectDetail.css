@@ -46,7 +46,9 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Breadcrumb */
@@ -306,14 +308,37 @@
   transition: width 0.3s ease;
 }
 
-.pd-lang-segment:nth-child(1) { background: #f1e05a; }
-.pd-lang-segment:nth-child(2) { background: #3178c6; }
-.pd-lang-segment:nth-child(3) { background: #3572A5; }
-.pd-lang-segment:nth-child(4) { background: #e34c26; }
-.pd-lang-segment:nth-child(5) { background: #563d7c; }
-.pd-lang-segment:nth-child(6) { background: #A97BFF; }
-.pd-lang-segment:nth-child(7) { background: #178600; }
-.pd-lang-segment:nth-child(n+8) { background: #ccc; }
+.pd-lang-segment:nth-child(1) {
+  background: #f1e05a;
+}
+
+.pd-lang-segment:nth-child(2) {
+  background: #3178c6;
+}
+
+.pd-lang-segment:nth-child(3) {
+  background: #3572A5;
+}
+
+.pd-lang-segment:nth-child(4) {
+  background: #e34c26;
+}
+
+.pd-lang-segment:nth-child(5) {
+  background: #563d7c;
+}
+
+.pd-lang-segment:nth-child(6) {
+  background: #A97BFF;
+}
+
+.pd-lang-segment:nth-child(7) {
+  background: #178600;
+}
+
+.pd-lang-segment:nth-child(n+8) {
+  background: #ccc;
+}
 
 .pd-tech-list {
   list-style: disc;
@@ -364,6 +389,7 @@
   background: rgba(255, 255, 255, 0.02);
   max-height: 600px;
   overflow-y: auto;
+  overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.4) rgba(255, 255, 255, 0.05);
 }
@@ -374,6 +400,10 @@
   line-height: 1.6;
   color: #C0C0CF;
   margin: 0;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .pd-readme-content h1,
@@ -389,9 +419,21 @@
   font-family: 'Clash Display', sans-serif;
 }
 
-.pd-readme-content h1 { font-size: 2em; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.3em; }
-.pd-readme-content h2 { font-size: 1.5em; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.3em; }
-.pd-readme-content h3 { font-size: 1.25em; }
+.pd-readme-content h1 {
+  font-size: 2em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.3em;
+}
+
+.pd-readme-content h2 {
+  font-size: 1.5em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.3em;
+}
+
+.pd-readme-content h3 {
+  font-size: 1.25em;
+}
 
 .pd-readme-content p {
   margin-top: 0;
@@ -422,13 +464,13 @@
   margin: 0 0 1rem 0;
   padding: 0 1em;
   color: #8b8b9b;
-  border-left: 0.25em solid rgba(255,255,255,0.2);
+  border-left: 0.25em solid rgba(255, 255, 255, 0.2);
 }
 
 .pd-readme-content code {
   font-family: monospace;
   font-size: 85%;
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255, 255, 255, 0.1);
   padding: 0.2em 0.4em;
   border-radius: 3px;
 }
@@ -437,9 +479,11 @@
   background-color: #111;
   border-radius: 6px;
   padding: 16px;
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
   margin-top: 0;
   margin-bottom: 1rem;
+  max-width: 100%;
 }
 
 .pd-readme-content pre code {
@@ -451,7 +495,8 @@
 
 .pd-readme-content img {
   max-width: 100%;
-  box-sizing: content-box;
+  height: auto;
+  box-sizing: border-box;
   background-color: #111;
 }
 
@@ -459,16 +504,18 @@
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 1rem;
+  display: block;
+  overflow-x: auto;
 }
 
 .pd-readme-content table th,
 .pd-readme-content table td {
   padding: 8px 12px;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .pd-readme-content table th {
-  background-color: rgba(255,255,255,0.05);
+  background-color: rgba(255, 255, 255, 0.05);
   color: #F6F7FF;
   font-weight: 600;
 }
@@ -614,7 +661,7 @@
 .pd-next-inner {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: 4px;
 }
 
@@ -659,6 +706,7 @@
 
   .pd-content-wrapper {
     flex-direction: column;
+    align-items: stretch;
   }
 
   .pd-sidebar {
@@ -734,5 +782,35 @@
 
   .pd-share-icons {
     gap: 1rem;
+  }
+
+  .pd-readme {
+    padding: 1rem;
+    max-height: none;
+  }
+
+  .pd-readme-content {
+    font-size: 14px;
+  }
+
+  .pd-readme-content h1 {
+    font-size: 1.4em;
+  }
+
+  .pd-readme-content h2 {
+    font-size: 1.2em;
+  }
+
+  .pd-readme-content h3 {
+    font-size: 1.1em;
+  }
+
+  .pd-readme-content pre {
+    padding: 12px;
+    font-size: 13px;
+  }
+
+  .pd-readme-content code {
+    font-size: 80%;
   }
 }
