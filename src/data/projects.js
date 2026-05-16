@@ -10,10 +10,10 @@
  * ╚══════════════════════════════════════════════════════════════════╝
  */
 const QUICK_CONFIG = {
-  'portofolio': { cat: ['AI Engineer'], img: '/project_hero_3.png' },
+  'portofolio': { cat: ['AI Engineer'] },
   'ai-marketplace-assistant': { cat: ['AI Engineer'] },
 
-  'duet-duetku-finance-traker-app': { cat: ['Mobile Development'], img: '/project_hero_2.png' },
+  'duet-duetku-finance-traker-app': { cat: ['Mobile Development'] },
   'DicodingEvent': { cat: ['Mobile Development'] },
   'Todo-app': { cat: ['Mobile Development'] },
   'FindAnimal': { cat: ['Mobile Development'] },
@@ -59,11 +59,6 @@ const DETAILED_OVERRIDES = {
       { title: 'Glass Surface Effects', desc: 'SVG-based displacement and blur effects for frosted glass UI elements.' },
       { title: 'Responsive Design', desc: 'Fully responsive layout with optimized performance across all devices.' },
     ],
-    designScreens: [
-      { label: 'Home', src: '/design_screen_1.png' },
-      { label: 'About', src: '/design_screen_2.png' },
-      { label: 'Projects', src: '/design_screen_3.png' },
-    ],
   },
 
   'ai-marketplace-assistant': {
@@ -104,11 +99,6 @@ const DETAILED_OVERRIDES = {
       { title: 'Budget Management', desc: 'Set and monitor monthly budgets with visual progress indicators.' },
       { title: 'Beautiful Charts', desc: 'Visual breakdown of spending patterns with interactive charts.' },
       { title: 'Neo-Brutalist Design', desc: 'Bold, vibrant UI with custom color palette and strong visual hierarchy.' },
-    ],
-    designScreens: [
-      { label: 'Home', src: '/design_screen_1.png' },
-      { label: 'Expenses', src: '/design_screen_2.png' },
-      { label: 'Charts', src: '/design_screen_3.png' },
     ],
   },
 

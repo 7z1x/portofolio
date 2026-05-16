@@ -220,6 +220,16 @@ export default function ProjectDetail() {
                   <ReactMarkdown
                     remarkPlugins={[remarkGfm]}
                     rehypePlugins={[rehypeRaw]}
+                    components={{
+                      img: ({node, ...props}) => {
+                        let src = props.src;
+                        if (src && !src.startsWith('http') && !src.startsWith('data:')) {
+                          const branch = project.defaultBranch || 'main';
+                          src = `https://raw.githubusercontent.com/7z1x/${project.id}/${branch}/${src.replace(/^\.\//, '')}`;
+                        }
+                        return <img {...props} src={src} />;
+                      }
+                    }}
                   >
                     {readme}
                   </ReactMarkdown>

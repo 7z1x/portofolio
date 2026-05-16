@@ -140,6 +140,7 @@ export function mapRepoToProject(repo) {
     updatedAt: repo.updated_at,
     pushedAt: repo.pushed_at || repo.created_at,
     fork: repo.fork,
+    defaultBranch: repo.default_branch || 'main',
     _raw: repo,
   };
 }
