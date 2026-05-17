@@ -126,7 +126,7 @@ export function mapRepoToProject(repo) {
     bgColor,
     coverImage: `https://opengraph.githubassets.com/1/${repo.full_name}`,
     github: repo.html_url,
-    homepage: repo.homepage || null,
+    homepage: (repo.homepage && !['dicoding.com', 'coursera.org', 'udemy.com', 'kaggle.com'].some(domain => repo.homepage.includes(domain))) ? repo.homepage : null,
     roles: 'Developer',
     client: 'Personal Project',
     description: repo.description || `A ${repo.language || ''} project hosted on GitHub.`,
