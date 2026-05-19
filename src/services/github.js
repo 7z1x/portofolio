@@ -4,6 +4,90 @@ const IS_PROD = typeof window !== 'undefined' && window.location.hostname !== 'l
 
 const cache = new Map();
 
+function escapeSvgText(value = '') {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function getSvgTitleLines(value = '', maxLineLength = 22, maxLines = 2) {
+  const words = String(value).replace(/\s+/g, ' ').trim().split(' ').filter(Boolean);
+  const lines = [];
+  let currentLine = '';
+  let truncated = false;
+
+  for (const word of words) {
+    const candidate = currentLine ? `${currentLine} ${word}` : word;
+
+    if (candidate.length <= maxLineLength) {
+      currentLine = candidate;
+      continue;
+    }
+
+    if (currentLine) {
+      lines.push(currentLine);
+      currentLine = word;
+    } else {
+      lines.push(`${word.slice(0, Math.max(0, maxLineLength - 3))}...`);
+      currentLine = '';
+      truncated = true;
+    }
+
+    if (lines.length === maxLines) {
+      truncated = true;
+      break;
+    }
+  }
+
+  if (currentLine && lines.length < maxLines) {
+    lines.push(currentLine);
+  } else if (currentLine) {
+    truncated = true;
+  }
+
+  if (truncated && lines.length > 0) {
+    const lastIndex = lines.length - 1;
+    const line = lines[lastIndex];
+    if (!line.endsWith('...')) {
+      lines[lastIndex] = line.length > maxLineLength - 3
+        ? `${line.slice(0, maxLineLength - 3)}...`
+        : `${line}...`;
+    }
+  }
+
+  return lines.length > 0 ? lines : ['Untitled Project'];
+}
+
+function createFallbackCover({ name, language, bgColor }) {
+  const title = escapeSvgText(name);
+  const titleLines = getSvgTitleLines(name).map(escapeSvgText);
+  const titleMarkup = titleLines
+    .map((line, index) => `<tspan x="230" dy="${index === 0 ? 0 : '1.08em'}">${line}</tspan>`)
+    .join('');
+  const subtitleY = titleLines.length > 1 ? 555 : 515;
+  const subtitle = escapeSvgText(language || 'GitHub Project');
+  const background = escapeSvgText(bgColor || '#C5CAE9');
+  const svg = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="${title}">
+      <rect width="1200" height="900" rx="36" fill="${background}"/>
+      <circle cx="1010" cy="170" r="190" fill="rgba(255,255,255,0.22)"/>
+      <circle cx="165" cy="735" r="240" fill="rgba(0,0,0,0.07)"/>
+      <rect x="170" y="260" width="860" height="380" rx="30" fill="rgba(255,255,255,0.84)"/>
+      <rect x="170" y="610" width="860" height="30" rx="0" fill="rgba(0,0,0,0.18)"/>
+      <text x="230" y="385" fill="#202532" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="400">7z1x/</text>
+      <text x="230" y="445" fill="#202532" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="700">${titleMarkup}</text>
+      <text x="230" y="${subtitleY}" fill="#6b7280" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="500">${subtitle}</text>
+      <circle cx="920" cy="405" r="58" fill="#202532"/>
+      <path d="M920 334c-40 0-72 32-72 72 0 32 21 59 50 68 4 1 5-2 5-4v-18c-20 4-25-9-25-9-3-8-8-10-8-10-7-5 0-5 0-5 8 1 12 8 12 8 7 12 18 8 23 6 1-5 3-8 5-10-16-2-33-8-33-36 0-8 3-15 8-20-1-2-4-10 1-20 0 0 6-2 20 8 6-2 12-2 18-2s12 1 18 2c14-10 20-8 20-8 5 10 2 18 1 20 5 5 8 12 8 20 0 28-17 34-33 36 3 2 5 7 5 14v23c0 3 2 5 5 4 29-10 50-37 50-68-8-40-40-72-80-72z" fill="#ffffff"/>
+    </svg>
+  `;
+
+  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+}
+
 function buildUrl(githubPath) {
   if (IS_PROD) {
     const url = new URL(githubPath, GITHUB_API);
@@ -125,6 +209,11 @@ export function mapRepoToProject(repo) {
     year,
     bgColor,
     coverImage: `https://opengraph.githubassets.com/1/${repo.full_name}`,
+    fallbackCoverImage: createFallbackCover({
+      name: prettyName,
+      language: repo.language,
+      bgColor,
+    }),
     github: repo.html_url,
     homepage: (repo.homepage && !['dicoding.com', 'coursera.org', 'udemy.com', 'kaggle.com'].some(domain => repo.homepage.includes(domain))) ? repo.homepage : null,
     roles: 'Developer',

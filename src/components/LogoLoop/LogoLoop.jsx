@@ -128,6 +128,7 @@ export const LogoLoop = memo(
     fadeOut = false,
     fadeOutColor,
     scaleOnHover = false,
+    respectReducedMotion = false,
     renderItem,
     ariaLabel = 'Partner logos',
     className,
@@ -210,11 +211,12 @@ export const LogoLoop = memo(
           isVertical ? 'logoloop--vertical' : 'logoloop--horizontal',
           fadeOut && 'logoloop--fade',
           scaleOnHover && 'logoloop--scale-hover',
+          respectReducedMotion && 'logoloop--respect-reduced-motion',
           className
         ]
           .filter(Boolean)
           .join(' '),
-      [isVertical, fadeOut, scaleOnHover, className]
+      [isVertical, fadeOut, scaleOnHover, respectReducedMotion, className]
     );
 
     const handleMouseEnter = useCallback(() => {

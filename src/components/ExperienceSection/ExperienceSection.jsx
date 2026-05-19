@@ -8,9 +8,9 @@ const experiences = [
     color: '#1a73e8',
     role: 'AI Engineer',
     company: '@Wesclic Technology',
-    date: 'Nov 2025 — Present',
+    date: 'Nov 2025 — Mei 2026',
     type: 'Magang',
-    duration: 'Nov 2025 - Saat ini · 6 bln',
+    duration: 'Nov 2025 - Saat ini · 7 bln',
     location: 'Yogyakarta, Indonesia · Di lokasi',
     bullets: [
       'Membangun pipeline Retrieval-Augmented Generation (RAG) untuk sistem chatbot internal perusahaan.',

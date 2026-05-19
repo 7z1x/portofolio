@@ -160,7 +160,7 @@ export default function About() {
               direction="left"
               logoHeight={40}
               gap={60}
-              hoverSpeed={0}
+              pauseOnHover={false}
               scaleOnHover
               fadeOut
               fadeOutColor="#000"

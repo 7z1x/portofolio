@@ -28,6 +28,7 @@ export default function AllProjects() {
   const [activeFilter, setActiveFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [failedCoverIds, setFailedCoverIds] = useState(() => new Set());
 
   const handleFilterChange = (f) => {
     setActiveFilter(f);
@@ -165,8 +166,16 @@ export default function AllProjects() {
               <Link to={`/project/${p.id}`} key={p.id} className="project-card-link">
                 <div className="project-card">
                   <div className="project-card-image" style={{ background: p.bgColor }}>
-                    {p.coverImage ? (
-                      <img src={p.coverImage} alt={p.name} />
+                    {p.coverImage || p.fallbackCoverImage ? (
+                      <img
+                        src={failedCoverIds.has(p.id) ? p.fallbackCoverImage : p.coverImage || p.fallbackCoverImage}
+                        alt={p.name}
+                        onError={() => {
+                          if (p.fallbackCoverImage) {
+                            setFailedCoverIds(prev => new Set(prev).add(p.id));
+                          }
+                        }}
+                      />
                     ) : (
                       <div className="project-card-placeholder">
                         <FaGithub className="placeholder-icon" />

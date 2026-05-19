@@ -17,6 +17,7 @@ export default function ProjectDetail() {
   const [readme, setReadme] = useState(null);
   const [languages, setLanguages] = useState(null);
   const [loadingDetail, setLoadingDetail] = useState(true);
+  const [coverFailed, setCoverFailed] = useState(false);
 
   const overviewRef = useRef(null);
   const designRef = useRef(null);
@@ -45,6 +46,10 @@ export default function ProjectDetail() {
     loadDetails();
     return () => { cancelled = true; };
   }, [project, id]);
+
+  useEffect(() => {
+    setCoverFailed(false);
+  }, [id, project?.coverImage]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -105,6 +110,7 @@ export default function ProjectDetail() {
       : project.techStack || [];
 
   const totalBytes = languages ? Object.values(languages).reduce((a, b) => a + b, 0) : 0;
+  const heroCoverImage = coverFailed ? project.fallbackCoverImage : project.coverImage || project.fallbackCoverImage;
 
   return (
     <div className="pd-page">
@@ -120,8 +126,14 @@ export default function ProjectDetail() {
       </div>
 
       <div className="pd-hero" style={{ background: project.bgColor }}>
-        {project.coverImage ? (
-          <img src={project.coverImage} alt={project.name} />
+        {heroCoverImage ? (
+          <img
+            src={heroCoverImage}
+            alt={project.name}
+            onError={() => {
+              if (project.fallbackCoverImage) setCoverFailed(true);
+            }}
+          />
         ) : (
           <div className="pd-hero-placeholder">
             <FaGithub className="pd-hero-icon" />
