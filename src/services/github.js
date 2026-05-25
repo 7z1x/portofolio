@@ -167,12 +167,12 @@ export function mapRepoToProject(repo) {
     'recommendation', 'marketplace-assistant',
   ];
   if (aiKeywords.some(k => nameLower.includes(k))) {
-    category.push('AI Engineer');
+    category.push('AI');
   }
 
   const mobileKeywords = ['app', 'android', 'ios', 'mobile', 'compose', 'flutter'];
   if (['kotlin', 'dart', 'swift'].includes(lang) || mobileKeywords.some(k => nameLower.includes(k))) {
-    category.push('Mobile Development');
+    category.push('Other');
   }
 
   const mlKeywords = [
@@ -184,14 +184,14 @@ export function mapRepoToProject(repo) {
     'monitoring', 'logging', 'metabase', 'sentimen', 'sentiment',
   ];
   if (lang === 'jupyter notebook' || mlKeywords.some(k => nameLower.includes(k))) {
-    category.push('Machine Learning');
+    category.push('Data Analyst & Data Science');
   }
 
   const uniqueCategory = [...new Set(category)];
 
   if (uniqueCategory.length === 0) {
-    if (['python'].includes(lang)) uniqueCategory.push('Machine Learning');
-    else if (['kotlin', 'java', 'dart'].includes(lang)) uniqueCategory.push('Mobile Development');
+    if (['python'].includes(lang)) uniqueCategory.push('Data Analyst & Data Science');
+    else if (['kotlin', 'java', 'dart'].includes(lang)) uniqueCategory.push('Other');
     else uniqueCategory.push('Other');
   }
 

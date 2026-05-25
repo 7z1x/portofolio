@@ -6,7 +6,7 @@ import SplitText from '../components/SplitText/SplitText';
 import useGitHubRepos from '../hooks/useGitHubRepos';
 import './AllProjects.css';
 
-const FILTERS = ['All', 'AI Engineer', 'Machine Learning', 'Mobile Development', 'Others'];
+const FILTERS = ['All', 'AI', 'Data Analyst & Data Science', 'Other'];
 const ITEMS_PER_PAGE = 6;
 
 const LANG_COLORS = {

@@ -3,43 +3,43 @@
  * ║  QUICK CONFIG — Edit kategori & foto di sini!                   ║
  * ║                                                                  ║
  * ║  Format: 'nama-repo': { cat: ['Kategori'] }                     ║
- * ║  - cat  = kategori (AI Engineer / Mobile Development / ML)      ║
+ * ║  - cat  = kategori (AI / Data Analyst & Data Science / Other)    ║
  * ║  - img  = OPSIONAL, path foto custom (taruh di /public)         ║
  * ║           Kalau ga diisi, otomatis pakai GitHub Preview Image   ║
  * ║  - Repo yang ga ada di sini → auto-detect dari GitHub           ║
  * ╚══════════════════════════════════════════════════════════════════╝
  */
 const QUICK_CONFIG = {
-  'portofolio': { cat: ['AI Engineer'] },
-  'ai-marketplace-assistant': { cat: ['AI Engineer'] },
+  'portofolio': { cat: ['AI'] },
+  'ai-marketplace-assistant': { cat: ['AI'] },
 
-  'duet-duetku-finance-traker-app': { cat: ['Mobile Development'] },
-  'DicodingEvent': { cat: ['Mobile Development'] },
-  'Todo-app': { cat: ['Mobile Development'] },
-  'FindAnimal': { cat: ['Mobile Development'] },
-  'UnescoApp': { cat: ['Mobile Development'] },
-  'kalkulator': { cat: ['Mobile Development'] },
-  'FED': { cat: ['Mobile Development'] },
+  'duet-duetku-finance-traker-app': { cat: ['Other'] },
+  'DicodingEvent': { cat: ['Other'] },
+  'Todo-app': { cat: ['Other'] },
+  'FindAnimal': { cat: ['Other'] },
+  'UnescoApp': { cat: ['Other'] },
+  'kalkulator': { cat: ['Other'] },
+  'FED': { cat: ['Other'] },
 
-  'Sign_language': { cat: ['Machine Learning'] },
-  'Eksperimen_SML_Zulfahmi_M_Ardianto': { cat: ['Machine Learning'] },
-  'SMSML_Zulfahmi-M.-Ardianto': { cat: ['Machine Learning'] },
-  'Membangun_model': { cat: ['Machine Learning'] },
-  'Belajar-Machine-Learning-Pemula': { cat: ['Machine Learning'] },
-  'Proyek-Klasifikasi-gambar': { cat: ['Machine Learning'] },
-  'Proyek-Analisis-Sentimen': { cat: ['Machine Learning'] },
-  'Netfix-movie-and-film-rekomendation-project': { cat: ['Machine Learning'] },
-  'Breast-Cancer-Predictive-Analityc-Project': { cat: ['Machine Learning'] },
-  'Menyelesaikan-Permasalahan-Institusi-Pendidikan': { cat: ['Machine Learning'] },
-  'Menyelesaikan-Permasalahan-Human-Resources': { cat: ['Machine Learning'] },
-  'Monitoring-dan-Logging': { cat: ['Machine Learning'] },
-  'Workflow-CI': { cat: ['Machine Learning'] },
-  'Submission Dicoding : Belajar Data Analytics dengan Python': { cat: ['Machine Learning'] },
+  'Sign_language': { cat: ['Data Analyst & Data Science'] },
+  'Eksperimen_SML_Zulfahmi_M_Ardianto': { cat: ['Data Analyst & Data Science'] },
+  'SMSML_Zulfahmi-M.-Ardianto': { cat: ['Data Analyst & Data Science'] },
+  'Membangun_model': { cat: ['Data Analyst & Data Science'] },
+  'Belajar-Machine-Learning-Pemula': { cat: ['Data Analyst & Data Science'] },
+  'Proyek-Klasifikasi-gambar': { cat: ['Data Analyst & Data Science'] },
+  'Proyek-Analisis-Sentimen': { cat: ['Data Analyst & Data Science'] },
+  'Netfix-movie-and-film-rekomendation-project': { cat: ['Data Analyst & Data Science'] },
+  'Breast-Cancer-Predictive-Analityc-Project': { cat: ['Data Analyst & Data Science'] },
+  'Menyelesaikan-Permasalahan-Institusi-Pendidikan': { cat: ['Data Analyst & Data Science'] },
+  'Menyelesaikan-Permasalahan-Human-Resources': { cat: ['Data Analyst & Data Science'] },
+  'Monitoring-dan-Logging': { cat: ['Data Analyst & Data Science'] },
+  'Workflow-CI': { cat: ['Data Analyst & Data Science'] },
+  'Submission Dicoding : Belajar Data Analytics dengan Python': { cat: ['Data Analyst & Data Science'] },
 
-  'Parsing-CSharp': { cat: ['Others'] },
-  'Skibidi_Dor': { cat: ['Others'] },
-  'CodeProcessing-GravisVisual': { cat: ['Others'] },
-  'Gulugulu': { cat: ['Others'] },
+  'Parsing-CSharp': { cat: ['Other'] },
+  'Skibidi_Dor': { cat: ['Other'] },
+  'CodeProcessing-GravisVisual': { cat: ['Other'] },
+  'Gulugulu': { cat: ['Other'] },
 };
 
 const DETAILED_OVERRIDES = {
