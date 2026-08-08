@@ -213,14 +213,47 @@
   color: #0A66C2;
 }
 
-/* Remove outer padding/border from PillNav for a single button look */
-.resume-pill-nav {
-  padding: 0 !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+/* CV button */
+.cv-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 12px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-family: 'Satoshi', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
 }
 
-.resume-pill-nav .pill {
-  padding: 12px 24px;
+.cv-button span {
+  transition: transform 0.2s ease;
+}
+
+.cv-button:hover {
+  background: #B5FF6D;
+  color: #0a0a0a;
+  transform: translateY(-2px);
+}
+
+.cv-button:hover span {
+  transform: translate(2px, -2px);
+}
+
+.cv-button:active {
+  transform: translateY(0);
+}
+
+.cv-button:focus-visible {
+  outline: 2px solid #B5FF6D;
+  outline-offset: 4px;
 }
 
 @media (max-width: 1024px) {
@@ -316,19 +349,6 @@
     gap: 1rem;
     width: 100%;
     margin-top: 1.5rem;
-  }
-
-  /* Force PillNav resume to stay as pill button on mobile (no burger) */
-  .resume-pill-nav .desktop-only {
-    display: flex !important;
-  }
-
-  .resume-pill-nav .mobile-only {
-    display: none !important;
-  }
-
-  .resume-pill-nav .mobile-menu-popover {
-    display: none !important;
   }
 
   .hero-socials {

@@ -69,13 +69,8 @@ float fbm(vec2 p)
   p = modify0 * p * 2.0;
   amp *= 0.454545;
   
-  mat2 modify1 = rotate(time * 0.02);
-  f += amp * noise(p);
-  p = modify1 * p * 2.0;
-  amp *= 0.454545;
-  
-  mat2 modify2 = rotate(time * 0.08);
-  f += amp * noise(p);
+  mat2 modify1 = rotate(time * 0.08);
+  f += amp * noise(modify1 * p);
   
   return f;
 }
@@ -164,9 +159,8 @@ vec3 getColor(vec2 p){
     float middle = digit(p);
     
     const float off = 0.002;
-    float sum = digit(p + vec2(-off, -off)) + digit(p + vec2(0.0, -off)) + digit(p + vec2(off, -off)) +
-                digit(p + vec2(-off, 0.0)) + digit(p + vec2(0.0, 0.0)) + digit(p + vec2(off, 0.0)) +
-                digit(p + vec2(-off, off)) + digit(p + vec2(0.0, off)) + digit(p + vec2(off, off));
+    float sum = digit(p + vec2(-off, -off)) + digit(p + vec2(off, -off)) +
+                digit(p + vec2(-off,  off)) + digit(p + vec2(off,  off));
     
     vec3 baseColor = vec3(0.9) * middle + sum * 0.1 * vec3(1.0) * bar;
     return baseColor;
@@ -235,7 +229,7 @@ export default function FaultyTerminal({
   tint = '#ffffff',
   mouseReact = true,
   mouseStrength = 0.2,
-  dpr = Math.min(window.devicePixelRatio || 1, 2),
+  dpr = Math.min(window.devicePixelRatio || 1, 1),
   pageLoadAnimation = true,
   brightness = 1,
   className,
@@ -252,9 +246,17 @@ export default function FaultyTerminal({
   const loadAnimationStartRef = useRef(0);
   const timeOffsetRef = useRef(Math.random() * 100);
   const pauseRef = useRef(pause);
+  const isVisibleRef = useRef(true);
+  const isPageVisibleRef = useRef(!document.hidden);
+  const loopRunningRef = useRef(false);
+  const startLoopRef = useRef(null);
 
   useEffect(() => {
     pauseRef.current = pause;
+    // Restart loop if unpaused and visible
+    if (!pause && isVisibleRef.current && !loopRunningRef.current && startLoopRef.current) {
+      startLoopRef.current();
+    }
   }, [pause]);
 
   const tintVec = useMemo(() => hexToRgb(tint), [tint]);
@@ -329,8 +331,21 @@ export default function FaultyTerminal({
     resizeObserver.observe(ctn);
     resize();
 
+    let lastRenderTime = 0;
+    const FRAME_INTERVAL = 33; // ~30fps cap
+
     const update = t => {
+      // Stop the loop if paused or not visible
+      if (pauseRef.current || !isVisibleRef.current || !isPageVisibleRef.current) {
+        loopRunningRef.current = false;
+        return;
+      }
+
       rafRef.current = requestAnimationFrame(update);
+
+      // Throttle to ~30fps
+      if (t - lastRenderTime < FRAME_INTERVAL) return;
+      lastRenderTime = t;
 
       if (pageLoadAnimation && loadAnimationStartRef.current === 0) {
         loadAnimationStartRef.current = t;
@@ -341,11 +356,6 @@ export default function FaultyTerminal({
         const animationElapsed = t - loadAnimationStartRef.current;
         const progress = Math.min(animationElapsed / animationDuration, 1);
         program.uniforms.uPageLoadProgress.value = progress;
-      }
-
-      // Skip heavy updates and rendering if paused
-      if (pauseRef.current) {
-        return; 
       }
 
       const elapsed = (t * 0.001 + timeOffsetRef.current) * timeScale;
@@ -366,17 +376,56 @@ export default function FaultyTerminal({
 
       renderer.render({ scene: mesh });
     };
-    rafRef.current = requestAnimationFrame(update);
+
+    const startLoop = () => {
+      if (loopRunningRef.current) return;
+      loopRunningRef.current = true;
+      rafRef.current = requestAnimationFrame(update);
+    };
+    startLoopRef.current = startLoop;
+
+    // IntersectionObserver to pause rendering when off-screen
+    const intersectionObserver = new IntersectionObserver(
+      ([entry]) => {
+        isVisibleRef.current = entry.isIntersecting;
+        if (entry.isIntersecting && isPageVisibleRef.current && !pauseRef.current) {
+          startLoop();
+        } else if (!entry.isIntersecting) {
+          cancelAnimationFrame(rafRef.current);
+          loopRunningRef.current = false;
+        }
+      },
+      { threshold: 0 }
+    );
+    intersectionObserver.observe(ctn);
+
+    const handleVisibilityChange = () => {
+      isPageVisibleRef.current = !document.hidden;
+
+      if (isPageVisibleRef.current && isVisibleRef.current && !pauseRef.current) {
+        startLoop();
+      } else {
+        cancelAnimationFrame(rafRef.current);
+        loopRunningRef.current = false;
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    if (isPageVisibleRef.current) startLoop();
     ctn.appendChild(gl.canvas);
 
     if (mouseReact) ctn.addEventListener('mousemove', handleMouseMove);
 
     return () => {
       cancelAnimationFrame(rafRef.current);
+      loopRunningRef.current = false;
+      intersectionObserver.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       resizeObserver.disconnect();
       if (mouseReact) ctn.removeEventListener('mousemove', handleMouseMove);
       if (gl.canvas.parentElement === ctn) ctn.removeChild(gl.canvas);
       gl.getExtension('WEBGL_lose_context')?.loseContext();
+      startLoopRef.current = null;
       loadAnimationStartRef.current = 0;
       timeOffsetRef.current = Math.random() * 100;
     };
@@ -401,5 +450,5 @@ export default function FaultyTerminal({
     handleMouseMove
   ]);
 
-  return <div ref={containerRef} className={`faulty-terminal-container ${className}`} style={style} {...rest} />;
+  return <div ref={containerRef} className={`faulty-terminal-container ${className}`} style={{ willChange: 'transform', ...style }} {...rest} />;
 }

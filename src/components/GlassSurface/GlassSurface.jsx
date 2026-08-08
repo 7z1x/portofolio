@@ -37,6 +37,7 @@ const GlassSurface = ({
   const greenChannelRef = useRef(null);
   const blueChannelRef = useRef(null);
   const gaussianBlurRef = useRef(null);
+  const rafIdRef = useRef(null);
 
   const generateDisplacementMap = () => {
     const rect = containerRef.current?.getBoundingClientRect();
@@ -106,20 +107,36 @@ const GlassSurface = ({
   useEffect(() => {
     if (!containerRef.current) return;
 
+    let timeoutId = null;
+    const debouncedUpdate = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(updateDisplacementMap, 150);
+    };
+
     const resizeObserver = new ResizeObserver(() => {
-      setTimeout(updateDisplacementMap, 0);
+      // Debounce with RAF + timeout to avoid thrashing
+      if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
+      rafIdRef.current = requestAnimationFrame(debouncedUpdate);
     });
 
     resizeObserver.observe(containerRef.current);
 
     return () => {
       resizeObserver.disconnect();
+      clearTimeout(timeoutId);
+      if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
     };
   }, []);
 
   useEffect(() => {
     setTimeout(updateDisplacementMap, 0);
   }, [width, height]);
+
+  useEffect(() => {
+    return () => {
+      if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
+    };
+  }, []);
 
   useEffect(() => {
     setSvgSupported(supportsSVGFilters());

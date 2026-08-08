@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSearch, FaGithub, FaStar, FaCodeBranch, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import ShinyText from '../components/ShinyText/ShinyText';
@@ -29,6 +29,10 @@ export default function AllProjects() {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [failedCoverIds, setFailedCoverIds] = useState(() => new Set());
+
+  useEffect(() => {
+    document.title = 'Projects | Zulfahmi M Ardianto';
+  }, []);
 
   const handleFilterChange = (f) => {
     setActiveFilter(f);

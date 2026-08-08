@@ -1,3 +1,4 @@
+import React from 'react';
 import './ShinyText.css';
 
 const ShinyText = ({ text, disabled = false, speed = 3, className = '' }) => {
@@ -13,4 +14,4 @@ const ShinyText = ({ text, disabled = false, speed = 3, className = '' }) => {
   );
 };
 
-export default ShinyText;
+export default React.memo(ShinyText);

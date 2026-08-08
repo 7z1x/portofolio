@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import React, { useMemo } from 'react';
 import './ReflectiveCard.css';
 import { FaLock, FaHeartbeat, FaFingerprint } from 'react-icons/fa';
 
@@ -28,55 +28,59 @@ const ReflectiveCard = ({
     '--saturation': saturation
   };
 
+  const svgFilter = useMemo(() => (
+    <svg className="reflective-svg-filters" aria-hidden="true">
+      <defs>
+        <filter id="metallic-displacement" x="-20%" y="-20%" width="140%" height="140%">
+          <feTurbulence type="turbulence" baseFrequency={baseFrequency} numOctaves="2" result="noise" />
+          <feColorMatrix in="noise" type="luminanceToAlpha" result="noiseAlpha" />
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="noise"
+            scale={displacementStrength}
+            xChannelSelector="R"
+            yChannelSelector="G"
+            result="rippled"
+          />
+          <feSpecularLighting
+            in="noiseAlpha"
+            surfaceScale={displacementStrength}
+            specularConstant={specularConstant}
+            specularExponent="20"
+            lightingColor="#ffffff"
+            result="light"
+          >
+            <fePointLight x="0" y="0" z="300" />
+          </feSpecularLighting>
+          <feComposite in="light" in2="rippled" operator="in" result="light-effect" />
+          <feBlend in="light-effect" in2="rippled" mode="screen" result="metallic-result" />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0"
+            result="solidAlpha"
+          />
+          <feMorphology in="solidAlpha" operator="erode" radius="45" result="erodedAlpha" />
+          <feGaussianBlur in="erodedAlpha" stdDeviation="10" result="blurredMap" />
+          <feComponentTransfer in="blurredMap" result="glassMap">
+            <feFuncA type="linear" slope="0.5" intercept="0" />
+          </feComponentTransfer>
+          <feDisplacementMap
+            in="metallic-result"
+            in2="glassMap"
+            scale={glassDistortion}
+            xChannelSelector="A"
+            yChannelSelector="A"
+            result="final"
+          />
+        </filter>
+      </defs>
+    </svg>
+  ), [baseFrequency, displacementStrength, specularConstant, glassDistortion]);
+
   return (
     <div className={`reflective-card-container ${className}`} style={{ ...style, ...cssVariables }}>
-      <svg className="reflective-svg-filters" aria-hidden="true">
-        <defs>
-          <filter id="metallic-displacement" x="-20%" y="-20%" width="140%" height="140%">
-            <feTurbulence type="turbulence" baseFrequency={baseFrequency} numOctaves="2" result="noise" />
-            <feColorMatrix in="noise" type="luminanceToAlpha" result="noiseAlpha" />
-            <feDisplacementMap
-              in="SourceGraphic"
-              in2="noise"
-              scale={displacementStrength}
-              xChannelSelector="R"
-              yChannelSelector="G"
-              result="rippled"
-            />
-            <feSpecularLighting
-              in="noiseAlpha"
-              surfaceScale={displacementStrength}
-              specularConstant={specularConstant}
-              specularExponent="20"
-              lightingColor="#ffffff"
-              result="light"
-            >
-              <fePointLight x="0" y="0" z="300" />
-            </feSpecularLighting>
-            <feComposite in="light" in2="rippled" operator="in" result="light-effect" />
-            <feBlend in="light-effect" in2="rippled" mode="screen" result="metallic-result" />
-            <feColorMatrix
-              in="SourceAlpha"
-              type="matrix"
-              values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0"
-              result="solidAlpha"
-            />
-            <feMorphology in="solidAlpha" operator="erode" radius="45" result="erodedAlpha" />
-            <feGaussianBlur in="erodedAlpha" stdDeviation="10" result="blurredMap" />
-            <feComponentTransfer in="blurredMap" result="glassMap">
-              <feFuncA type="linear" slope="0.5" intercept="0" />
-            </feComponentTransfer>
-            <feDisplacementMap
-              in="metallic-result"
-              in2="glassMap"
-              scale={glassDistortion}
-              xChannelSelector="A"
-              yChannelSelector="A"
-              result="final"
-            />
-          </filter>
-        </defs>
-      </svg>
+      {svgFilter}
 
       {/* Replaced video with a profile placeholder */}
       <div className="reflective-video">
@@ -119,4 +123,4 @@ const ReflectiveCard = ({
   );
 };
 
-export default ReflectiveCard;
+export default React.memo(ReflectiveCard);

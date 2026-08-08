@@ -16,7 +16,6 @@ export default function ProjectDetail() {
   const [activeSection, setActiveSection] = useState('overview');
   const [readme, setReadme] = useState(null);
   const [languages, setLanguages] = useState(null);
-  const [loadingDetail, setLoadingDetail] = useState(true);
   const [coverFailed, setCoverFailed] = useState(false);
 
   const overviewRef = useRef(null);
@@ -24,6 +23,12 @@ export default function ProjectDetail() {
   const techRef = useRef(null);
   const featuresRef = useRef(null);
   const readmeRef = useRef(null);
+
+  useEffect(() => {
+    document.title = project
+      ? `${project.name} | Zulfahmi M Ardianto`
+      : 'Project Details | Zulfahmi M Ardianto';
+  }, [project]);
 
   useEffect(() => {
     if (!project) return;
@@ -39,7 +44,6 @@ export default function ProjectDetail() {
       if (!cancelled) {
         setReadme(readmeData);
         setLanguages(langData);
-        setLoadingDetail(false);
       }
     }
 
@@ -52,24 +56,32 @@ export default function ProjectDetail() {
   }, [id, project?.coverImage]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = [
-        { id: 'overview', ref: overviewRef },
-        { id: 'design-screens', ref: designRef },
-        { id: 'tech-stack', ref: techRef },
-        { id: 'features', ref: featuresRef },
-        { id: 'readme', ref: readmeRef },
-      ];
+    let ticking = false;
 
-      for (const section of sections.reverse()) {
-        if (section.ref.current) {
-          const rect = section.ref.current.getBoundingClientRect();
-          if (rect.top <= 200) {
-            setActiveSection(section.id);
-            break;
+    const handleScroll = () => {
+      if (ticking) return;
+      ticking = true;
+
+      requestAnimationFrame(() => {
+        const sections = [
+          { id: 'overview', ref: overviewRef },
+          { id: 'design-screens', ref: designRef },
+          { id: 'tech-stack', ref: techRef },
+          { id: 'features', ref: featuresRef },
+          { id: 'readme', ref: readmeRef },
+        ];
+
+        for (const section of sections.reverse()) {
+          if (section.ref.current) {
+            const rect = section.ref.current.getBoundingClientRect();
+            if (rect.top <= 200) {
+              setActiveSection(section.id);
+              break;
+            }
           }
         }
-      }
+        ticking = false;
+      });
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -109,7 +121,6 @@ export default function ProjectDetail() {
       ? Object.keys(languages)
       : project.techStack || [];
 
-  const totalBytes = languages ? Object.values(languages).reduce((a, b) => a + b, 0) : 0;
   const heroCoverImage = coverFailed ? project.fallbackCoverImage : project.coverImage || project.fallbackCoverImage;
 
   return (
@@ -157,11 +168,11 @@ export default function ProjectDetail() {
         </div>
         <div className="pd-info-right">
           <div className="pd-action-buttons">
-            <a href={project.github} target="_blank" rel="noreferrer" className="pd-checkout-btn">
+            <a href={project.github} target="_blank" rel="noopener noreferrer" className="pd-checkout-btn">
               <FaGithub /> View Source
             </a>
             {project.homepage && (
-              <a href={project.homepage} target="_blank" rel="noreferrer" className="pd-checkout-btn pd-checkout-btn--live">
+              <a href={project.homepage} target="_blank" rel="noopener noreferrer" className="pd-checkout-btn pd-checkout-btn--live">
                 <FaExternalLinkAlt /> Live Demo
               </a>
             )}
@@ -233,7 +244,7 @@ export default function ProjectDetail() {
                     remarkPlugins={[remarkGfm]}
                     rehypePlugins={[rehypeRaw]}
                     components={{
-                      img: ({node, ...props}) => {
+                      img: ({node: _node, ...props}) => {
                         let src = props.src;
                         if (src && !src.startsWith('http') && !src.startsWith('data:')) {
                           const branch = project.defaultBranch || 'main';
@@ -295,8 +306,8 @@ export default function ProjectDetail() {
           <div className="pd-share">
             <h4 className="pd-share-heading">Share this project</h4>
             <div className="pd-share-icons">
-              <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}`} target="_blank" rel="noreferrer"><FaTwitter /></a>
-              <a href={`https://linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`} target="_blank" rel="noreferrer"><FaLinkedin /></a>
+              <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}`} target="_blank" rel="noopener noreferrer"><FaTwitter /></a>
+              <a href={`https://linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`} target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
               <a href={`mailto:?subject=${project.name}&body=${window.location.href}`}><FaEnvelope /></a>
               <button onClick={() => navigator.clipboard.writeText(window.location.href)}><FaShareAlt /></button>
             </div>
@@ -307,8 +318,8 @@ export default function ProjectDetail() {
       <div className="pd-share-mobile">
         <h4 className="pd-share-heading">Share this project</h4>
         <div className="pd-share-icons">
-          <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}`} target="_blank" rel="noreferrer"><FaTwitter /></a>
-          <a href={`https://linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`} target="_blank" rel="noreferrer"><FaLinkedin /></a>
+          <a href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(window.location.href)}`} target="_blank" rel="noopener noreferrer"><FaTwitter /></a>
+          <a href={`https://linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`} target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
           <a href={`mailto:?subject=${project.name}&body=${window.location.href}`}><FaEnvelope /></a>
           <button onClick={() => navigator.clipboard.writeText(window.location.href)}><FaShareAlt /></button>
         </div>

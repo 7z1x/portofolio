@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useAnimation, useMotionValue } from 'motion/react';
 
 import './CircularText.css';
@@ -21,23 +21,51 @@ const getTransition = (duration, from) => ({
   }
 });
 
-const CircularText = ({ text, spinDuration = 20, onHover = 'speedUp', className = '' }) => {
+const CircularText = ({ text, spinDuration = 20, onHover = 'speedUp', paused = false, className = '' }) => {
   const letters = Array.from(text);
   const controls = useAnimation();
   const rotation = useMotionValue(0);
+  const containerRef = useRef(null);
+  const [isInView, setIsInView] = useState(true);
+  const [isPageVisible, setIsPageVisible] = useState(() => !document.hidden);
+  const isActive = !paused && isInView && isPageVisible;
 
   useEffect(() => {
+    const container = containerRef.current;
+    if (!container || !window.IntersectionObserver) return undefined;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsInView(entry.isIntersecting);
+    }, { threshold: 0 });
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => setIsPageVisible(!document.hidden);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, []);
+
+  useEffect(() => {
+    if (!isActive) {
+      controls.stop();
+      return undefined;
+    }
+
     const start = rotation.get();
     controls.start({
       rotate: start + 360,
       scale: 1,
       transition: getTransition(spinDuration, start)
     });
-  }, [spinDuration, text, onHover, controls, rotation]);
+    return undefined;
+  }, [spinDuration, text, onHover, controls, rotation, isActive]);
 
   const handleHoverStart = () => {
     const start = rotation.get();
-    if (!onHover) return;
+    if (!onHover || !isActive) return;
 
     let transitionConfig;
     let scaleVal = 1;
@@ -72,6 +100,8 @@ const CircularText = ({ text, spinDuration = 20, onHover = 'speedUp', className 
   };
 
   const handleHoverEnd = () => {
+    if (!isActive) return;
+
     const start = rotation.get();
     controls.start({
       rotate: start + 360,
@@ -82,6 +112,7 @@ const CircularText = ({ text, spinDuration = 20, onHover = 'speedUp', className 
 
   return (
     <motion.div
+      ref={containerRef}
       className={`circular-text ${className}`}
       style={{ rotate: rotation }}
       initial={{ rotate: 0 }}

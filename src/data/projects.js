@@ -78,9 +78,9 @@ const DETAILED_OVERRIDES = {
       { title: 'Real-time Analytics', desc: 'Dashboard with comprehensive metrics on agent performance and customer engagement.' },
     ],
     designScreens: [
-      { label: 'Dashboard', src: '/design_screen_1.png' },
-      { label: 'Agent Chat', src: '/design_screen_2.png' },
-      { label: 'Analytics', src: '/design_screen_3.png' },
+      { label: 'Dashboard', src: '/design_screen_1.webp' },
+      { label: 'Agent Chat', src: '/design_screen_2.webp' },
+      { label: 'Analytics', src: '/design_screen_3.webp' },
     ],
   },
 

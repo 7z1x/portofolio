@@ -22,20 +22,26 @@ export default function MainLayout() {
   const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const currentY = window.scrollY;
-      const delta = currentY - lastScrollY.current;
+    let ticking = false;
 
-      if (currentY < 50) {
-        setHeaderVisible(true);
-      } else if (delta > 5) {
-        // scrolling down
-        setHeaderVisible(false);
-      } else if (delta < -5) {
-        // scrolling up
-        setHeaderVisible(true);
-      }
-      lastScrollY.current = currentY;
+    const handleScroll = () => {
+      if (ticking) return;
+      ticking = true;
+
+      requestAnimationFrame(() => {
+        const currentY = window.scrollY;
+        const delta = currentY - lastScrollY.current;
+
+        if (currentY < 50) {
+          setHeaderVisible(true);
+        } else if (delta > 5) {
+          setHeaderVisible(false);
+        } else if (delta < -5) {
+          setHeaderVisible(true);
+        }
+        lastScrollY.current = currentY;
+        ticking = false;
+      });
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });

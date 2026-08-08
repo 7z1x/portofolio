@@ -2,6 +2,7 @@ const GITHUB_API = 'https://api.github.com';
 
 const cache = new Map();
 const CACHE_TTL = 10 * 60 * 1000;
+const MAX_CACHE_SIZE = 100;
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
@@ -16,6 +17,11 @@ export default async function handler(req, res) {
 
   if (path.includes('..') || !path.startsWith('/')) {
     return res.status(400).json({ error: 'Invalid path' });
+  }
+
+  const allowedPrefixes = ['/repos/', '/users/'];
+  if (!allowedPrefixes.some(prefix => path.startsWith(prefix))) {
+    return res.status(403).json({ error: 'Forbidden: only /repos and /users endpoints are allowed' });
   }
 
   const query = new URLSearchParams(queryParams).toString();
@@ -42,16 +48,20 @@ export default async function handler(req, res) {
     const response = await fetch(githubUrl, { headers });
 
     if (!response.ok) {
-      const errorBody = await response.text();
       return res.status(response.status).json({
         error: `GitHub API error: ${response.status}`,
-        detail: errorBody,
       });
     }
 
     const data = await response.json();
 
     cache.set(githubUrl, { data, timestamp: Date.now() });
+
+    // Evict oldest entry if cache exceeds max size
+    if (cache.size > MAX_CACHE_SIZE) {
+      const oldestKey = cache.keys().next().value;
+      cache.delete(oldestKey);
+    }
 
     res.setHeader('X-Cache', 'MISS');
     res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600');
@@ -64,7 +74,7 @@ export default async function handler(req, res) {
     }
 
     return res.status(200).json(data);
-  } catch (error) {
-    return res.status(500).json({ error: 'Proxy error', detail: error.message });
+  } catch {
+    return res.status(500).json({ error: 'Internal server error' });
   }
 }

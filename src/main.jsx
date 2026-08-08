@@ -1,11 +1,13 @@
-import { StrictMode } from 'react';
+import { StrictMode, lazy, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import MainLayout from './layout/MainLayout';
-import About from './pages/About';
-import AllProjects from './pages/AllProjects';
-import ProjectDetail from './pages/ProjectDetail';
+import AppFallback from './components/AppFallback/AppFallback';
+
+const About = lazy(() => import('./pages/About'));
+const AllProjects = lazy(() => import('./pages/AllProjects'));
+const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Suspense fallback={<AppFallback />}>
+      <RouterProvider router={router} />
+    </Suspense>
   </StrictMode>
 );
