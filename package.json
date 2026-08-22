@@ -3,13 +3,21 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "workspaces": [
+    "studio"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "studio:dev": "npm run dev --workspace=studio",
+    "studio:build": "npm run build --workspace=studio",
+    "studio:deploy": "npm run deploy --workspace=studio",
+    "studio:seed": "node scripts/generate-sanity-seed.mjs"
   },
   "dependencies": {
+    "@sanity/client": "^8.2.0",
     "gsap": "^3.15.0",
     "motion": "^12.38.0",
     "ogl": "^1.0.11",

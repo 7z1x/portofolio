@@ -32,7 +32,7 @@ export default defineConfig([
     },
   },
   {
-    files: ['api/**/*.js'],
+    files: ['api/**/*.js', 'studio/sanity*.js'],
     languageOptions: {
       globals: globals.node,
     },

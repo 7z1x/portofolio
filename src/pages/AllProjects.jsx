@@ -52,6 +52,12 @@ export default function AllProjects() {
     });
 
     result.sort((a, b) => {
+      if (a._hasCmsContent || b._hasCmsContent) {
+        const orderA = Number.isFinite(a.order) ? a.order : Number.MAX_SAFE_INTEGER;
+        const orderB = Number.isFinite(b.order) ? b.order : Number.MAX_SAFE_INTEGER;
+        if (orderA !== orderB) return orderA - orderB;
+      }
+
       if (b.stars !== a.stars) {
         return b.stars - a.stars;
       }

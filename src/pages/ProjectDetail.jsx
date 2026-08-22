@@ -36,14 +36,17 @@ export default function ProjectDetail() {
     let cancelled = false;
 
     async function loadDetails() {
-      const [readmeData, langData] = await Promise.all([
-        fetchReadme(id),
-        fetchLanguages(id),
+      const repositoryName = project.repositoryName || (project.github ? id : null);
+      if (!repositoryName) return;
+
+      const [readmeResult, languagesResult] = await Promise.allSettled([
+        fetchReadme(repositoryName),
+        fetchLanguages(repositoryName),
       ]);
 
       if (!cancelled) {
-        setReadme(readmeData);
-        setLanguages(langData);
+        setReadme(readmeResult.status === 'fulfilled' ? readmeResult.value : null);
+        setLanguages(languagesResult.status === 'fulfilled' ? languagesResult.value : null);
       }
     }
 
@@ -168,9 +171,11 @@ export default function ProjectDetail() {
         </div>
         <div className="pd-info-right">
           <div className="pd-action-buttons">
-            <a href={project.github} target="_blank" rel="noopener noreferrer" className="pd-checkout-btn">
-              <FaGithub /> View Source
-            </a>
+            {project.github && (
+              <a href={project.github} target="_blank" rel="noopener noreferrer" className="pd-checkout-btn">
+                <FaGithub /> View Source
+              </a>
+            )}
             {project.homepage && (
               <a href={project.homepage} target="_blank" rel="noopener noreferrer" className="pd-checkout-btn pd-checkout-btn--live">
                 <FaExternalLinkAlt /> Live Demo
@@ -248,7 +253,8 @@ export default function ProjectDetail() {
                         let src = props.src;
                         if (src && !src.startsWith('http') && !src.startsWith('data:')) {
                           const branch = project.defaultBranch || 'main';
-                          src = `https://raw.githubusercontent.com/7z1x/${project.id}/${branch}/${src.replace(/^\.\//, '')}`;
+                          const repositoryName = project.repositoryName || project.id;
+                          src = `https://raw.githubusercontent.com/7z1x/${repositoryName}/${branch}/${src.replace(/^\.\//, '')}`;
                         }
                         return <img {...props} src={src} />;
                       }
